@@ -59,9 +59,11 @@ ctx.restore();               // Restore original state
 ctx.fillRect(60,60,30,30);   // Draw a rectangle with restored settings
 
 
-var out = fs.createWriteStream(__dirname + '/state.png')
+var out = fs.createWriteStream(__dirname + '/public/state.png')
   , stream = canvas.createPNGStream();
 
 stream.on('data', function(chunk){
   out.write(chunk);
 });
+
+app.get('/state.png')
