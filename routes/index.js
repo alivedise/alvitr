@@ -73,13 +73,27 @@ function render(req, res) {
     if ('background' in req.body) {
       var lingrad = ctx.createLinearGradient(0, 0, 0, h);
       lingrad.addColorStop(0, "rgba(0, 0, 0, 1)");
-      lingrad.addColorStop(0.5, "rgba(0, 0, 0, 0.5)");
+      lingrad.addColorStop(0.15, "rgba(0, 0, 0, 0.2)");
+      lingrad.addColorStop(0.5, "rgba(0, 0, 0, 0)");
+      lingrad.addColorStop(0.85, "rgba(0, 0, 0, 0.2)");
       //lingrad.addColorStop(1, req.body.background);
       lingrad.addColorStop(1, "rgba(0, 0, 0, 1)");
       ctx.fillStyle = lingrad;
       //ctx.fillStyle = '#000';
       ctx.fillRect(0, 0, w, h);
+
+
+      var horizontal_rad = ctx.createLinearGradient(0, 0, w, 0);
+      horizontal_rad.addColorStop(0, "rgba(0, 0, 0, 1)");
+      horizontal_rad.addColorStop(0.35, "rgba(0, 0, 0, 0.2)");
+      horizontal_rad.addColorStop(0.65, "rgba(0, 0, 0, 0)");
+      horizontal_rad.addColorStop(0.9, "rgba(0, 0, 0, 0.2)");
+      horizontal_rad.addColorStop(1, "rgba(0, 0, 0, 1)");
+      ctx.fillStyle = horizontal_rad;
+      ctx.fillRect(0, 0, w, h);
     }
+
+    ctx.fillStyle = '#fff';
 
     if ('name' in req.body) {
       ctx.fillStyle = '#fff';
