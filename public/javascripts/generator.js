@@ -2,7 +2,7 @@
   var Generator = {
     init: function() {
       $('form').change(function() {
-        $('#previewImage').prop('src', '/preview' + new Date().getTime());
+        $('#previewImage').prop('src', '/state.png' + new Date().getTime());
       });
     };
   };
