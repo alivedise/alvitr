@@ -68,7 +68,7 @@ function render(req, res) {
   BackgroundGetter(__dirname + '/../public/images/ws.png').then(function(data) {  
     var img = new Canvas.Image; // Create a new Image
     img.src = data;
-    ctx.drawImage(img, 0, 200, w, h, 0, 0, img.width, img.height);
+    ctx.drawImage(img, 0, 150, w, h, 0, 0, w, h);
 
     if ('background' in req.body) {
       var lingrad = ctx.createLinearGradient(0, 0, 0, h);
