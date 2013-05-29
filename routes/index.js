@@ -71,6 +71,7 @@ function render(req, res) {
     ctx.drawImage(img, 0, 150, w, h, 0, 0, w, h);
 
     if ('background' in req.body) {
+      /*
       var lingrad = ctx.createLinearGradient(0, 0, 0, h);
       lingrad.addColorStop(0, "rgba(0, 0, 0, 1)");
       lingrad.addColorStop(0.15, "rgba(0, 0, 0, 0.2)");
@@ -89,7 +90,8 @@ function render(req, res) {
       horizontal_rad.addColorStop(0.65, "rgba(0, 0, 0, 0)");
       horizontal_rad.addColorStop(0.9, "rgba(0, 0, 0, 0.2)");
       horizontal_rad.addColorStop(1, "rgba(0, 0, 0, 1)");
-      ctx.fillStyle = horizontal_rad;
+      ctx.fillStyle = horizontal_rad;*/
+      ctx.fillStyle = 'rgba(0.1, 0.1, 1.0, 0.3)';
       ctx.fillRect(0, 0, w, h);
     }
 
@@ -107,7 +109,7 @@ function render(req, res) {
       ctx.fillStyle = '#0186d1';
       ctx.font = 'bold 25px Attic';
       ctx.textBaseline = 'top';
-      ctx.fillText(req.body.id, w - 120, 0);
+      ctx.fillText(req.body.id, w - 135, 0);
     }
 
     if ('rank' in req.body) {
@@ -115,7 +117,7 @@ function render(req, res) {
       ctx.fillStyle = 'gold';
       ctx.font = 'bold 15px Attic';
       ctx.textBaseline = 'top';
-      ctx.fillText('Rank: ' + req.body.rank, w - 100, 50);
+      ctx.fillText('Rank: ' + req.body.rank, w - 90, 60);
     }
 
     if ('friend' in req.body) {
@@ -123,7 +125,7 @@ function render(req, res) {
       ctx.fillStyle = 'silver';
       ctx.font = 'bold 15px Attic';
       ctx.textBaseline = 'top';
-      ctx.fillText('Friends:' + req.body.friend, w - 100, 65);
+      ctx.fillText('Friends:' + req.body.friend, w - 90, 75);
     }
 
     if ('character' in req.body &&
@@ -131,6 +133,10 @@ function render(req, res) {
       IconGetter(req.body.character).then(function(data) {
         var img = new Canvas.Image; // Create a new Image
         img.src = data;
+        ctx.shadowColor = "#999999";
+        ctx.shadowOffsetX = 5;
+        ctx.shadowOffsetY = 5;
+        ctx.shadowBlur = 10;
         ctx.drawImage(img, 0, 0, img.width, img.height);
         if ('leaders' in req.body) {
           if (Object.prototype.toString.call( req.body.leaders )
@@ -144,7 +150,10 @@ function render(req, res) {
               ful.forEach(function(element, index) {
                 var img = new Canvas.Image; // Create a new Image
                 img.src = element;
-                console.log('drawing', img, 'on', index);
+                ctx.shadowColor = "#999999";
+                ctx.shadowOffsetX = 5;
+                ctx.shadowOffsetY = 5;
+                ctx.shadowBlur = 10;
                 ctx.drawImage(img, 120 + index * 50, 50, img.width/2, img.height/2);
               });
               resolve(res, canvas);
@@ -153,6 +162,10 @@ function render(req, res) {
             IconGetter(req.body.leaders).then(function(data) {
               var img = new Canvas.Image; // Create a new Image
               img.src = data;
+              ctx.shadowColor = "#999999";
+              ctx.shadowOffsetX = 5;
+              ctx.shadowOffsetY = 5;
+              ctx.shadowBlur = 10;
               ctx.drawImage(img, 120, 50, img.width/2, img.height/2);
               resolve(res, canvas);
             });
