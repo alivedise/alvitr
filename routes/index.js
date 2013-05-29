@@ -97,7 +97,7 @@ function render(req, res) {
 
     if ('name' in req.body) {
       ctx.fillStyle = '#fff';
-      ctx.font = 'bold 35px Calibri';
+      ctx.font = 'bold 35px Aldine721 BT';
       ctx.textBaseline = 'top';
       ctx.fillText(req.body.name, 120, 0);
     }
@@ -105,7 +105,7 @@ function render(req, res) {
     if ('id' in req.body) {
       console.log(req.body.id);
       ctx.fillStyle = '#0186d1';
-      ctx.font = 'bold 25px Calibri';
+      ctx.font = 'bold 25px Attic';
       ctx.textBaseline = 'top';
       ctx.fillText(req.body.id, w - 120, 0);
     }
@@ -113,7 +113,7 @@ function render(req, res) {
     if ('rank' in req.body) {
       console.log(req.body.id);
       ctx.fillStyle = 'gold';
-      ctx.font = 'bold 15px Calibri';
+      ctx.font = 'bold 15px Attic';
       ctx.textBaseline = 'top';
       ctx.fillText('Rank: ' + req.body.rank, w - 100, 50);
     }
@@ -121,7 +121,7 @@ function render(req, res) {
     if ('friend' in req.body) {
       console.log(req.body.id);
       ctx.fillStyle = 'silver';
-      ctx.font = 'bold 15px Calibri';
+      ctx.font = 'bold 15px Attic';
       ctx.textBaseline = 'top';
       ctx.fillText('Friends:' + req.body.friend, w - 100, 65);
     }
