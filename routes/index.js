@@ -410,8 +410,8 @@ function render(req, res) {
     var _h = BackgroundImageConfig[source].width ?
       BackgroundImageConfig[source].width*img.height/img.width : h;
     console.log(source, _x, _y, _w, _h);
-    //ctx.drawImage(img, 0, 150, _w, _h,  _x, _y, w, h);
-    ctx.drawImage(img, 0, 150, w, h, 0, 0, w, h);
+    ctx.drawImage(img, _x, _y, _w, _h, /* The offset of main char */150, 0, w, h);
+    //ctx.drawImage(img, 0, 150, w, h, 100, 0, w, h);
 
     /* Background image color transformation */
     if (req.body['background-color'] &&
@@ -522,9 +522,10 @@ function render(req, res) {
           ctx.shadowColor = "black";
           ctx.shadowOffsetX = 5;
           ctx.shadowOffsetY = 5;
-          //ctx.shadowBlur = 5;
-          ctx.fillRect(5, 5, img.width, img.height);
-          ctx.drawImage(img, 5, 5, img.width, img.height);
+          ctx.shadowBlur = 5;
+          ctx.fillStyle = '#0186d1';
+          ctx.fillRect(5, 5, img.width - 5, img.height - 5);
+          ctx.drawImage(img, 5, 5, img.width , img.height);
           if ('leaders' in req.body) {
             if (Object.prototype.toString.call( req.body.leaders )
                 === '[object Array]') {
@@ -541,8 +542,9 @@ function render(req, res) {
                   ctx.shadowColor = "black";
                   ctx.shadowOffsetX = 5;
                   ctx.shadowOffsetY = 5;
-                  ctx.shadowBlur = 20;
-                  ctx.fillRect(120 + index*50, 50 , img.width/2, img.height/2);
+                  ctx.shadowBlur = 5;
+                  ctx.fillStyle = '#0186d1';
+                  ctx.fillRect(120 + index*50, 50 , img.width/2 - 10, img.height/2 - 10);
                   ctx.drawImage(img, 120 + index * 50, 50, img.width/2, img.height/2);
                 });
                 resolve(res, canvas);
@@ -554,8 +556,9 @@ function render(req, res) {
                 ctx.shadowColor = "black";
                 ctx.shadowOffsetX = 5;
                 ctx.shadowOffsetY = 5;
-                ctx.shadowBlur = 20;
-                ctx.fillRect(120, 50 , img.width/2, img.height/2);
+                ctx.shadowBlur = 5;
+                // XXX: Workaround of cannot draw image with shadow
+                ctx.fillRect(120, 50 , img.width/2 - 5, img.height/2 - 5);
                 ctx.drawImage(img, 120, 50, img.width/2, img.height/2);
                 resolve(res, canvas);
               });
