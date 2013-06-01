@@ -58,9 +58,15 @@ function resolve(res, canvas) {
   });
 }
 
+function drawImage(ctx, src, config) {
+  var img = new Canvas.Image;
+  img.src = data;
+  ctx.drawImage(img, config.top, config.left, config.width, config.height);
+}
+
 function render(req, res) {
   var w = 600;
-  var h = 100;
+  var h = 110;
 
   var canvas = new Canvas(w, h)
     , ctx = canvas.getContext('2d');
@@ -69,6 +75,39 @@ function render(req, res) {
     var img = new Canvas.Image; // Create a new Image
     img.src = data;
     ctx.drawImage(img, 0, 150, w, h, 0, 0, w, h);
+
+    var tintColor = '#0186d1';
+    // color transformation
+    var map = ctx.getImageData(0, 0, w, h);
+    var imdata = map.data;
+
+    // convert image to grayscale
+    var r,g,b,avg;
+    for(var p = 0, len = imdata.length; p < len; p+=4) {
+        r = imdata[p]
+        g = imdata[p+1];
+        b = imdata[p+2];
+        
+        avg = Math.floor((r+g+b)/3);
+
+        imdata[p] = imdata[p+1] = imdata[p+2] = avg;
+    }
+
+    ctx.putImageData(map, 0, 0);
+
+    // overlay filled rectangle using lighter composition
+    ctx.globalCompositeOperation = "lighter";
+    ctx.globalAlpha = 0.5;
+    ctx.fillStyle = tintColor;
+    ctx.fillRect(0, 0, w, h);
+
+    // Reset default.
+    ctx.globalAlpha = 1.0;
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.strokeStyle = "rgba(255, 255, 255, 0.50)";
+    ctx.lineWidth = 5;
+    ctx.strokeRect(5/2, 5/2, w - 5, h - 5);
+    ctx.lineWidth = 1;
 
     if ('background' in req.body) {
       /*
@@ -91,41 +130,49 @@ function render(req, res) {
       horizontal_rad.addColorStop(0.9, "rgba(0, 0, 0, 0.2)");
       horizontal_rad.addColorStop(1, "rgba(0, 0, 0, 1)");
       ctx.fillStyle = horizontal_rad;*/
-      ctx.fillStyle = 'rgba(0.1, 0.1, 1.0, 0.3)';
-      ctx.fillRect(0, 0, w, h);
+      //ctx.fillStyle = 'rgba(0.1, 0.1, 1.0, 0.3)';
+      //ctx.fillRect(0, 0, w, h);
     }
 
     ctx.fillStyle = '#fff';
 
     if ('name' in req.body) {
       ctx.fillStyle = '#fff';
-      ctx.font = 'bold 35px Aldine721 BT';
+      ctx.strokeStyle = 'black';
+      ctx.font = '35px Aldine721 BT';
       ctx.textBaseline = 'top';
-      ctx.fillText(req.body.name, 120, 0);
+      ctx.fillText(req.body.name, 120, 5);
+      ctx.strokeText(req.body.name, 120, 5);
     }
 
     if ('id' in req.body) {
       console.log(req.body.id);
-      ctx.fillStyle = '#0186d1';
-      ctx.font = 'bold 25px Attic';
+      ctx.fillStyle = '#111111';
+      ctx.font = '25px Attic';
       ctx.textBaseline = 'top';
-      ctx.fillText(req.body.id, w - 135, 0);
+      ctx.fillText(req.body.id, w - 140, 5);
     }
 
     if ('rank' in req.body) {
       console.log(req.body.id);
       ctx.fillStyle = 'gold';
-      ctx.font = 'bold 15px Attic';
+      ctx.strokeStyle = 'yellow';
+      ctx.font = '15px Attic';
       ctx.textBaseline = 'top';
-      ctx.fillText('Rank: ' + req.body.rank, w - 90, 60);
+      ctx.fillText('Rank: ' + req.body.rank, w - 120, 70);
+      ctx.strokeText('Rank: ' + req.body.rank, w - 120, 70);
     }
 
     if ('friend' in req.body) {
-      console.log(req.body.id);
-      ctx.fillStyle = 'silver';
-      ctx.font = 'bold 15px Attic';
+      ctx.fillStyle = '#fff';
+      ctx.strokeStyle = 'black';
+      ctx.font = '15px Aldine721 BT';
       ctx.textBaseline = 'top';
-      ctx.fillText('Friends:' + req.body.friend, w - 90, 75);
+      ctx.fillText('Friends:', w - 120, 85);
+      ctx.strokeText('Friends:', w - 120, 85);
+      ctx.fillStyle = 'black';
+      ctx.font = '15px Attic';
+      ctx.fillText(req.body.friend, w - 75, 85);
     }
 
     if ('character' in req.body &&
@@ -136,8 +183,9 @@ function render(req, res) {
         ctx.shadowColor = "#999999";
         ctx.shadowOffsetX = 5;
         ctx.shadowOffsetY = 5;
-        ctx.shadowBlur = 10;
-        ctx.drawImage(img, 0, 0, img.width, img.height);
+        //ctx.shadowBlur = 5;
+        ctx.fillRect(5, 5, img.width, img.height);
+        ctx.drawImage(img, 5, 5, img.width, img.height);
         if ('leaders' in req.body) {
           if (Object.prototype.toString.call( req.body.leaders )
               === '[object Array]') {
@@ -153,7 +201,8 @@ function render(req, res) {
                 ctx.shadowColor = "#999999";
                 ctx.shadowOffsetX = 5;
                 ctx.shadowOffsetY = 5;
-                ctx.shadowBlur = 10;
+                ctx.shadowBlur = 20;
+                ctx.fillRect(120 + index*50, 50 , img.width/2, img.height/2);
                 ctx.drawImage(img, 120 + index * 50, 50, img.width/2, img.height/2);
               });
               resolve(res, canvas);
@@ -165,7 +214,8 @@ function render(req, res) {
               ctx.shadowColor = "#999999";
               ctx.shadowOffsetX = 5;
               ctx.shadowOffsetY = 5;
-              ctx.shadowBlur = 10;
+              ctx.shadowBlur = 20;
+              ctx.fillRect(120, 50 , img.width/2, img.height/2);
               ctx.drawImage(img, 120, 50, img.width/2, img.height/2);
               resolve(res, canvas);
             });
