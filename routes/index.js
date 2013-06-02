@@ -67,8 +67,6 @@ function drawImage(ctx, src, config) {
 }
 
 function render(req, res) {
-  console.log(req.uuid);
-
   // The width and height of final output.
   var w = 851;
   var h = 315;
@@ -156,16 +154,14 @@ function render(req, res) {
         break;
       case 'signature':
         // For signature, we try not to resize too much.
-        _sw = w - 200;
+        _sw = w - 220;
         _sh = h;
         _w = img.width;
         _h = img.width*_sh/_sw;
         _y = _h * 0.25;
-        _sx = 200;
+        _sx = 220;
         break;
     }
-
-    console.log(_x, _y, _w, _h);
     
     ctx.drawImage(img, _x, _y, _w, _h, /* The offset of main char */_sx, 0, _sw, _sh);
     //ctx.drawImage(img, 0, 150, w, h, 100, 0, w, h);
