@@ -15,8 +15,36 @@
       return o;
   };
 
+  jQuery.expr.filters.offscreen = function(el) {
+  return (
+              (el.offsetLeft + el.offsetWidth) < 0 
+              || (el.offsetTop + el.offsetHeight) < 0
+              || (el.offsetLeft > window.innerWidth || el.offsetTop > window.innerHeight)
+         );
+  };
+
+  $.fn.isOnScreen = function(){
+     
+    var win = $(window);
+     
+    var viewport = {
+        top : win.scrollTop(),
+        left : win.scrollLeft()
+    };
+    viewport.right = viewport.left + win.width();
+    viewport.bottom = viewport.top + win.height();
+     
+    var bounds = this.offset();
+    bounds.right = bounds.left + this.outerWidth();
+    bounds.bottom = bounds.top + this.outerHeight();
+     
+    return (!(viewport.right < bounds.left || viewport.left > bounds.right || viewport.bottom < bounds.top || viewport.top > bounds.bottom));
+     
+};
+
   var Generator = {
     _currentDataURL: '',
+    _dirty: false,
     loadBackgroundImage: function() {
       for (var i = 1; i < 65; i++) {
         $('#background-loader .controls').append('<label class="radio" data-value="'+i+'">'+
@@ -57,13 +85,11 @@
       
       var self = this;
       $('form').change(function() {
-        console.log($('form').serializeObject());
-        $.post('/form', $('form').serializeObject(),
-          function(result){
-            console.log(result);
-            self._currentDataURL = result;
-            $('#previewImage').prop('src', result);
-          });
+        self._dirty = true;
+        // Only submit when viewport is on screen.
+        if($('div#preview').isOnScreen() || self._currentDataURL) {
+          self.submit();
+        }
       });
 
       $('#upload').click(function() {
@@ -82,7 +108,6 @@
               },
               dataType: 'json'
           }).success(function(data) {
-            console.log(data);
           }).error(function() {
             alert('Could not reach api.imgur.com. Sorry :(');
           });
@@ -92,14 +117,26 @@
       $('#download').click(function(evt) {
         evt.preventDefault();
         $.post('/download', { dataurl: self._currentDataURL }, function(res) {
-          console.log(res);
           $('#url').val(window.location + '/images/user/' + res.id + '.png');
         });
       });
 
       $('form').submit(function(evt) {
         evt.preventDefault();
+        // Or by really submit
+        if (self._dirty)
+          self.submit();
+        return false;
       });
+    },
+
+    submit: function() {
+      var self = this;
+      $.post('/form', $('form').serializeObject(),
+        function(result){
+          self._currentDataURL = result;
+          $('#previewImage').prop('src', result);
+        });
     }
   };
 

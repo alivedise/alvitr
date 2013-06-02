@@ -45,19 +45,7 @@ var IconGetter = function(MID) {
 };
 
 function resolve(res, canvas) {
-  /*var out = fs.createWriteStream(__dirname + '/../public/state.png')
-    , stream = canvas.createPNGStream();
-
-  stream.on('data', function(chunk){
-    out.write(chunk);
-  });
-
-  stream.on('end', function(){
-    out.end();
-   });
-*/
-    res.send(canvas.toDataURL());
-  
+  res.send(canvas.toDataURL());
 }
 
 function drawImage(ctx, src, config) {
@@ -392,8 +380,6 @@ function image_provider(req, res) {
 
 module.exports = function(app){
   app.post('/form', render);
-  app.post('/download', image_downloader);
-  app.get('/download.png', image_provider);
   return {
     ImageGetter: BackgroundGetter
   };
