@@ -89,12 +89,15 @@
         }
       });
 
-      $('#download').click(function(evt) {
-        evt.preventDefault();
-        $.post('/download', { dataurl: self._currentDataURL }, function(res) {
-          $('#url').val(window.location + '/images/user/' + res.id + '.png');
+      $('#download').hide();
+      if (Modernizr.adownload) {
+        $('#download').click(function(evt) {
+          window.href = canvas.toDataURL();
         });
-      });
+        $('#downloader').show();
+      } else {
+        $('#downloader').hide();
+      }
 
       $('form').submit(function(evt) {
         evt.preventDefault();
@@ -107,11 +110,13 @@
 
     submit: function() {
       var self = this;
+      $('#download').hide();
       $('#previewImage').prop('src', 'resource/ajax-loader.gif');
       if (Modernizr.canvas && Modernizr.canvastext) {
         window.renderClient($('form').serializeObject(), function(result) {
           self._currentDataURL = result;
           $('#previewImage').prop('src', result);
+          $('#download').show();
         });
       } else {
         $.post('/form', $('form').serializeObject(),
