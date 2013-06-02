@@ -3,6 +3,10 @@ div#preview {
   min-height: 10rem;
 }
 
+div.control-group #background-loader {
+  max-width: 500px;
+}
+
 div.control-group .background-image-container {
   clear: both;
   display: inline-block;
@@ -23,4 +27,10 @@ div.control-group .background-image-container {
 #background-loader label.radio {
   width: 200px;
   float: left;
+  display: none;
+}
+
+
+#background-loader label.radio.visible {
+  display: inline-block;
 }

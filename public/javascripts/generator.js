@@ -19,7 +19,7 @@
     _currentDataURL: '',
     loadBackgroundImage: function() {
       for (var i = 1; i < 65; i++) {
-        $('#background-loader .controls').append('<label class="radio">'+
+        $('#background-loader .controls').append('<label class="radio" data-value="'+i+'">'+
             '<input type="radio" name="background-image" value="'+i+'" checked="checked">'+
             '<span class="background-image-container" data-source="'+i+'" />'+
           '</label>');
@@ -32,6 +32,22 @@
 
     init: function() {
       this.loadBackgroundImage();
+      for (var i = 1; i <= 6; i++) {
+        $('#background-loader .controls .radio[data-value="'+i+'"]').addClass('visible');
+      }
+      $('#pager').pagination({
+        total_pages: 11,
+        current_page: 1,
+        callback: function(event, page) {
+          event.preventDefault();
+          $('#background-loader .controls .radio.visible').removeClass('visible');
+          for (var i = 1 + (page - 1) * 6; i <= 6 + (page - 1) * 6; i++) {
+            $('#background-loader .controls .radio[data-value="'+i+'"]').addClass('visible');
+          }
+          return false;
+        }
+      });
+
       var self = this;
       $('form').change(function() {
         console.log($('form').serializeObject());

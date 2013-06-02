@@ -8,6 +8,8 @@
   "dependencies": {
     "express": "3.2.5",
     "ejs": "*",
-    "uuid": "*"
+    "uuid": "*",
+    "canvas": "*",
+    "q": "*"
   }
 }
