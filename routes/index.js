@@ -296,8 +296,12 @@ function render(req, res) {
             if (Object.prototype.toString.call( req.body.leaders )
                 === '[object Array]') {
               var queue = [];
+              var leaders = req.body.leaders;
+              if (leaders.length > MaximumLeaders) {
+                leaders.splice(MaximumLeaders);
+              }
               // For each random number, create a function call and addit to the queue <img src="http://erickrdch.com/_/wp-includes/images/smilies/icon_wink.gif" alt=";)" class="wp-smiley"> 
-              req.body.leaders.forEach(function(mid, index) {
+              leaders.forEach(function(mid, index) {
                 queue.push(IconGetter(mid));
                 return index < MaximumLeaders;
               });
