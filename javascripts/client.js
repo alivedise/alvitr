@@ -127,7 +127,7 @@
     var source = parseInt(param['background-image'], 10);
     source = source - 1;
 
-    BackgroundGetter('/images/PAD/' + param['background-image'] + '.png').then(function(data) {  
+    BackgroundGetter('/images/background/' + param['background-image'] + '.png').then(function(data) {  
       // Try to scale the background image to a reasonable size and position
       var _x = 0
         , _y = 150
