@@ -34,7 +34,11 @@
 
     setTimeout(function(){
       console.warn('Get image: ', src, ' failed.');
-      deferred.reject();
+      try {
+        deferred.reject();
+      } catch (e) {
+        
+      }
     }, 10000);
 
     return deferred.promise();
