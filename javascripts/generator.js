@@ -96,7 +96,7 @@
       $('#download').hide();
       if (Modernizr.adownload) {
         $('#download').click(function(evt) {
-          window.href = canvas.toDataURL();
+          window.href = self._currentDataURL;
         });
         $('#downloader').show();
       } else {
