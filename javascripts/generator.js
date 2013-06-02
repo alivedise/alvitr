@@ -107,6 +107,7 @@
 
     submit: function() {
       var self = this;
+      $('#previewImage').prop('src', 'resource/ajax-loader.gif');
       if (Modernizr.canvas && Modernizr.canvastext) {
         window.renderClient($('form').serializeObject(), function(result) {
           self._currentDataURL = result;
