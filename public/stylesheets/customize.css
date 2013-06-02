@@ -1,0 +1,47 @@
+div#preview {
+  width: 100%;
+  min-height: 10rem;
+}
+
+div.control-group #background-loader {
+  max-width: 500px;
+}
+
+div.control-group .background-image-container {
+  clear: both;
+  display: inline-block;
+  width: 150px;
+  min-height: 70px;
+  overflow: hidden;
+  position: relative;
+}
+
+.background-image-container img {
+  position: absolute;
+  top: -20px;
+  left: 0px;
+  width: 150px;
+  height: auto;
+}
+
+#background-loader label.radio {
+  width: 200px;
+  float: left;
+  display: none;
+}
+
+
+#background-loader label.radio.visible {
+  display: inline-block;
+}
+
+
+@font-face {
+  font-family: Attic;
+  src: url(/resource/attic.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: Aldine721 BT;
+  src: url(/resource/font.ttf) format("truetype");
+}
