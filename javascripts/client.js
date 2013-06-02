@@ -49,7 +49,7 @@
       MID = '0' + MID;
     }
 
-    return BackgroundGetter('/images/icon/' + MID + 'i.png');
+    return BackgroundGetter('images/icon/' + MID + 'i.png');
   };
 
   function getIconAndDraw(id, ctx, index) {
@@ -127,7 +127,7 @@
     var source = parseInt(param['background-image'], 10);
     source = source - 1;
 
-    BackgroundGetter('/images/background/' + param['background-image'] + '.png').then(function(data) {  
+    BackgroundGetter('images/background/' + param['background-image'] + '.png').then(function(data) {  
       // Try to scale the background image to a reasonable size and position
       var _x = 0
         , _y = 150
@@ -203,7 +203,7 @@
 
       ctx.fillStyle = '#fff';
 
-      BackgroundGetter('/images/padlogo.png').then(function(data) {
+      BackgroundGetter('images/padlogo.png').then(function(data) {
         ctx.globalAlpha = 0.8;
         ctx.drawImage(data, w - 220, 5, 80, 30);
         ctx.globalAlpha = 1.0;
