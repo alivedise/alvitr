@@ -48,6 +48,13 @@
         }
       });
 
+      // Fork selector
+      for (var i = 0 ; i < 5; i++) {
+        var clone = $('#selector-to-be-fork').clone();
+        clone.prop('id', 'selector-to-be-fork' + i);
+        clone.insertAfter($('#selector-to-be-fork'));
+      }
+      
       var self = this;
       $('form').change(function() {
         console.log($('form').serializeObject());
