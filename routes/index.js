@@ -248,7 +248,7 @@ function render(req, res) {
       ctx.strokeStyle = 'black';
       ctx.font = 'bold 15px Aldine721 BT';
       ctx.textBaseline = 'top';
-      ctx.fillText('Rank: ', w - 120, h - 35);
+      ctx.fillText('Rank', w - 120, h - 35);
 
       //ctx.strokeText('Rank: ', w - 120, 75);
       ctx.font = '15px Attic';
@@ -264,7 +264,7 @@ function render(req, res) {
       ctx.strokeStyle = 'black';
       ctx.font = 'bold 15px Aldine721 BT';
       ctx.textBaseline = 'top';
-      ctx.fillText('Friends: ', w - 120, h - 20);
+      ctx.fillText('Friend', w - 120, h - 20);
       //ctx.strokeText('Friends:', w - 120, 90);
       ctx.fillStyle = 'black';
       ctx.font = '15px Attic';
