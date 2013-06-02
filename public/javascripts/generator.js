@@ -16,8 +16,9 @@
   };
 
   var Generator = {
+    _currentDataURL: '',
     loadBackgroundImage: function() {
-      for (var i = 1; i < 5; i++) {
+      for (var i = 1; i < 65; i++) {
         $('#background-loader .controls').append('<label class="radio">'+
             '<input type="radio" name="background-image" value="'+i+'" checked="checked">'+
             '<span class="background-image-container" data-source="'+i+'" />'+
@@ -31,14 +32,46 @@
 
     init: function() {
       this.loadBackgroundImage();
+      var self = this;
       $('form').change(function() {
         console.log($('form').serializeObject());
         $.post('/form', $('form').serializeObject(),
           function(result){
             console.log(result);
-            $('#previewImage').prop('src', '/state.png?' + new Date().getTime());
-      
+            self._currentDataURL = result;
+            $('#previewImage').prop('src', result);
           });
+      });
+
+      $('#upload').click(function() {
+        if (self._currentDataURL !== '') {
+          var img;
+          try {
+            img = self._currentDataURL.split(',')[1];
+          } catch(e) {
+            img = self._currentDataURL.split(',')[1];
+          }
+          $.ajax({
+              url: 'http://api.imgur.com/3/upload.json',
+              type: 'POST',
+              data: {
+                  image: img
+              },
+              dataType: 'json'
+          }).success(function(data) {
+            console.log(data);
+          }).error(function() {
+            alert('Could not reach api.imgur.com. Sorry :(');
+          });
+        }
+      });
+
+      $('#download').click(function(evt) {
+        evt.preventDefault();
+        $.post('/download', { dataurl: self._currentDataURL }, function(res) {
+          console.log(res);
+          $('#url').val(window.location + '/images/user/' + res.id + '.png');
+        });
       });
 
       $('form').submit(function(evt) {
