@@ -94,7 +94,7 @@
       });
 
       $('#download').hide();
-      if (Modernizr.adownload) {
+      if (false && Modernizr.adownload) {
         $('#download').click(function(evt) {
           console.log(self._currentDataURL);
           window.href = self._currentDataURL;
