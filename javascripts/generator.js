@@ -27,7 +27,7 @@
       }
       $('.background-image-container').each(function() {
         //$(this).css('background-image', 'url(/images/PAD/' + $(this).data('source') + '.png)');
-        $(this).append('<img src="images/PAD/' + $(this).data('source') + '.png" />');
+        $(this).append('<img src="images/background/' + $(this).data('source') + '.png" />');
       });
     },
 
