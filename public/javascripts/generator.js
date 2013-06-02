@@ -15,33 +15,6 @@
       return o;
   };
 
-  jQuery.expr.filters.offscreen = function(el) {
-  return (
-              (el.offsetLeft + el.offsetWidth) < 0 
-              || (el.offsetTop + el.offsetHeight) < 0
-              || (el.offsetLeft > window.innerWidth || el.offsetTop > window.innerHeight)
-         );
-  };
-
-  $.fn.isOnScreen = function(){
-     
-    var win = $(window);
-     
-    var viewport = {
-        top : win.scrollTop(),
-        left : win.scrollLeft()
-    };
-    viewport.right = viewport.left + win.width();
-    viewport.bottom = viewport.top + win.height();
-     
-    var bounds = this.offset();
-    bounds.right = bounds.left + this.outerWidth();
-    bounds.bottom = bounds.top + this.outerHeight();
-     
-    return (!(viewport.right < bounds.left || viewport.left > bounds.right || viewport.bottom < bounds.top || viewport.top > bounds.bottom));
-     
-};
-
   var Generator = {
     _currentDataURL: '',
     _dirty: false,
@@ -59,6 +32,11 @@
     },
 
     init: function() {
+      // Modernizr warning
+      if (!Modernizr.canvas || ! Modernizr.canvastext || !Modernizr.fontface) {
+        $('#page-header').append('<div class="alert"><strong>Warning!</strong> Your browser doesn\'t support canvas and facefont. Please consider to use a more modern browser such as Mozilla Firefox or Google Chrome.</div>');
+      }
+
       this.loadBackgroundImage();
       for (var i = 1; i <= 6; i++) {
         $('#background-loader .controls .radio[data-value="'+i+'"]').addClass('visible');
@@ -86,10 +64,7 @@
       var self = this;
       $('form').change(function() {
         self._dirty = true;
-        // Only submit when viewport is on screen.
-        if($('div#preview').isOnScreen() || self._currentDataURL) {
-          self.submit();
-        }
+        self.submit();
       });
 
       $('#upload').click(function() {
@@ -132,11 +107,18 @@
 
     submit: function() {
       var self = this;
-      $.post('/form', $('form').serializeObject(),
+      if (Modernizr.canvas && Modernizr.canvastext) {
+        window.renderClient($('form').serializeObject(), function(result) {
+          self._currentDataURL = result;
+          $('#previewImage').prop('src', result);
+        });
+      } else {
+        $.post('/form', $('form').serializeObject(),
         function(result){
           self._currentDataURL = result;
           $('#previewImage').prop('src', result);
         });
+      }
     }
   };
 

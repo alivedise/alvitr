@@ -34,3 +34,14 @@ div.control-group .background-image-container {
 #background-loader label.radio.visible {
   display: inline-block;
 }
+
+
+@font-face {
+  font-family: Attic;
+  src: url(/resource/attic.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: Aldine721 BT;
+  src: url(/resource/font.ttf) format("truetype");
+}
