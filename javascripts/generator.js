@@ -22,13 +22,9 @@
       for (var i = 1; i < 65; i++) {
         $('#background-loader .controls').append('<label class="radio" data-value="'+i+'">'+
             '<input type="radio" name="background-image" value="'+i+'" checked="checked">'+
-            '<span class="background-image-container" data-source="'+i+'" />'+
+            '<span class="background-image-container" data-source="'+i+'"><img/></span>'+
           '</label>');
       }
-      $('.background-image-container').each(function() {
-        //$(this).css('background-image', 'url(/images/PAD/' + $(this).data('source') + '.png)');
-        $(this).append('<img src="images/background/' + $(this).data('source') + '.png" />');
-      });
     },
 
     init: function() {
@@ -39,7 +35,11 @@
 
       this.loadBackgroundImage();
       for (var i = 1; i <= 6; i++) {
-        $('#background-loader .controls .radio[data-value="'+i+'"]').addClass('visible');
+        var container = $('#background-loader .controls .radio[data-value="'+i+'"]');
+        container.addClass('visible');
+        if (container.find('img').prop('src') === '') {
+          container.find('img').prop('src', 'images/background/' + i + '.png');
+        }
       }
       $('#pager').pagination({
         total_pages: 11,
@@ -48,7 +48,11 @@
           event.preventDefault();
           $('#background-loader .controls .radio.visible').removeClass('visible');
           for (var i = 1 + (page - 1) * 6; i <= 6 + (page - 1) * 6; i++) {
-            $('#background-loader .controls .radio[data-value="'+i+'"]').addClass('visible');
+            var container = $('#background-loader .controls .radio[data-value="'+i+'"]');
+            container.addClass('visible');
+            if (container.find('img').prop('src') === '') {
+              container.find('img').prop('src', 'images/background/' + i + '.png');
+            }
           }
           return false;
         }
