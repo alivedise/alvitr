@@ -96,6 +96,7 @@
       $('#download').hide();
       if (Modernizr.adownload) {
         $('#download').click(function(evt) {
+          console.log(self._currentDataURL);
           window.href = self._currentDataURL;
         });
         $('#downloader').show();
@@ -118,6 +119,8 @@
       $('#previewImage').prop('src', 'resource/ajax-loader.gif');
       if (Modernizr.canvas && Modernizr.canvastext) {
         window.renderClient($('form').serializeObject(), function(result) {
+          if (!result)
+            return;
           self._currentDataURL = result;
           $('#previewImage').prop('src', result);
           $('#download').show();
