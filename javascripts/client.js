@@ -33,6 +33,7 @@
     img.src = src;
 
     setTimeout(function(){
+      console.warn('Get image: ', src, ' failed.');
       deferred.reject();
     }, 10000);
 
