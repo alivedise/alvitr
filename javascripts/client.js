@@ -101,6 +101,9 @@
   function renderBackgroundColor(param) {
     var d = $.Deferred();
     if (param['background-color'] == 'custom') {
+      d.resolve();  // don't support custom now
+      return d.promise();
+      
       BackgroundGetter(param['custom-background']).then(function(data) {
         if (data) {
           var _x = 0, _y = 0, _w, _h, _sx = 0, _sy = 0, _sw, _sh;
