@@ -1,4 +1,7 @@
 (function(window) {
+  var JPG_COUNT = 24;
+  var PNG_COUNT = 65;
+  var IMAGE_PER_PAGE = 6;
   $.fn.serializeObject = function() {
       var o = {};
       var a = this.serializeArray();
@@ -20,10 +23,17 @@
     _uploading: false,
     _dirty: false,
     loadBackgroundImage: function() {
-      for (var i = 1; i < 66; i++) {
-        $('#background-loader .controls').append('<label class="radio" data-value="'+i+'">'+
+      var _count = 1;
+      for (var i = 1; i <= JPG_COUNT; i++, _count++) {
+        $('#background-loader .controls').append('<label class="radio" data-index="'+_count+'">'+
+            '<input type="radio" name="background-image" value="f'+i+'">'+
+            '<span class="background-image-container"><img data-source="f'+i+'.jpg" /></span>'+
+          '</label>');
+      }
+      for (var i = 1; i <= PNG_COUNT; i++, _count++) {
+        $('#background-loader .controls').append('<label class="radio" data-index="'+_count+'">'+
             '<input type="radio" name="background-image" value="'+i+'">'+
-            '<span class="background-image-container" data-source="'+i+'"><img/></span>'+
+            '<span class="background-image-container"><img data-source="'+i+'.png" /></span>'+
           '</label>');
       }
     },
@@ -38,23 +48,23 @@
 
       this.loadBackgroundImage();
       for (var i = 1; i <= 6; i++) {
-        var container = $('#background-loader .controls .radio[data-value="'+i+'"]');
+        var container = $('#background-loader .controls .radio[data-index="'+i+'"]');
         container.addClass('visible');
         if (container.find('img').prop('src') === '') {
           container.find('img').prop('src', 'images/background/' + i + '.png');
         }
       }
       $('#pager').pagination({
-        total_pages: 11,
+        total_pages: Math.ceil((JPG_COUNT + PNG_COUNT) / IMAGE_PER_PAGE),
         current_page: 1,
         callback: function(event, page) {
           event.preventDefault();
           $('#background-loader .controls .radio.visible').removeClass('visible');
-          for (var i = 1 + (page - 1) * 6; i <= 6 + (page - 1) * 6; i++) {
-            var container = $('#background-loader .controls .radio[data-value="'+i+'"]');
+          for (var i = 1 + (page - 1) * IMAGE_PER_PAGE; i <= IMAGE_PER_PAGE + (page - 1) * IMAGE_PER_PAGE; i++) {
+            var container = $('#background-loader .controls .radio[data-index="'+i+'"]');
             container.addClass('visible');
             if (container.find('img').prop('src') === '') {
-              container.find('img').prop('src', 'images/background/' + i + '.png');
+              container.find('img').prop('src', 'images/background/' + container.find('img').data('source'));
             }
           }
           return false;

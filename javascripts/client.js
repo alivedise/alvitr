@@ -129,11 +129,13 @@
   function renderBackgroundImage(param) {
     var d = $.Deferred();
     var offset = 0;
+    var extention = '.png';
 
     if (('' + param['background-image']).charAt(0) == 'f' ||
         ('' + param['background-image']).indexOf('jpg')) {
       // We are non-transparent background;
       offset = 0;
+      extention = '.jpg';
     } else if (param['image-size'] != 'facebook-cover') {
       offset = 220;
     }
@@ -144,8 +146,8 @@
       return d.promise();
     }
 
-    var backgroundImagePath = 'images/background/' + param['background-image'] + '.png';
-    BackgroundGetter('images/background/' + param['background-image'] + '.png').then(function(data) {  
+    var backgroundImagePath = 'images/background/' + param['background-image'] + extention;
+    BackgroundGetter(backgroundImagePath).then(function(data) {  
       // Try to scale the background image to a reasonable size and position
       var _x = 0
         , _y = 150
