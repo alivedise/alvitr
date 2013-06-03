@@ -204,10 +204,10 @@
             _y = 0;
             _sx = 0;
           } else {
-            _sw = IMAGE_CONFIG.WIDTH;
+            _sw = IMAGE_CONFIG.WIDTH - offset;
             _sh = IMAGE_CONFIG.HEIGHT;
             _w = data.width;
-            _h = data.height;
+            _h = data.width*_sh/_sw;
             _y = 0;
             _sx = offset;
           }
