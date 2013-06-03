@@ -135,7 +135,7 @@
           SHADOW_OFFSET_X: -2,
           SHADOW_OFFSET_Y: 2,
           SHADOW_BLUR: 0,
-          SHADOW_COLOR: 'black'
+          SHADOW_COLOR: 'rgba(0, 0, 0, 0.3)'
         };
         NAME_CONFIG = {
           OFFSET_X: 315,  /* the same as leaders */
@@ -194,7 +194,7 @@
           SHADOW_OFFSET_X: -2,
           SHADOW_OFFSET_Y: -2,
           SHADOW_BLUR: 0,
-          SHADOW_COLOR: 'black'
+          SHADOW_COLOR: 'rgba(0, 0, 0, 0.3)'
         };
         NAME_CONFIG = {
           OFFSET_X: 120,

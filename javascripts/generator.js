@@ -87,7 +87,7 @@
         $('#upload').removeClass('btn-primary')
                     .removeClass('btn-link')
                     .removeClass('btn-danger')
-                    .prop('download', '')
+                    .removeProp('download')
                     .prop('href', '#')
                     .text('uploading...');
 
@@ -108,7 +108,7 @@
               image: img
             },
             dataType: 'json'
-        }).success(function(data) {
+        }).success(function(result) {
           self._uploading = false;
           //console.log('post done!', data); //data would be like:
           /*{
@@ -121,27 +121,19 @@
               status:200
             }
           */
-          $('#upload').text(data.link)
-                      .prop('download', 'pad.png')
-                      .prop('href', data.link)
+          $('#upload').text(result.data.link)
+                      .prop('href', result.data.link)
                       .addClass('btn-link');
+
+          if (Modernizr.adownload) {
+            $('#upload').prop('download', 'pad.png');
+          }
         }).error(function() {
           self._uploading = false;
           $('#upload').removeClass('btn-link').addClass('btn-danger');
           alert('Could not reach api.imgur.com. Sorry :(');
         });
       });
-
-      $('#download').hide();
-      if (false && Modernizr.adownload) {
-        $('#download').click(function(evt) {
-          console.log(self._currentDataURL);
-          window.href = self._currentDataURL;
-        });
-        $('#downloader').show();
-      } else {
-        $('#downloader').hide();
-      }
 
       $('form').submit(function(evt) {
         evt.preventDefault();
@@ -154,8 +146,7 @@
 
     submit: function() {
       var self = this;
-      $('#download').hide();
-      $('#upload').hide();
+      $('#uploader').hide();
       $('#upload').text('Upload image to imgur..');
       $('#upload').removeClass('btn-link').removeClass('btn-danger').addClass('btn-primary');
       $('#previewImage').prop('src', 'resource/ajax-loader.gif');
@@ -165,8 +156,7 @@
             return;
           self._currentDataURL = result;
           $('#previewImage').prop('src', result);
-          $('#download').show();
-          $('#upload').show();
+          $('#uploader').show();
         });
       } else {
         $.post('/form', $('form').serializeObject(),
