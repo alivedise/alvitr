@@ -149,8 +149,7 @@
     var offset = 0;
     var extention = '.png';
 
-    if (('' + param['background-image']).charAt(0) == 'f' ||
-        ('' + param['background-image']).indexOf('jpg')) {
+    if (('' + param['background-image']).charAt(0) === 'f') {
       // We are non-transparent background;
       offset = 0;
       extention = '.jpg';
@@ -173,7 +172,8 @@
         , _h
         , _sw
         , _sh
-        , _sx;
+        , _sx
+        , _sy = 0;
 
       switch (param['image-size']) {
         case 'facebook-cover':
@@ -182,7 +182,7 @@
           _sh = IMAGE_CONFIG.HEIGHT;
           _w = data.width;
           _h = data.width*_sh/_sw;
-          _y = _h * 0.25;
+          _sy = _h * 0.1;
           _sx = 0;
           break;
         case 'signature':
@@ -191,12 +191,12 @@
           _sh = IMAGE_CONFIG.HEIGHT;
           _w = data.width;
           _h = data.width*_sh/_sw;
-          _y = _h * 0.25;
+          _sy = _h * 0.25;
           _sx = offset;
           break;
       }
       
-      ctx.drawImage(data, _x, _y, _w, _h, /* The offset of main char */_sx, 0, _sw, _sh);
+      ctx.drawImage(data, _x, _y, _w, _h, /* The offset of main char */_sx, _sy, _sw, _sh);
       
       /* Background image color transformation */
       if (param['background-tint'] &&
