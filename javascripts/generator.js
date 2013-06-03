@@ -47,7 +47,7 @@
       $('#uploader').hide();
 
       this.loadBackgroundImage();
-      for (var i = 1; i <= 6; i++) {
+      for (var i = 0; i < 6; i++) {
         var container = $('#background-loader .controls .radio[data-index="'+i+'"]');
         container.addClass('visible');
         if (container.find('img').prop('src') === '') {

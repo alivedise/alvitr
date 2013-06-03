@@ -4,6 +4,24 @@
  */
 
 (function(window) {
+  var IMAGE_PATH_PREFIX = '';
+  switch (window.location.protocol) {
+    case 'http:':
+    case 'https:':
+      //remote file over http or https
+      //do nothing
+      break;
+    case 'file:':
+      //local file
+      // if we're loading from local storage, use http://MYSITE
+      // to load image.
+      IMAGE_PATH_PREFIX = 'http://alivedise.github.io/alvitr/';
+      break;
+    default: 
+      //some other protocol
+      break;
+  }
+
   var $ = window.jQuery;
   var document = window.document;
   var MaximumLeaders = 6;
@@ -34,7 +52,7 @@
       deferred.resolve(img);
       deferred = img = null;
     };
-    img.src = src;
+    img.src = IMAGE_PATH_PREFIX + src;
 
     setTimeout(function(){
       console.warn('Get image: ', src, ' failed.');
@@ -141,7 +159,7 @@
     }
 
     var source = parseInt(param['background-image'], 10);
-    if (source == 0) {
+    if (source === 0) {
       d.resolve();
       return d.promise();
     }
