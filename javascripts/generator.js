@@ -82,7 +82,8 @@
         self.submit();
       });
 
-      $('#upload').click(function() {
+      $('#upload').click(function(evt) {
+        evt.preventDefault();
         if (self._uploading)
           return;
 
