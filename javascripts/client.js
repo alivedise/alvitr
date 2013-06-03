@@ -204,7 +204,7 @@
       ctx.lineWidth = 1;
 
       ctx.fillStyle = '#fff';
-      
+
       d.resolve();
     });
     return d.promise();
@@ -288,7 +288,7 @@
     return d.promise();
   }
 
-  function renderLeaders() {
+  function renderLeaders(param) {
     var d = $.Deferred();
     /* Draw leaders(optional) */
     if ('leaders' in param) {
