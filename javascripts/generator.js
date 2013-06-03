@@ -1,5 +1,5 @@
 (function(window) {
-  var JPG_COUNT = 23;
+  var JPG_COUNT = 0;
   var PNG_COUNT = 71;
   var IMAGE_PER_PAGE = 6;
   $.fn.serializeObject = function() {
