@@ -20,7 +20,7 @@
     _uploading: false,
     _dirty: false,
     loadBackgroundImage: function() {
-      for (var i = 1; i < 65; i++) {
+      for (var i = 1; i < 66; i++) {
         $('#background-loader .controls').append('<label class="radio" data-value="'+i+'">'+
             '<input type="radio" name="background-image" value="'+i+'" checked="checked">'+
             '<span class="background-image-container" data-source="'+i+'"><img/></span>'+

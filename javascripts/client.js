@@ -220,7 +220,6 @@
     canvas.setAttribute('height', h);
 
     var source = parseInt(param['background-image'], 10);
-    source = source - 1;
 
     BackgroundGetter('images/background/' + param['background-image'] + '.png').then(function(data) {  
       // Try to scale the background image to a reasonable size and position
