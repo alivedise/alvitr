@@ -299,7 +299,7 @@
         ctx.textBaseline = 'top';
         ctx.font = COMMENT_CONFIG.SIZE + 'px Aldine721 BT';
         ctx.fillStyle = 'black';
-        ctx.fillText(param.comment || ''),
+        ctx.fillText(param.comment || '',
                       COMMENT_CONFIG.OFFSET_X,
                       COMMENT_CONFIG.OFFSET_Y);
 
