@@ -164,10 +164,12 @@
       return d.promise();
     }
 
-    if (param['image-size'] == 'signature') {
+    if (param['image-size'] == 'facebook-cover') {
       backgroundImagePath = 'images/background/' + param['background-image'] + extention;
     } else {
-      backgroundImagePath = 'images/background/cut_for_signature/' + param['background-image'] + extention;
+      // var prefix = 'cut_for_signature/';
+      var prefix = '';
+      backgroundImagePath = 'images/background/' + prefix + param['background-image'] + extention;
     }
 
     BackgroundGetter(backgroundImagePath).then(function(data) {  
