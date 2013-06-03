@@ -121,7 +121,13 @@
           OFFSET_Y: 23,
           WIDTH: 100,
           HEIGHT: 37.5
-        }
+        };
+        ID_CONFIG = {
+          OFFSET_X: w - 150,
+          OFFSET_Y: 180,
+          WIDTH: 150,
+          SIZE: 25
+        };
         break;
       case 'signature':
         w = 700;
@@ -150,10 +156,10 @@
           SIZE: 35
         };
         COMMENT_CONFIG = {
-          OFFSET_X: w - 140,
-          OFFSET_Y: h - 20,
+          OFFSET_X: 120,
+          OFFSET_Y: 5 + 35 + 5,
           WIDTH: 130,
-          SIZE: 10
+          SIZE: 15
         };
         ID_CONFIG = {
           OFFSET_X: w - 140,
@@ -286,15 +292,6 @@
 
       /* Render comment */
         /* Paint a yellow brush */
-
-        if (param.comment && param.comment.length > 0) {
-          ctx.fillStyle = 'rgba(255, 255, 102, 0.5)';
-
-          ctx.fillRect( COMMENT_CONFIG.OFFSET_X,
-                        COMMENT_CONFIG.OFFSET_Y + COMMENT_CONFIG.SIZE / 2,
-                        COMMENT_CONFIG.WIDTH,
-                        BRUSH_CONFIG.HEIGHT);
-        }
 
         ctx.textBaseline = 'top';
         ctx.font = COMMENT_CONFIG.SIZE + 'px Aldine721 BT';
