@@ -34,6 +34,8 @@
         $('#page-header').append('<div class="alert"><strong>Warning!</strong> Your browser doesn\'t support canvas and facefont. Please consider to use a more modern browser such as Mozilla Firefox or Google Chrome.</div>');
       }
 
+      $('#uploader').hide();
+
       this.loadBackgroundImage();
       for (var i = 1; i <= 6; i++) {
         var container = $('#background-loader .controls .radio[data-value="'+i+'"]');
@@ -123,7 +125,7 @@
           $('#link').text(result.data.link)
                       .prop('href', result.data.link);
 
-          if (Modernizr.adownload) {
+          if (false || Modernizr.adownload) {
             $('#link').prop('download', 'pad.png');
           }
         }).error(function() {
