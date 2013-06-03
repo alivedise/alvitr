@@ -167,9 +167,7 @@
     if (param['image-size'] == 'facebook-cover') {
       backgroundImagePath = 'images/background/' + param['background-image'] + extention;
     } else {
-      // var prefix = 'cut_for_signature/';
-      var prefix = '';
-      backgroundImagePath = 'images/background/' + prefix + param['background-image'] + extention;
+      backgroundImagePath = 'images/background/s' + param['background-image'] + extention;
     }
 
     BackgroundGetter(backgroundImagePath).then(function(data) {  
