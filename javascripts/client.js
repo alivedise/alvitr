@@ -21,8 +21,7 @@
   var LEADERS_IMAGE_CONFIG = {};
   var LEADERS_2_IMAGE_CONFIG = {};
   var NAME_CONFIG = {};
-  var RANK_CONFIG = {};
-  var FRIEND_CONFIG = {};
+  var COMMENT_CONFIG = {};
   var ID_CONFIG = {};
   var LOGO_CONFIG = {};
   var BRUSH_CONFIG = {
@@ -111,23 +110,11 @@
           OFFSET_Y: 180,   /* the same as main */
           SIZE: 35
         };
-        RANK_CONFIG = {
+        COMMENT_CONFIG = {
           OFFSET_X: w - 185, /* the same as track button */
           OFFSET_Y: 180 + 80,
-          WIDTH: 70,
+          WIDTH: 180,
           SIZE: 15
-        };
-        FRIEND_CONFIG = {
-          OFFSET_X: w - 116,
-          OFFSET_Y: 180,
-          WIDTH: 150,
-          SIZE: 15
-        };
-        ID_CONFIG = {
-          OFFSET_X: w - 145,
-          OFFSET_Y: 180,
-          WIDTH: 145,
-          SIZE: 30
         };
         LOGO_CONFIG = {
           OFFSET_X: 23, /* left top of cover */
@@ -162,21 +149,15 @@
           OFFSET_Y: 5,
           SIZE: 35
         };
-        RANK_CONFIG = {
-          OFFSET_X: w - 140,
-          OFFSET_Y: h - 40,
-          WIDTH: 55,
-          SIZE: 10
-        };
-        FRIEND_CONFIG = {
+        COMMENT_CONFIG = {
           OFFSET_X: w - 140,
           OFFSET_Y: h - 20,
-          WIDTH: 120,
+          WIDTH: 130,
           SIZE: 10
         };
         ID_CONFIG = {
           OFFSET_X: w - 140,
-          OFFSET_Y: 15,
+          OFFSET_Y: 5,
           WIDTH: 140,
           SIZE: 25
         };
@@ -291,7 +272,7 @@
         /* Paint a blue brush */
         ctx.fillStyle = 'rgba(1, 134, 209, 0.5)';
         ctx.fillRect( ID_CONFIG.OFFSET_X,
-                      ID_CONFIG.OFFSET_Y + ID_CONFIG.SIZE / 2 - BRUSH_CONFIG.HEIGHT / 2,
+                      ID_CONFIG.OFFSET_Y + ID_CONFIG.SIZE / 2,
                       ID_CONFIG.WIDTH,
                       BRUSH_CONFIG.HEIGHT);
 
@@ -303,37 +284,24 @@
                       ID_CONFIG.OFFSET_Y);
       
 
-      /* Render rank */
+      /* Render comment */
         /* Paint a yellow brush */
-        ctx.fillStyle = 'rgba(255, 255, 102, 0.5)';
 
-        ctx.fillRect( RANK_CONFIG.OFFSET_X,
-                      RANK_CONFIG.OFFSET_Y + RANK_CONFIG.SIZE / 2 - BRUSH_CONFIG.HEIGHT / 2,
-                      RANK_CONFIG.WIDTH,
-                      BRUSH_CONFIG.HEIGHT);
+        if (param.comment && param.comment.length > 0) {
+          ctx.fillStyle = 'rgba(255, 255, 102, 0.5)';
+
+          ctx.fillRect( COMMENT_CONFIG.OFFSET_X,
+                        COMMENT_CONFIG.OFFSET_Y + COMMENT_CONFIG.SIZE / 2,
+                        COMMENT_CONFIG.WIDTH,
+                        BRUSH_CONFIG.HEIGHT);
+        }
 
         ctx.textBaseline = 'top';
-        ctx.font = RANK_CONFIG.SIZE + 'px Attic';
+        ctx.font = COMMENT_CONFIG.SIZE + 'px Aldine721 BT';
         ctx.fillStyle = 'black';
-        ctx.fillText('RANK:' + (param.rank || 1),
-                      RANK_CONFIG.OFFSET_X,
-                      RANK_CONFIG.OFFSET_Y);
-      
-
-      /* Render friend */
-        /* Paint a green brush */
-        ctx.fillStyle = 'rgba(102, 255, 179, 0.5)';
-        ctx.fillRect( FRIEND_CONFIG.OFFSET_X,
-                      FRIEND_CONFIG.OFFSET_Y + FRIEND_CONFIG.SIZE / 2 - BRUSH_CONFIG.HEIGHT / 2,
-                      FRIEND_CONFIG.WIDTH,
-                      BRUSH_CONFIG.HEIGHT);
-        ctx.fillStyle = 'black';
-        ctx.font = FRIEND_CONFIG.SIZE + 'px Attic';
-        ctx.textBaseline = 'top';
-        ctx.fillText('FRIEND:' + (param.friend || '0/20'),
-                      FRIEND_CONFIG.OFFSET_X,
-                      FRIEND_CONFIG.OFFSET_Y);
-      
+        ctx.fillText(param.comment || ''),
+                      COMMENT_CONFIG.OFFSET_X,
+                      COMMENT_CONFIG.OFFSET_Y);
 
         if ('character' in param &&
             param.character != '') {
