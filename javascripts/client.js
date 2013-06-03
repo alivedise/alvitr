@@ -66,7 +66,7 @@
   function getIconAndDraw(id, ctx, index, config) {
     var d = $.Deferred();
     IconGetter(id).then(function(img) {
-      ctx.shadowColor = "black";
+      ctx.shadowColor = config.SHADOW_COLOR;
       ctx.shadowOffsetX = config.SHADOW_OFFSET_X;
       ctx.shadowOffsetY = config.SHADOW_OFFSET_Y;
       ctx.shadowBlur = config.SHADOW_BLUR;
@@ -83,7 +83,7 @@
   function getIconAndDrawVertical(id, ctx, index, config) {
     var d = $.Deferred();
     IconGetter(id).then(function(img) {
-      ctx.shadowColor = "black";
+      ctx.shadowColor = config.SHADOW_COLOR;
       ctx.shadowOffsetX = config.SHADOW_OFFSET_X;
       ctx.shadowOffsetY = config.SHADOW_OFFSET_Y;
       ctx.shadowBlur = config.SHADOW_BLUR;
@@ -124,16 +124,18 @@
           OFFSET_Y: 180 + (80 - 40), /* Main char height - leader height */
           SHADOW_OFFSET_Y: 5,
           SHADOW_OFFSET_X: 5,
-          SHADOW_BLUR: 5
+          SHADOW_BLUR: 5,
+          SHADOW_COLOR: 'black'
         };
         FUNCTIONAL_LEADERS_IMAGE_CONFIG = {
           WIDTH: 25,
           HEIGHT: 25,
           OFFSET_X: w - 27*MaximumFunctionalLeaders,
-          OFFSET_Y: 5,
-          SHADOW_OFFSET_X: -3,
-          SHADOW_OFFSET_Y: 3,
-          SHADOW_BLUR: 3
+          OFFSET_Y: 0,
+          SHADOW_OFFSET_X: -2,
+          SHADOW_OFFSET_Y: 2,
+          SHADOW_BLUR: 10,
+          SHADOW_COLOR: 'yellow'
         };
         NAME_CONFIG = {
           OFFSET_X: 315,  /* the same as leaders */
@@ -141,8 +143,8 @@
           SIZE: 35
         };
         COMMENT_CONFIG = {
-          OFFSET_X: w - 185, /* the same as track button */
-          OFFSET_Y: 180 + 80,
+          OFFSET_X: w - 185 - 42 - 42,
+          OFFSET_Y: 180 + (80 - 40), /* Main char height - leader height */
           WIDTH: 180,
           SIZE: 15
         };
@@ -181,16 +183,18 @@
           OFFSET_Y: 110,
           SHADOW_OFFSET_X: 5,
           SHADOW_OFFSET_Y: 5,
-          SHADOW_BLUR: 5
+          SHADOW_BLUR: 5,
+          SHADOW_COLOR: 'black'
         };
         FUNCTIONAL_LEADERS_IMAGE_CONFIG = {
           WIDTH: 30,
           HEIGHT: 30,
           OFFSET_X: w - 32*MaximumFunctionalLeaders,
           OFFSET_Y: h - 30,
-          SHADOW_OFFSET_X: -3,
-          SHADOW_OFFSET_Y: -3,
-          SHADOW_BLUR: 3
+          SHADOW_OFFSET_X: -2,
+          SHADOW_OFFSET_Y: -2,
+          SHADOW_BLUR: 10,
+          SHADOW_COLOR: 'yellow'
         };
         NAME_CONFIG = {
           OFFSET_X: 120,
