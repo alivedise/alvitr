@@ -67,9 +67,9 @@
     var d = $.Deferred();
     IconGetter(id).then(function(img) {
       ctx.shadowColor = "black";
-      ctx.shadowOffsetX = 5;
-      ctx.shadowOffsetY = 5;
-      ctx.shadowBlur = 5;
+      ctx.shadowOffsetX = config.SHADOW_OFFSET_X;
+      ctx.shadowOffsetY = config.SHADOW_OFFSET_Y;
+      ctx.shadowBlur = config.SHADOW_BLUR;
       ctx.drawImage(img,
                     config.OFFSET_X + index * (config.WIDTH + 2),
                     config.OFFSET_Y,
@@ -84,9 +84,9 @@
     var d = $.Deferred();
     IconGetter(id).then(function(img) {
       ctx.shadowColor = "black";
-      ctx.shadowOffsetX = 5;
-      ctx.shadowOffsetY = 5;
-      ctx.shadowBlur = 5;
+      ctx.shadowOffsetX = config.SHADOW_OFFSET_X;
+      ctx.shadowOffsetY = config.SHADOW_OFFSET_Y;
+      ctx.shadowBlur = config.SHADOW_BLUR;
       ctx.drawImage(img,
                     config.OFFSET_X,
                     config.OFFSET_Y + index * (config.HEIGHT + 2),
@@ -121,13 +121,19 @@
           WIDTH: 40,
           HEIGHT: 40,
           OFFSET_X: 315,  /* Portrait offset + Main char offset */
-          OFFSET_Y: 180 + (80 - 40) /* Main char height - leader height */
+          OFFSET_Y: 180 + (80 - 40), /* Main char height - leader height */
+          SHADOW_OFFSET_Y: 5,
+          SHADOW_OFFSET_X: 5,
+          SHADOW_BLUR: 5
         };
         FUNCTIONAL_LEADERS_IMAGE_CONFIG = {
           WIDTH: 25,
           HEIGHT: 25,
-          OFFSET_X: w - 25,
-          OFFSET_Y: 5
+          OFFSET_X: w - 27*MaximumFunctionalLeaders,
+          OFFSET_Y: 5,
+          SHADOW_OFFSET_X: -3,
+          SHADOW_OFFSET_Y: 3,
+          SHADOW_BLUR: 3
         };
         NAME_CONFIG = {
           OFFSET_X: 315,  /* the same as leaders */
@@ -172,13 +178,19 @@
           WIDTH: 50,
           HEIGHT: 50,
           OFFSET_X: 5,
-          OFFSET_Y: 110
+          OFFSET_Y: 110,
+          SHADOW_OFFSET_X: 5,
+          SHADOW_OFFSET_Y: 5,
+          SHADOW_BLUR: 5
         };
         FUNCTIONAL_LEADERS_IMAGE_CONFIG = {
           WIDTH: 30,
           HEIGHT: 30,
-          OFFSET_X: w - 30,
-          OFFSET_Y: 5
+          OFFSET_X: w - 32*MaximumFunctionalLeaders,
+          OFFSET_Y: h - 30,
+          SHADOW_OFFSET_X: -3,
+          SHADOW_OFFSET_Y: -3,
+          SHADOW_BLUR: 3
         };
         NAME_CONFIG = {
           OFFSET_X: 120,
@@ -360,7 +372,7 @@
               param['functional-leaders'].forEach(function(mid) {
                 mid = '' + mid;
                 if (mid !== '0') {
-                  queue.push(getIconAndDrawVertical(mid, ctx, _count++, FUNCTIONAL_LEADERS_IMAGE_CONFIG));
+                  queue.push(getIconAndDraw(mid, ctx, _count++, FUNCTIONAL_LEADERS_IMAGE_CONFIG));
                 }
               });
             }
