@@ -182,7 +182,7 @@
           _sh = IMAGE_CONFIG.HEIGHT;
           _w = data.width;
           _h = data.width*_sh/_sw;
-          _sy = _h * 0.1;
+          _y = _h * 0.1;
           _sx = 0;
           break;
         case 'signature':
@@ -191,7 +191,7 @@
           _sh = IMAGE_CONFIG.HEIGHT;
           _w = data.width;
           _h = data.width*_sh/_sw;
-          _sy = _h * 0.25;
+          _y = _h * 0.25;
           _sx = offset;
           break;
       }
