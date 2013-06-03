@@ -167,7 +167,7 @@
     BackgroundGetter(backgroundImagePath).then(function(data) {  
       // Try to scale the background image to a reasonable size and position
       var _x = 0
-        , _y = 150
+        , _y = 0
         , _w
         , _h
         , _sw
