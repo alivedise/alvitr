@@ -33,7 +33,9 @@
     img.src = src;
 
     setTimeout(function(){
-      deferred.reject();
+		if(deferred){
+			deferred.reject();
+		}
     }, 10000);
 
     return deferred.promise();
