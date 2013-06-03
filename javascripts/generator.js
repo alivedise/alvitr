@@ -84,11 +84,9 @@
         if (self._uploading)
           return;
 
+        $('#link').hide().prop('href', '#');
         $('#upload').removeClass('btn-primary')
-                    .removeClass('btn-link')
                     .removeClass('btn-danger')
-                    .removeProp('download')
-                    .prop('href', '#')
                     .text('uploading...');
 
         var img;
@@ -121,16 +119,16 @@
               status:200
             }
           */
-          $('#upload').text(result.data.link)
-                      .prop('href', result.data.link)
-                      .addClass('btn-link');
+          $('#link').show();
+          $('#link').text(result.data.link)
+                      .prop('href', result.data.link);
 
           if (Modernizr.adownload) {
-            $('#upload').prop('download', 'pad.png');
+            $('#link').prop('download', 'pad.png');
           }
         }).error(function() {
           self._uploading = false;
-          $('#upload').removeClass('btn-link').addClass('btn-danger');
+          $('#upload').addClass('btn-danger');
           alert('Could not reach api.imgur.com. Sorry :(');
         });
       });
@@ -147,8 +145,9 @@
     submit: function() {
       var self = this;
       $('#uploader').hide();
+      $('#link').hide();
       $('#upload').text('Upload image to imgur..');
-      $('#upload').removeClass('btn-link').removeClass('btn-danger').addClass('btn-primary');
+      $('#upload').removeClass('btn-danger').addClass('btn-primary');
       $('#previewImage').prop('src', 'resource/ajax-loader.gif');
       if (Modernizr.canvas && Modernizr.canvastext) {
         window.renderClient($('form').serializeObject(), function(result) {
