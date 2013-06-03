@@ -164,7 +164,7 @@
       return d.promise();
     }
 
-    if (param['image-size'] == 'facebook-cover') {
+    if (param['image-size'] == 'facebook-cover' || extention == '.jpg') {
       backgroundImagePath = 'images/background/' + param['background-image'] + extention;
     } else {
       backgroundImagePath = 'images/background/s' + param['background-image'] + extention;

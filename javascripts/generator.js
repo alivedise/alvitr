@@ -50,7 +50,7 @@
       for (var i = 0; i < 6; i++) {
         var container = $('#background-loader .controls .radio[data-index="'+i+'"]');
         container.addClass('visible');
-        if (container.find('img').prop('src') === '') {
+        if (i > 0 && container.find('img').prop('src') === '') {
           container.find('img').prop('src', 'images/background/' + container.find('img').data('source'));
         }
       }
@@ -60,7 +60,7 @@
         callback: function(event, page) {
           event.preventDefault();
           $('#background-loader .controls .radio.visible').removeClass('visible');
-          for (var i = 1 + (page - 1) * IMAGE_PER_PAGE; i <= IMAGE_PER_PAGE + (page - 1) * IMAGE_PER_PAGE; i++) {
+          for (var i = (page - 1) * IMAGE_PER_PAGE; i < IMAGE_PER_PAGE + (page - 1) * IMAGE_PER_PAGE; i++) {
             var container = $('#background-loader .controls .radio[data-index="'+i+'"]');
             container.addClass('visible');
             if (container.find('img').prop('src') === '') {
