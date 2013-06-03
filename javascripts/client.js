@@ -80,6 +80,23 @@
     return d.promise();
   };
 
+  function getIconAndDrawVertical(id, ctx, index, config) {
+    var d = $.Deferred();
+    IconGetter(id).then(function(img) {
+      ctx.shadowColor = "black";
+      ctx.shadowOffsetX = 5;
+      ctx.shadowOffsetY = 5;
+      ctx.shadowBlur = 5;
+      ctx.drawImage(img,
+                    config.OFFSET_X,
+                    config.OFFSET_Y + index * (config.HEIGHT + 2),
+                    config.WIDTH,
+                    config.HEIGHT);
+      d.resolve();
+    });
+    return d.promise();
+  };
+
   function resolve(callback) {
     callback(canvas.toDataURL());
   }
@@ -107,9 +124,9 @@
           OFFSET_Y: 180 + (80 - 40) /* Main char height - leader height */
         };
         FUNCTIONAL_LEADERS_IMAGE_CONFIG = {
-          WIDTH: 30,
-          HEIGHT: 30,
-          OFFSET_X: w - 250,
+          WIDTH: 25,
+          HEIGHT: 25,
+          OFFSET_X: w - 25,
           OFFSET_Y: 5
         };
         NAME_CONFIG = {
@@ -160,8 +177,8 @@
         FUNCTIONAL_LEADERS_IMAGE_CONFIG = {
           WIDTH: 30,
           HEIGHT: 30,
-          OFFSET_X: w - 250,
-          OFFSET_Y: 110
+          OFFSET_X: w - 30,
+          OFFSET_Y: 5
         };
         NAME_CONFIG = {
           OFFSET_X: 120,
@@ -343,7 +360,7 @@
               param['functional-leaders'].forEach(function(mid) {
                 mid = '' + mid;
                 if (mid !== '0') {
-                  queue.push(getIconAndDraw(mid, ctx, _count++, FUNCTIONAL_LEADERS_IMAGE_CONFIG));
+                  queue.push(getIconAndDrawVertical(mid, ctx, _count++, FUNCTIONAL_LEADERS_IMAGE_CONFIG));
                 }
               });
             }

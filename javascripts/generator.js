@@ -60,18 +60,17 @@
 
       // Fork selector
       for (var i = 0 ; i < 5; i++) {
-        var clone = $('#selector-to-be-fork').clone();
-        clone.prop('id', 'selector-to-be-fork' + i);
-        clone.insertAfter($('#selector-to-be-fork'));
+        var clone = $('#leaders').clone();
+        clone.prop('id', 'leaders' + i);
+        clone.appendTo($('#leaders-container'));
       }
 
       // Fork second selector
-      for (var i = 0 ; i < 8; i++) {
-        var clone = $('#selector-to-be-fork').clone();
-        clone.prop('id', 'selector-to-be-fork' + i);
-        clone.find('select').prop('name', 'functional-leaders');
-        clone.find('label').text('Support leader(optional)');
-        clone.insertAfter($('#comment-container'));
+      for (var j = 0 ; j < 8; j++) {
+        var clone = $('#leaders').clone();
+        clone.prop('id', 'functional-leaders' + j);
+        clone.prop('name', 'functional-leaders');
+        clone.appendTo($('#functional-leaders-container'));
       }
       
       var self = this;
