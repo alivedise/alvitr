@@ -17,6 +17,7 @@
 
   var Generator = {
     _currentDataURL: '',
+    _uploading: false,
     _dirty: false,
     loadBackgroundImage: function() {
       for (var i = 1; i < 65; i++) {
@@ -87,9 +88,10 @@
                     .removeClass('btn-link')
                     .removeClass('btn-danger')
                     .prop('download', '')
-                    .prop('href', '#');
+                    .prop('href', '#')
+                    .text('uploading...');
+
         var img;
-        $('#upload').text('uploading...');
         self._uploading = true;
         try {
           img = self._currentDataURL.split(',')[1];
@@ -107,6 +109,7 @@
             },
             dataType: 'json'
         }).success(function(data) {
+          self._uploading = false;
           //console.log('post done!', data); //data would be like:
           /*{
               data:{
@@ -118,10 +121,12 @@
               status:200
             }
           */
-          $('#upload').text(data.link);
-          $('#upload').prop('download', 'pad.png');
-          $('#upload').prop('href', data.link);
+          $('#upload').text(data.link)
+                      .prop('download', 'pad.png')
+                      .prop('href', data.link)
+                      .addClass('btn-link');
         }).error(function() {
+          self._uploading = false;
           $('#upload').removeClass('btn-link').addClass('btn-danger');
           alert('Could not reach api.imgur.com. Sorry :(');
         });
