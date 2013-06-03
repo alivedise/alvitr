@@ -64,6 +64,15 @@
         clone.prop('id', 'selector-to-be-fork' + i);
         clone.insertAfter($('#selector-to-be-fork'));
       }
+
+      // Fork second selector
+      for (var i = 0 ; i < 8; i++) {
+        var clone = $('#selector-to-be-fork').clone();
+        clone.prop('id', 'selector-to-be-fork' + i);
+        clone.find('select').prop('name', 'functional-leaders');
+        clone.find('label').text('Support leader(optional)');
+        clone.insertAfter($('#comment-container'));
+      }
       
       var self = this;
       $('form').change(function() {

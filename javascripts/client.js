@@ -7,6 +7,7 @@
   var $ = window.jQuery;
   var document = window.document;
   var MaximumLeaders = 6;
+  var MaximumFunctionalLeaders = 8;
 
   var canvas = document.createElement('canvas'),
   ctx = canvas.getContext('2d'),
@@ -19,7 +20,7 @@
   // Declare image constant.
   var MAIN_CHAR_IMAGE_CONFIG = {};
   var LEADERS_IMAGE_CONFIG = {};
-  var LEADERS_2_IMAGE_CONFIG = {};
+  var FUNCTIONAL_LEADERS_IMAGE_CONFIG = {};
   var NAME_CONFIG = {};
   var COMMENT_CONFIG = {};
   var ID_CONFIG = {};
@@ -62,7 +63,7 @@
     return BackgroundGetter('images/icon/' + MID + 'i.png');
   };
 
-  function getIconAndDraw(id, ctx, index) {
+  function getIconAndDraw(id, ctx, index, config) {
     var d = $.Deferred();
     IconGetter(id).then(function(img) {
       ctx.shadowColor = "black";
@@ -70,10 +71,10 @@
       ctx.shadowOffsetY = 5;
       ctx.shadowBlur = 5;
       ctx.drawImage(img,
-                    LEADERS_IMAGE_CONFIG.OFFSET_X + index * (LEADERS_IMAGE_CONFIG.WIDTH + 2),
-                    LEADERS_IMAGE_CONFIG.OFFSET_Y,
-                    LEADERS_IMAGE_CONFIG.WIDTH,
-                    LEADERS_IMAGE_CONFIG.HEIGHT);
+                    config.OFFSET_X + index * (config.WIDTH + 2),
+                    config.OFFSET_Y,
+                    config.WIDTH,
+                    config.HEIGHT);
       d.resolve();
     });
     return d.promise();
@@ -104,6 +105,12 @@
           HEIGHT: 40,
           OFFSET_X: 315,  /* Portrait offset + Main char offset */
           OFFSET_Y: 180 + (80 - 40) /* Main char height - leader height */
+        };
+        FUNCTIONAL_LEADERS_IMAGE_CONFIG = {
+          WIDTH: 30,
+          HEIGHT: 30,
+          OFFSET_X: w - 250,
+          OFFSET_Y: 5
         };
         NAME_CONFIG = {
           OFFSET_X: 315,  /* the same as leaders */
@@ -150,16 +157,22 @@
           OFFSET_X: 5,
           OFFSET_Y: 110
         };
+        FUNCTIONAL_LEADERS_IMAGE_CONFIG = {
+          WIDTH: 30,
+          HEIGHT: 30,
+          OFFSET_X: w - 250,
+          OFFSET_Y: 110
+        };
         NAME_CONFIG = {
           OFFSET_X: 120,
           OFFSET_Y: 5,
-          SIZE: 35
+          SIZE: 40
         };
         COMMENT_CONFIG = {
           OFFSET_X: 120,
-          OFFSET_Y: 5 + 35 + 5,
+          OFFSET_Y: 5 + 40 + 5,
           WIDTH: 130,
-          SIZE: 15
+          SIZE: 30
         };
         ID_CONFIG = {
           OFFSET_X: w - 140,
@@ -313,21 +326,32 @@
                           MAIN_CHAR_IMAGE_CONFIG.OFFSET_Y,
                           MAIN_CHAR_IMAGE_CONFIG.WIDTH,
                           MAIN_CHAR_IMAGE_CONFIG.HEIGHT);
+
+            /* Draw leaders(optional) */
             if ('leaders' in param) {
               var _count = 0;
-              param.leaders.forEach(function(mid, index) {
+              param.leaders.forEach(function(mid) {
                 mid = '' + mid;
                 if (mid !== '0') {
-                  queue.push(getIconAndDraw(mid, ctx, _count++));
+                  queue.push(getIconAndDraw(mid, ctx, _count++, LEADERS_IMAGE_CONFIG));
                 }
               });
-              if (queue.length > 0) {
-                $.when.apply($, queue).then(function(){
-                  resolve(callback);
-                });
-              } else {
+            }
+
+            if ('functional-leaders' in param) {
+              var _count = 0;
+              param['functional-leaders'].forEach(function(mid) {
+                mid = '' + mid;
+                if (mid !== '0') {
+                  queue.push(getIconAndDraw(mid, ctx, _count++, FUNCTIONAL_LEADERS_IMAGE_CONFIG));
+                }
+              });
+            }
+
+            if (queue.length > 0) {
+              $.when.apply($, queue).then(function(){
                 resolve(callback);
-              }
+              });
             } else {
               resolve(callback);
             }
