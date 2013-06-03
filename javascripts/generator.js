@@ -80,25 +80,51 @@
       });
 
       $('#upload').click(function() {
-        if (self._currentDataURL !== '') {
-          var img;
-          try {
-            img = self._currentDataURL.split(',')[1];
-          } catch(e) {
-            img = self._currentDataURL.split(',')[1];
-          }
-          $.ajax({
-              url: 'http://api.imgur.com/3/upload.json',
-              type: 'POST',
-              data: {
-                  image: img
-              },
-              dataType: 'json'
-          }).success(function(data) {
-          }).error(function() {
-            alert('Could not reach api.imgur.com. Sorry :(');
-          });
+        if (self._uploading)
+          return;
+
+        $('#upload').removeClass('btn-primary')
+                    .removeClass('btn-link')
+                    .removeClass('btn-danger')
+                    .prop('download', '')
+                    .prop('href', '#');
+        var img;
+        $('#upload').text('uploading...');
+        self._uploading = true;
+        try {
+          img = self._currentDataURL.split(',')[1];
+        } catch(e) {
+          img = self._currentDataURL.split(',')[1];
         }
+        $.ajax({
+            url: 'https://api.imgur.com/3/image',
+            type: 'POST',
+            beforeSend: function($xhr) {
+              $xhr.setRequestHeader('Authorization', 'Client-ID e13864a62bbe306');
+            },
+            data: {
+              image: img
+            },
+            dataType: 'json'
+        }).success(function(data) {
+          //console.log('post done!', data); //data would be like:
+          /*{
+              data:{
+                  id: "pinMEoq",
+                  deletehash: "EgxuoPAyCCfd5FP",
+                  link:"http://i.imgur.com/pinMEoq.png"
+              },
+              success:true,
+              status:200
+            }
+          */
+          $('#upload').text(data.link);
+          $('#upload').prop('download', 'pad.png');
+          $('#upload').prop('href', data.link);
+        }).error(function() {
+          $('#upload').removeClass('btn-link').addClass('btn-danger');
+          alert('Could not reach api.imgur.com. Sorry :(');
+        });
       });
 
       $('#download').hide();
@@ -124,6 +150,9 @@
     submit: function() {
       var self = this;
       $('#download').hide();
+      $('#upload').hide();
+      $('#upload').text('Upload image to imgur..');
+      $('#upload').removeClass('btn-link').removeClass('btn-danger').addClass('btn-primary');
       $('#previewImage').prop('src', 'resource/ajax-loader.gif');
       if (Modernizr.canvas && Modernizr.canvastext) {
         window.renderClient($('form').serializeObject(), function(result) {
@@ -132,6 +161,7 @@
           self._currentDataURL = result;
           $('#previewImage').prop('src', result);
           $('#download').show();
+          $('#upload').show();
         });
       } else {
         $.post('/form', $('form').serializeObject(),
