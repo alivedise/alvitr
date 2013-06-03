@@ -148,13 +148,14 @@
     var d = $.Deferred();
     var offset = 0;
     var extention = '.png';
+    var backgroundImagePath = '';
 
     if (('' + param['background-image']).charAt(0) === 'f') {
       // We are non-transparent background;
       offset = 0;
       extention = '.jpg';
     } else if (param['image-size'] != 'facebook-cover') {
-      offset = 190;
+      offset = 150;
     }
 
     var source = parseInt(param['background-image'], 10);
@@ -163,7 +164,12 @@
       return d.promise();
     }
 
-    var backgroundImagePath = 'images/background/' + param['background-image'] + extention;
+    if (param['image-size'] == 'signature') {
+      backgroundImagePath = 'images/background/' + param['background-image'] + extention;
+    } else {
+      backgroundImagePath = 'images/background/cut_for_signature/' + param['background-image'] + extention;
+    }
+
     BackgroundGetter(backgroundImagePath).then(function(data) {  
       // Try to scale the background image to a reasonable size and position
       var _x = 0
@@ -187,12 +193,22 @@
           break;
         case 'signature':
           // For signature, we try not to resize too much.
-          _sw = IMAGE_CONFIG.WIDTH - offset;
-          _sh = IMAGE_CONFIG.HEIGHT;
-          _w = data.width;
-          _h = data.width*_sh/_sw;
-          _y = data.height * 0.2;
-          _sx = offset;
+          if (extention == '.jpg') {
+            // If we are jpg, use width anyway.
+            _sw = IMAGE_CONFIG.WIDTH;
+            _sh = IMAGE_CONFIG.HEIGHT;
+            _w = data.width;
+            _h = data.width*_sh/_sw;
+            _y = 0;
+            _sx = 0;
+          } else {
+            _sw = IMAGE_CONFIG.WIDTH;
+            _sh = IMAGE_CONFIG.HEIGHT;
+            _w = data.width;
+            _h = data.height;
+            _y = 0;
+            _sx = offset;
+          }
           break;
       }
       
@@ -226,9 +242,9 @@
         ctx.fillRect(0, 0, IMAGE_CONFIG.WIDTH, IMAGE_CONFIG.HEIGHT);
       } else {
         if (extention == '.png') {
-          ctx.fillStyle = "rgba(255, 255, 255, 0.6)";
+          ctx.fillStyle = "rgba(255, 255, 255, 0.33)";
         } else {
-          ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
+          ctx.fillStyle = "rgba(255, 255, 255, 0.15)";
         }
         ctx.fillRect(0, 0, IMAGE_CONFIG.WIDTH, IMAGE_CONFIG.HEIGHT);
       }
