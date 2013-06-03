@@ -154,7 +154,7 @@
       offset = 0;
       extention = '.jpg';
     } else if (param['image-size'] != 'facebook-cover') {
-      offset = 220;
+      offset = 190;
     }
 
     var source = parseInt(param['background-image'], 10);
