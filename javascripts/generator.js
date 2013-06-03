@@ -51,7 +51,7 @@
         var container = $('#background-loader .controls .radio[data-index="'+i+'"]');
         container.addClass('visible');
         if (container.find('img').prop('src') === '') {
-          container.find('img').prop('src', container.find('img').data('source'));
+          container.find('img').prop('src', 'images/background/' + container.find('img').data('source'));
         }
       }
       $('#pager').pagination({
