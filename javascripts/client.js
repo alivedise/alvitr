@@ -103,7 +103,7 @@
     if (param['background-color'] == 'custom') {
       d.resolve();  // don't support custom now
       return d.promise();
-      
+
       BackgroundGetter(param['custom-background']).then(function(data) {
         if (data) {
           var _x = 0, _y = 0, _w, _h, _sx = 0, _sy = 0, _sw, _sh;
@@ -128,6 +128,16 @@
 
   function renderBackgroundImage(param) {
     var d = $.Deferred();
+    var offset = 0;
+
+    if (('' + param['background-image']).charAt(0) == 'f' ||
+        ('' + param['background-image']).indexOf('jpg')) {
+      // We are non-transparent background;
+      offset = 0;
+    } else if (param['image-size'] != 'facebook-cover') {
+      offset = 220;
+    }
+
     var source = parseInt(param['background-image'], 10);
     if (source == 0) {
       d.resolve();
@@ -157,12 +167,12 @@
           break;
         case 'signature':
           // For signature, we try not to resize too much.
-          _sw = IMAGE_CONFIG.WIDTH - 220;
+          _sw = IMAGE_CONFIG.WIDTH - offset;
           _sh = IMAGE_CONFIG.HEIGHT;
           _w = data.width;
           _h = data.width*_sh/_sw;
           _y = _h * 0.25;
-          _sx = 220;
+          _sx = offset;
           break;
       }
       
