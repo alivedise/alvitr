@@ -126,7 +126,7 @@
         ID_CONFIG = {
           OFFSET_X: w - 145,
           OFFSET_Y: 180,
-          WIDTH: 145
+          WIDTH: 145,
           SIZE: 30
         };
         LOGO_CONFIG = {
@@ -177,6 +177,7 @@
         ID_CONFIG = {
           OFFSET_X: w - 140,
           OFFSET_Y: 15,
+          WIDTH: 140,
           SIZE: 25
         };
         break;
