@@ -115,13 +115,13 @@
           OFFSET_X: w - 185, /* the same as track button */
           OFFSET_Y: 180 + 80,
           WIDTH: 70,
-          SIZE: 25
+          SIZE: 15
         };
         FRIEND_CONFIG = {
           OFFSET_X: w - 116,
-          OFFSET_Y: h - 20,
+          OFFSET_Y: 180,
           WIDTH: 150,
-          SIZE: 25
+          SIZE: 15
         };
         ID_CONFIG = {
           OFFSET_X: w - 145,
@@ -163,16 +163,16 @@
           SIZE: 35
         };
         RANK_CONFIG = {
-          OFFSET_X: w - 120,
-          OFFSET_Y: h - 80,
+          OFFSET_X: w - 140,
+          OFFSET_Y: h - 40,
           WIDTH: 55,
-          SIZE: 20
+          SIZE: 10
         };
         FRIEND_CONFIG = {
-          OFFSET_X: w - 120,
+          OFFSET_X: w - 140,
           OFFSET_Y: h - 20,
           WIDTH: 120,
-          SIZE: 20
+          SIZE: 10
         };
         ID_CONFIG = {
           OFFSET_X: w - 140,
@@ -290,8 +290,8 @@
       /* Render ID */
         /* Paint a blue brush */
         ctx.fillStyle = 'rgba(1, 134, 209, 0.5)';
-        ctx.fillRect( ID_CONFIG.OFFSET_X + ID_CONFIG.OFFSET_X / 2 - BRUSH_CONFIG.HEIGHT / 2,
-                      ID_CONFIG.OFFSET_Y,
+        ctx.fillRect( ID_CONFIG.OFFSET_X,
+                      ID_CONFIG.OFFSET_Y + ID_CONFIG.SIZE / 2 - BRUSH_CONFIG.HEIGHT / 2,
                       ID_CONFIG.WIDTH,
                       BRUSH_CONFIG.HEIGHT);
 
@@ -307,8 +307,8 @@
         /* Paint a yellow brush */
         ctx.fillStyle = 'rgba(255, 255, 102, 0.5)';
 
-        ctx.fillRect( RANK_CONFIG.OFFSET_X + RANK_CONFIG.OFFSET_X / 2 - BRUSH_CONFIG.HEIGHT / 2,
-                      RANK_CONFIG.OFFSET_Y,
+        ctx.fillRect( RANK_CONFIG.OFFSET_X,
+                      RANK_CONFIG.OFFSET_Y + RANK_CONFIG.SIZE / 2 - BRUSH_CONFIG.HEIGHT / 2,
                       RANK_CONFIG.WIDTH,
                       BRUSH_CONFIG.HEIGHT);
 
@@ -323,8 +323,8 @@
       /* Render friend */
         /* Paint a green brush */
         ctx.fillStyle = 'rgba(102, 255, 179, 0.5)';
-        ctx.fillRect( FRIEND_CONFIG.OFFSET_X + FRIEND_CONFIG.OFFSET_X / 2 - BRUSH_CONFIG.HEIGHT / 2,
-                      FRIEND_CONFIG.OFFSET_Y,
+        ctx.fillRect( FRIEND_CONFIG.OFFSET_X,
+                      FRIEND_CONFIG.OFFSET_Y + FRIEND_CONFIG.SIZE / 2 - BRUSH_CONFIG.HEIGHT / 2,
                       FRIEND_CONFIG.WIDTH,
                       BRUSH_CONFIG.HEIGHT);
         ctx.fillStyle = 'black';
@@ -349,10 +349,11 @@
                           MAIN_CHAR_IMAGE_CONFIG.WIDTH,
                           MAIN_CHAR_IMAGE_CONFIG.HEIGHT);
             if ('leaders' in param) {
+              var _count = 0;
               param.leaders.forEach(function(mid, index) {
                 mid = '' + mid;
                 if (mid !== '0') {
-                  queue.push(getIconAndDraw(mid, ctx, index));
+                  queue.push(getIconAndDraw(mid, ctx, _count++));
                 }
               });
               if (queue.length > 0) {
