@@ -164,9 +164,11 @@
       return d.promise();
     }
 
-    if (param['image-size'] == 'facebook-cover' || extention == '.jpg') {
+    if (param['image-size'] == 'facebook-cover') {
       backgroundImagePath = 'images/background/' + param['background-image'] + extention;
     } else {
+      if (extention == '.jpg') {
+        extention = '.png';
       backgroundImagePath = 'images/background/s' + param['background-image'] + extention;
     }
 
