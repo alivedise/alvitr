@@ -158,9 +158,9 @@
 
     if (('' + param['background-image']).charAt(0) === 'f') {
       // We are non-transparent background;
-      offset = 0;
       extention = '.jpg';
-    } else if (param['image-size'] != 'facebook-cover') {
+    }
+    if (param['image-size'] != 'facebook-cover') {
       offset = 150;
     }
 
