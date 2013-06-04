@@ -74,13 +74,6 @@
       $('#uploader').hide();
 
       this.loadBackgroundImage();
-      for (var i = 0; i < 6; i++) {
-        var container = $('#background-loader .controls .radio[data-index="'+i+'"]');
-        container.addClass('visible');
-        if (i > 0 && container.find('img').prop('src') === '') {
-          container.find('img').prop('src', 'images/background/' + container.find('img').data('source'));
-        }
-      }
       $('.pager').pagination({
         total_pages: Math.ceil(whitelist[this._currentTemplate].length / IMAGE_PER_PAGE),
         current_page: 1,
@@ -90,6 +83,7 @@
           return false;
         }
       });
+      this.showPage(1);
 
       // Fork selector
       for (var i = 0 ; i < 5; i++) {
