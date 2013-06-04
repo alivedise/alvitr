@@ -47,7 +47,7 @@
           whitelist['facebook-cover'].push(_count);
         }
         $('#background-loader .controls').append('<label class="radio" data-index="'+_count+'">'+
-            '<input type="radio" name="background-image" value="f'+i+'">'+
+            '<input type="radio" name="background-image" value="f'+i+'" data-ext=".jpg">'+
             '<span class="background-image-container"><img data-source="f'+i+'.jpg" /></span>'+
           '</label>');
       }
@@ -59,7 +59,7 @@
           whitelist['facebook-cover'].push(_count);
         }
         $('#background-loader .controls').append('<label class="radio" data-index="'+_count+'">'+
-            '<input type="radio" name="background-image" value="'+i+'">'+
+            '<input type="radio" name="background-image" value="'+i+'" data-ext=".png">'+
             '<span class="background-image-container"><img data-source="'+i+'.png" /></span>'+
           '</label>');
       }
@@ -177,7 +177,20 @@
         return false;
       });
 
-
+      $('#image-edit').click(function(evt) {
+        evt.preventDefault();
+        var path = 'images/background/' +
+          $('[name=background-image]').val() +
+          $('[name=background-image]:checked').data('ext');
+        switch (this._currentTemplate) {
+          case 'facebook-cover':
+            imageCropper(path, {w: 851, h: 315});
+            break;
+          case 'signature':
+            imageCropper(path, {w: 700, h: 170});
+            break;
+        }
+      });
     },
 
     submit: function() {

@@ -66,7 +66,7 @@
       } catch (e) {
 
       }
-    }, 10000);
+    }, 15000);
 
     return deferred.promise();
   };
@@ -518,5 +518,6 @@
   }
 
   window.renderClient = render;
+  window.imageGetter = BackgroundGetter;
 }(this));
 
