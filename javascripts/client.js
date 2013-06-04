@@ -267,7 +267,7 @@
     /* Render name */
     ctx.fillStyle = '#fff';
     ctx.strokeStyle = 'black';
-    ctx.font = 'bold ' + NAME_CONFIG.SIZE + 'px Microsoft JhengHei Aldine721 BT';
+    ctx.font = 'bold ' + NAME_CONFIG.SIZE + 'px WT014 Aldine721 BT';
     ctx.textBaseline = 'top';
     ctx.fillText(param.name || '',
                   NAME_CONFIG.OFFSET_X,
@@ -294,7 +294,7 @@
 
     /* Render comment */
     ctx.textBaseline = 'top';
-    ctx.font = COMMENT_CONFIG.SIZE + 'px Microsoft JhengHei Aldine721 BT';
+    ctx.font = COMMENT_CONFIG.SIZE + 'px W014 Aldine721 BT';
     ctx.fillStyle = 'black';
     ctx.fillText(param.comment || '',
                   COMMENT_CONFIG.OFFSET_X,
