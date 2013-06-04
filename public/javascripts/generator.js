@@ -76,13 +76,27 @@
             img = self._currentDataURL.split(',')[1];
           }
           $.ajax({
-              url: 'http://api.imgur.com/3/upload.json',
+              url: 'https://api.imgur.com/3/image',
               type: 'POST',
+              beforeSend: function($xhr) {
+                $xhr.setRequestHeader('Authorization', 'Client-ID e13864a62bbe306');
+              },
               data: {
-                  image: img
+                image: img
               },
               dataType: 'json'
           }).success(function(data) {
+            //console.log('post done!', data); //data would be like:
+            /*{
+                data:{
+                    id: "pinMEoq",
+                    deletehash: "EgxuoPAyCCfd5FP",
+                    link:"http://i.imgur.com/pinMEoq.png"
+                },
+                success:true,
+                status:200
+              }
+            */
           }).error(function() {
             alert('Could not reach api.imgur.com. Sorry :(');
           });
