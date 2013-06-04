@@ -1,6 +1,20 @@
 (function(window) {
   var JPG_COUNT = 23;
   var PNG_COUNT = 71;
+  var blacklist = {
+    'facebook-cover': {
+      'png': [],
+      'jpg': []
+    },
+    'signature': {
+      'png': [],
+      'jpg': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+    }
+  };
+  var whitelist = {
+    'facebook-cover': [0],
+    'signature': [0]
+  };
   var IMAGE_PER_PAGE = 6;
   $.fn.serializeObject = function() {
       var o = {};
@@ -22,15 +36,28 @@
     _currentDataURL: '',
     _uploading: false,
     _dirty: false,
+    _currentTemplate: 'signature',
     loadBackgroundImage: function() {
       var _count = 1;
       for (var i = 1; i <= JPG_COUNT; i++, _count++) {
+        if (blacklist['signature']['jpg'].indexOf(_count) < 0) {
+          whitelist['signature'].push(_count);
+        }
+        if (blacklist['facebook-cover']['jpg'].indexOf(_count) < 0) {
+          whitelist['facebook-cover'].push(_count);
+        }
         $('#background-loader .controls').append('<label class="radio" data-index="'+_count+'">'+
             '<input type="radio" name="background-image" value="f'+i+'">'+
             '<span class="background-image-container"><img data-source="f'+i+'.jpg" /></span>'+
           '</label>');
       }
       for (var i = 1; i <= PNG_COUNT; i++, _count++) {
+        if (blacklist['signature']['png'].indexOf(_count) < 0) {
+          whitelist['signature'].push(_count);
+        }
+        if (blacklist['facebook-cover']['png'].indexOf(_count) < 0) {
+          whitelist['facebook-cover'].push(_count);
+        }
         $('#background-loader .controls').append('<label class="radio" data-index="'+_count+'">'+
             '<input type="radio" name="background-image" value="'+i+'">'+
             '<span class="background-image-container"><img data-source="'+i+'.png" /></span>'+
@@ -54,19 +81,12 @@
           container.find('img').prop('src', 'images/background/' + container.find('img').data('source'));
         }
       }
-      $('#pager').pagination({
-        total_pages: Math.ceil((JPG_COUNT + PNG_COUNT) / IMAGE_PER_PAGE),
+      $('.pager').pagination({
+        total_pages: Math.ceil(whitelist[this._currentTemplate].length / IMAGE_PER_PAGE),
         current_page: 1,
         callback: function(event, page) {
           event.preventDefault();
-          $('#background-loader .controls .radio.visible').removeClass('visible');
-          for (var i = (page - 1) * IMAGE_PER_PAGE; i < IMAGE_PER_PAGE + (page - 1) * IMAGE_PER_PAGE; i++) {
-            var container = $('#background-loader .controls .radio[data-index="'+i+'"]');
-            container.addClass('visible');
-            if (container.find('img').prop('src') === '') {
-              container.find('img').prop('src', 'images/background/' + container.find('img').data('source'));
-            }
-          }
+          self.showPage(page);
           return false;
         }
       });
@@ -87,6 +107,13 @@
       }
       
       var self = this;
+
+      $('input[name="image-size"]').change(function(evt) {
+        evt.stopPropagation();
+        console.log($(this).val());
+        self.changeTemplate($(this).val());
+      });
+
       $('form').change(function() {
         self._dirty = true;
         self.submit();
@@ -100,7 +127,7 @@
         $('#link').hide().prop('href', '#');
         $('#upload').removeClass('btn-primary')
                     .removeClass('btn-danger')
-                    .text('uploading...');
+                    .text('uploading.../上傳中...');
 
         var img;
         self._uploading = true;
@@ -132,6 +159,7 @@
               status:200
             }
           */
+          $('#upload').text('Upload/上傳成功!');
           $('#link').show();
           $('#link').text(result.data.link)
                       .prop('href', result.data.link);
@@ -141,7 +169,8 @@
           }
         }).error(function() {
           self._uploading = false;
-          $('#upload').addClass('btn-danger');
+          $('#upload').addClass('btn-danger')
+                      .text('Upload failed, please save the image on right click/上傳失敗請自行右鍵另存。');
           alert('Could not reach api.imgur.com. Sorry :(');
         });
       });
@@ -153,13 +182,15 @@
           self.submit();
         return false;
       });
+
+
     },
 
     submit: function() {
       var self = this;
       $('#uploader').hide();
       $('#link').hide();
-      $('#upload').text('Upload image to imgur..');
+      $('#upload').text('Upload image to imgur/上傳名片檔到imgur');
       $('#upload').removeClass('btn-danger').addClass('btn-primary');
       $('#previewImage').prop('src', 'resource/ajax-loader.gif');
       if (Modernizr.canvas && Modernizr.canvastext) {
@@ -177,6 +208,38 @@
           $('#previewImage').prop('src', result);
         });
       }
+    },
+
+    showPage: function(page) {
+      $('#background-loader .controls .radio.visible').removeClass('visible');
+      for (var i = (page - 1) * IMAGE_PER_PAGE; i < IMAGE_PER_PAGE + (page - 1) * IMAGE_PER_PAGE; i++) {
+        var container = $('#background-loader .controls .radio[data-index="' + whitelist[this._currentTemplate][i] + '"]');
+        container.addClass('visible');
+        if (container.find('img').prop('src') === '') {
+          container.find('img').prop('src', 'images/background/' + container.find('img').data('source'));
+        }
+      }
+    },
+
+    changeTemplate: function(template) {
+      this._currentTemplate = template;
+      // reset background
+      switch (template) {
+        case 'facebook-cover':
+          $('.pager').pagination({
+            total_pages: Math.ceil(whitelist['facebook-cover'].length / IMAGE_PER_PAGE),
+            current_page: 1
+          });
+          break;
+        case 'signature':
+          $('.pager').pagination({
+            total_pages: Math.ceil(whitelist['signature'].length / IMAGE_PER_PAGE),
+            current_page: 1
+          });
+          break;
+      }
+      this.showPage(1);
+      $('#none-background').prop('checked', true).trigger('change');
     }
   };
 

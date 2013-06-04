@@ -24,6 +24,11 @@ div.control-group .background-image-container {
   height: auto;
 }
 
+img.template {
+  width: 500px;
+  height: auto;
+}
+
 #background-loader label.radio {
   width: 200px;
   float: left;
