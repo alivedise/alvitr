@@ -295,11 +295,13 @@
     // there's a minimum font size so..
     ctx.font = '2px Tahoma Geneva sans-serif';
     ctx.fillText('http://alivedise.github.io/alvitr',
-                  (IMAGE_CONFIG.WIDTH - WATERMARK_CONFIG.WIDTH)/0.75,
+                  param['image-size'] == 'facebook-cover' ?
+                  0 : (IMAGE_CONFIG.WIDTH - WATERMARK_CONFIG.WIDTH)/0.75,
                   WATERMARK_CONFIG.OFFSET_Y);
     ctx.strokeText('http://alivedise.github.io/alvitr',
-              (IMAGE_CONFIG.WIDTH - WATERMARK_CONFIG.WIDTH)/0.75,
-              WATERMARK_CONFIG.OFFSET_Y);
+                    param['image-size'] == 'facebook-cover' ?
+                    0 : (IMAGE_CONFIG.WIDTH - WATERMARK_CONFIG.WIDTH)/0.75,
+                    WATERMARK_CONFIG.OFFSET_Y);
 
     ctx.restore();
 
