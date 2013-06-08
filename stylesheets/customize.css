@@ -51,8 +51,12 @@ img.template {
   src: url(../resource/font.ttf) format("truetype");
 }
 
-
 @font-face {
   font-family: WT014;
   src: url(../resource/wt014.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: Journal;
+  src: url(../resource/journal.ttf) format("truetype");
 }
