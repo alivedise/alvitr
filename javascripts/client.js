@@ -280,13 +280,13 @@
     ctx.textBaseline = 'top';
     ctx.lineWidth = 1;
     /* Render watermark */
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+    ctx.fillStyle = 'rgba(255, 255, 255, 1)';
     ctx.fillRect(WATERMARK_CONFIG.OFFSET_X,
-                  WATERMARK_CONFIG.OFFSET_Y,
-                  WATERMARK_CONFIG.WIDTH,
-                  10);
+                  WATERMARK_CONFIG.OFFSET_Y - 2,
+                  WATERMARK_CONFIG.WIDTH + 2,
+                  11);
 
-    ctx.fillStyle = 'rgba(1, 134, 209, 0.25)';
+    ctx.fillStyle = 'rgba(1, 134, 209, 1)';
     // there's a minimum font size so..
     ctx.font = '2px Tahoma Geneva sans-serif';
     ctx.fillText('http://alivedise.github.io/alvitr',
