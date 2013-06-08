@@ -282,9 +282,9 @@
     /* Render watermark */
     ctx.fillStyle = 'rgba(255, 255, 255, 0.75)';
     ctx.fillRect(WATERMARK_CONFIG.OFFSET_X,
-                  WATERMARK_CONFIG.OFFSET_Y + WATERMARK_CONFIG.SIZE / 2,
+                  WATERMARK_CONFIG.OFFSET_Y + WATERMARK_CONFIG.SIZE,
                   WATERMARK_CONFIG.WIDTH,
-                  WATERMARK_CONFIG.SIZE);
+                  2);
 
     ctx.fillStyle = 'rgba(1, 134, 209, 0.25)';
     // there's a minimum font size so..
