@@ -295,7 +295,7 @@
     // there's a minimum font size so..
     ctx.font = '2px Tahoma Geneva sans-serif';
     ctx.fillText('http://alivedise.github.io/alvitr',
-                  WATERMARK_CONFIG.OFFSET_X/0.75,
+                  (IMAGE_CONFIG.WIDTH - WATERMARK_CONFIG.WIDTH)/0.75,
                   WATERMARK_CONFIG.OFFSET_Y);
     ctx.strokeText('http://alivedise.github.io/alvitr',
               WATERMARK_CONFIG.OFFSET_X/0.75,
@@ -480,7 +480,7 @@
           OFFSET_X: 0,
           OFFSET_Y: 0,
           SIZE: 5,
-          WIDTH: 180
+          WIDTH: 150
         };
         ID_CONFIG = {
           OFFSET_X: IMAGE_CONFIG.WIDTH - 150,
@@ -499,7 +499,7 @@
           OFFSET_Y: 170 - 30 - 5 - 30
         };
         WATERMARK_CONFIG = {
-          OFFSET_X: IMAGE_CONFIG.WIDTH - 180,
+          OFFSET_X: IMAGE_CONFIG.WIDTH - 150,
           OFFSET_Y: 0,
           SIZE: 5,
           WIDTH: 180
@@ -557,7 +557,7 @@
           OFFSET_Y: 125 - 30 - 5 - 20
         };
         WATERMARK_CONFIG = {
-          OFFSET_X: IMAGE_CONFIG.WIDTH - 180,
+          OFFSET_X: IMAGE_CONFIG.WIDTH - 150,
           OFFSET_Y: 0,
           SIZE: 5,
           WIDTH: 180
