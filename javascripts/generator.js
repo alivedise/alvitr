@@ -243,7 +243,7 @@
                               .text('Font and configuration loaded./字型以及前次設定載入完畢。');
             if (reallyLoaded)
               self.submit(true); //ignore setting this time.
-          }, 500); //chrome loading font workaround.
+          }, 1000); //chrome loading font workaround.
         };
     },
 
