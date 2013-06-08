@@ -39,9 +39,11 @@
 
   var Generator = {
     loadCache: function() {
+      var loaded_count = 0;
       var object = $('form').serializeObject();
       for (var key in object) {
         if ($.jStorage.get(key)) {
+          loaded_count++;
           var value = $.jStorage.get(key);
           var element = $('[name="' + key + '"]');
           if (element.length === 0)
@@ -71,6 +73,8 @@
           }
         }
       }
+
+      return (loaded_count > 0);
     },
 
     saveCache: function() {
@@ -233,14 +237,15 @@
 
       document.onreadystatechange = function() {
         if (document.readyState === 'complete') 
-          console.log('font-face-loaded!');
-          self.loadCache(); //only once after inited.
+          var reallyLoaded = self.loadCache(); //only once after inited.
           $('#notification').removeClass('alert-info').addClass('alert-success')
-                            .text('Font and configuration loaded./字型以及前次設定載入完畢。')
+                            .text('Font and configuration loaded./字型以及前次設定載入完畢。');
+          if (reallyLoaded)
+            self.submit(true); //ignore setting this time.
         };
     },
 
-    submit: function() {
+    submit: function(skipDataStore) {
       var self = this;
       $('#uploader').hide();
       $('#link').hide();
@@ -251,7 +256,9 @@
         window.renderClient($('form').serializeObject(), function(result) {
           if (!result)
             return;
-          self.saveCache();
+
+          if (!skipDataStore)
+            self.saveCache();
           self._currentDataURL = result;
           $('#previewImage').prop('src', result);
           $('#uploader').show();
