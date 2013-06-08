@@ -108,8 +108,3 @@ div.control-group .background-image-container {
   src: url(../resource/wt014.ttf) format("truetype");
 }
 
-@font-face {
-  font-family: "Weboff";
-  src: url(../resource/Web_Serveroff-Italic.ttf) format("opentype");
-  font-style: italic, oblique;
-}
