@@ -298,7 +298,7 @@
                   (IMAGE_CONFIG.WIDTH - WATERMARK_CONFIG.WIDTH)/0.75,
                   WATERMARK_CONFIG.OFFSET_Y);
     ctx.strokeText('http://alivedise.github.io/alvitr',
-              WATERMARK_CONFIG.OFFSET_X/0.75,
+              (IMAGE_CONFIG.WIDTH - WATERMARK_CONFIG.WIDTH)/0.75,
               WATERMARK_CONFIG.OFFSET_Y);
 
     ctx.restore();
@@ -499,10 +499,10 @@
           OFFSET_Y: 170 - 30 - 5 - 30
         };
         WATERMARK_CONFIG = {
-          OFFSET_X: IMAGE_CONFIG.WIDTH - 150,
+          OFFSET_X: IMAGE_CONFIG.WIDTH - 140,
           OFFSET_Y: 0,
           SIZE: 5,
-          WIDTH: 180
+          WIDTH: 150
         };
         MAIN_CHAR_IMAGE_CONFIG = {
           WIDTH: 100,
@@ -560,7 +560,7 @@
           OFFSET_X: IMAGE_CONFIG.WIDTH - 150,
           OFFSET_Y: 0,
           SIZE: 5,
-          WIDTH: 180
+          WIDTH: 150
         };
         MAIN_CHAR_IMAGE_CONFIG = {
           WIDTH: 70,
