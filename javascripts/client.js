@@ -466,9 +466,10 @@
           HEIGHT: 37.5
         };
         WATERMARK_CONFIG = {
-          OFFSET_X: IMAGE_CONFIG.WIDTH - 170,
+          OFFSET_X: IMAGE_CONFIG.WIDTH - 180,
           OFFSET_Y: 215.5,
-          SIZE: 3
+          SIZE: 3,
+          WIDTH: 180
         };
         ID_CONFIG = {
           OFFSET_X: IMAGE_CONFIG.WIDTH - 150,
@@ -487,9 +488,10 @@
           OFFSET_Y: 170 - 30 - 5 - 30
         };
         WATERMARK_CONFIG = {
-          OFFSET_X: IMAGE_CONFIG.WIDTH - 170,
+          OFFSET_X: IMAGE_CONFIG.WIDTH - 180,
           OFFSET_Y: 30,
-          SIZE: 3
+          SIZE: 3,
+          WIDTH: 180
         };
         MAIN_CHAR_IMAGE_CONFIG = {
           WIDTH: 100,
@@ -544,9 +546,10 @@
           OFFSET_Y: 125 - 30 - 5 - 20
         };
         WATERMARK_CONFIG = {
-          OFFSET_X: IMAGE_CONFIG.WIDTH - 170,
+          OFFSET_X: IMAGE_CONFIG.WIDTH - 180,
           OFFSET_Y: 30,
-          SIZE: 3
+          SIZE: 3,
+          WIDTH: 180
         };
         MAIN_CHAR_IMAGE_CONFIG = {
           WIDTH: 70,
