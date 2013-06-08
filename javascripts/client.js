@@ -523,8 +523,8 @@
         LEADERS_IMAGE_CONFIG = {
           WIDTH: 50,
           HEIGHT: 50,
-          OFFSET_X: 5,
-          OFFSET_Y: 110,
+          OFFSET_X: 0,
+          OFFSET_Y: 120,
           SHADOW_OFFSET_X: 2,
           SHADOW_OFFSET_Y: -2,
           SHADOW_BLUR: 0,
@@ -585,8 +585,8 @@
         LEADERS_IMAGE_CONFIG = {
           WIDTH: 40,
           HEIGHT: 40,
-          OFFSET_X: 5,
-          OFFSET_Y: 80,
+          OFFSET_X: 0,
+          OFFSET_Y: 90,
           SHADOW_OFFSET_X: 2,
           SHADOW_OFFSET_Y: -2,
           SHADOW_BLUR: 0,
