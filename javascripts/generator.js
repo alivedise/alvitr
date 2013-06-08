@@ -161,7 +161,6 @@
 
       $('input[name="image-size"]').change(function(evt) {
         evt.stopPropagation();
-        console.log($(this).val());
         self.changeTemplate($(this).val());
       });
 
