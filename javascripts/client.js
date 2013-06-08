@@ -371,9 +371,9 @@
         param.character != '') {
       IconGetter(param.character).then(function(data) {
         ctx.shadowColor = "black";
-        ctx.shadowOffsetX = 5;
-        ctx.shadowOffsetY = 5;
-        ctx.shadowBlur = 5;
+        ctx.shadowOffsetX = 2;
+        ctx.shadowOffsetY = 2;
+        ctx.shadowBlur = 2;
         ctx.fillStyle = 'rgba(255, 255, 255, 0)';
         ctx.drawImage(data,
                       MAIN_CHAR_IMAGE_CONFIG.OFFSET_X,
@@ -444,9 +444,9 @@
           HEIGHT: 40,
           OFFSET_X: 315,  /* Portrait offset + Main char offset */
           OFFSET_Y: 180 + (80 - 40), /* Main char height - leader height */
-          SHADOW_OFFSET_Y: 5,
-          SHADOW_OFFSET_X: 5,
-          SHADOW_BLUR: 5,
+          SHADOW_OFFSET_Y: 2,
+          SHADOW_OFFSET_X: -2,
+          SHADOW_BLUR: 2,
           SHADOW_COLOR: 'black'
         };
         FUNCTIONAL_LEADERS_IMAGE_CONFIG = {
@@ -515,9 +515,9 @@
           HEIGHT: 50,
           OFFSET_X: 5,
           OFFSET_Y: 110,
-          SHADOW_OFFSET_X: 5,
-          SHADOW_OFFSET_Y: 5,
-          SHADOW_BLUR: 5,
+          SHADOW_OFFSET_X: -2,
+          SHADOW_OFFSET_Y: 2,
+          SHADOW_BLUR: 2,
           SHADOW_COLOR: 'black'
         };
         FUNCTIONAL_LEADERS_IMAGE_CONFIG = {
@@ -573,9 +573,9 @@
           HEIGHT: 40,
           OFFSET_X: 5,
           OFFSET_Y: 80,
-          SHADOW_OFFSET_X: 5,
-          SHADOW_OFFSET_Y: 5,
-          SHADOW_BLUR: 5,
+          SHADOW_OFFSET_X: -2,
+          SHADOW_OFFSET_Y: 2,
+          SHADOW_BLUR: 2,
           SHADOW_COLOR: 'black'
         };
         FUNCTIONAL_LEADERS_IMAGE_CONFIG = {
