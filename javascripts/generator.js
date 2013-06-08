@@ -46,7 +46,12 @@
           var element = $('[name="' + key + '"]');
           switch (element.prop('tagName').toLowerCase()) {
             case 'select':
-              element[0].value = value;
+              if (Object.prototype.toString.apply(value) === '[object Array]') {
+                for (var i = 0; i < value.length; i++)
+                  element[i].value = value[0];
+              } else {
+                element[0].value = value;
+              }
               break;
             case 'input':
               if (element.prop('type') == 'radio') {
