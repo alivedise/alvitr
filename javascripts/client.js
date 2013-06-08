@@ -282,7 +282,7 @@
     /* Render watermark */
     ctx.fillStyle = 'rgba(255, 255, 255, 0.75)';
     ctx.fillRect(WATERMARK_CONFIG.OFFSET_X,
-                  WATERMARK_CONFIG.OFFSET_Y + WATERMARK_CONFIG.SIZE / 2,,
+                  WATERMARK_CONFIG.OFFSET_Y + WATERMARK_CONFIG.SIZE / 2,
                   WATERMARK_CONFIG.WIDTH,
                   WATERMARK_CONFIG.SIZE);
 
