@@ -280,11 +280,11 @@
     ctx.textBaseline = 'top';
     ctx.lineWidth = 1;
     /* Render watermark */
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.75)';
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.75)';
     ctx.fillRect(WATERMARK_CONFIG.OFFSET_X,
                   WATERMARK_CONFIG.OFFSET_Y,
                   WATERMARK_CONFIG.WIDTH,
-                  WATERMARK_CONFIG.SIZE);
+                  WATERMARK_CONFIG.SIZE*1.5);
 
     ctx.fillStyle = 'rgba(1, 134, 209, 0.25)';
     ctx.font = WATERMARK_CONFIG.SIZE + 'px Tahoma Geneva sans-serif';
@@ -467,8 +467,8 @@
         };
         WATERMARK_CONFIG = {
           OFFSET_X: IMAGE_CONFIG.WIDTH - 180,
-          OFFSET_Y: 215.5,
-          SIZE: 3,
+          OFFSET_Y: 215.5 - 37.5 - 10,
+          SIZE: 2,
           WIDTH: 180
         };
         ID_CONFIG = {
@@ -490,7 +490,7 @@
         WATERMARK_CONFIG = {
           OFFSET_X: IMAGE_CONFIG.WIDTH - 180,
           OFFSET_Y: 30,
-          SIZE: 3,
+          SIZE: 2,
           WIDTH: 180
         };
         MAIN_CHAR_IMAGE_CONFIG = {
@@ -548,7 +548,7 @@
         WATERMARK_CONFIG = {
           OFFSET_X: IMAGE_CONFIG.WIDTH - 180,
           OFFSET_Y: 30,
-          SIZE: 3,
+          SIZE: 2,
           WIDTH: 180
         };
         MAIN_CHAR_IMAGE_CONFIG = {
