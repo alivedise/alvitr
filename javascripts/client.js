@@ -445,7 +445,7 @@
         };
         WATERMARK_CONFIG = {
           OFFSET_X: IMAGE_CONFIG.WIDTH - 150,
-          OFFSET_Y: 205.5,
+          OFFSET_Y: 225.5,
           SIZE: 7
         };
         ID_CONFIG = {
@@ -466,7 +466,7 @@
         };
         WATERMARK_CONFIG = {
           OFFSET_X: IMAGE_CONFIG.WIDTH - 150,
-          OFFSET_Y: 30,
+          OFFSET_Y: 40,
           SIZE: 5
         };
         MAIN_CHAR_IMAGE_CONFIG = {
@@ -523,7 +523,7 @@
         };
         WATERMARK_CONFIG = {
           OFFSET_X: IMAGE_CONFIG.WIDTH - 140,
-          OFFSET_Y: 30,
+          OFFSET_Y: 40,
           SIZE: 5
         };
         MAIN_CHAR_IMAGE_CONFIG = {
