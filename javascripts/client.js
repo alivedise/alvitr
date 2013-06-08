@@ -309,7 +309,7 @@
 
     /* Render name */
     ctx.fillStyle = param['name-color'] || NAME_CONFIG.COLOR;
-    ctx.font = 'bold ' + NAME_CONFIG.SIZE + 'px Microsoft JhengHei,WT014,Aldine721 BT';
+    ctx.font = NAME_CONFIG.SIZE + 'px Microsoft JhengHei,WT014,Aldine721 BT';
 
     ctx.shadowOffsetX = NAME_CONFIG.SHADOW_OFFSET_X;
     ctx.shadowOffsetY = NAME_CONFIG.SHADOW_OFFSET_Y;
@@ -340,7 +340,7 @@
   
 
     /* Render comment */
-    ctx.font = 'bold ' + COMMENT_CONFIG.SIZE + 'px W014 Aldine721 BT';
+    ctx.font = COMMENT_CONFIG.SIZE + 'px W014 Aldine721 BT';
     ctx.fillStyle = param['comment-color'] || COMMENT_CONFIG.COLOR;
 
     ctx.shadowOffsetX = COMMENT_CONFIG.SHADOW_OFFSET_X;
