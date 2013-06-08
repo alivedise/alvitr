@@ -143,7 +143,8 @@
         } 
         d.resolve();
       });
-    } else if (param['background-color'] == 'none' ||
+    } else if ( param['background-color'] === false ||
+                param['background-color'] == 'none' ||
                 param['background-color'] == 'transparent') {
       d.resolve();
     } else {
