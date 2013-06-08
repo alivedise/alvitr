@@ -281,8 +281,13 @@
     ctx.lineWidth = 1;
     /* Render watermark */
     ctx.fillStyle = 'rgba(1, 134, 209, 0.25)';
-    ctx.font = WATERMARK_CONFIG.SIZE + 'px Journal';
+    ctx.strokeStyle = 'black';
+    ctx.font = WATERMARK_CONFIG.SIZE + 'px Ubuntu';
     ctx.fillText('http://alivedise.github.io/alvitr',
+                  WATERMARK_CONFIG.OFFSET_X,
+                  WATERMARK_CONFIG.OFFSET_Y);
+
+    ctx.strokeText('http://alivedise.github.io/alvitr',
                   WATERMARK_CONFIG.OFFSET_X,
                   WATERMARK_CONFIG.OFFSET_Y);
 
@@ -518,9 +523,9 @@
         };
         COMMENT_CONFIG = {
           OFFSET_X: 120,
-          OFFSET_Y: 5 + 40 + 5,
+          OFFSET_Y: 5 + 40,
           WIDTH: 130,
-          SIZE: 30
+          SIZE: 25
         };
         ID_CONFIG = {
           OFFSET_X: IMAGE_CONFIG.WIDTH - 150,
@@ -575,9 +580,9 @@
         };
         COMMENT_CONFIG = {
           OFFSET_X: 90,
-          OFFSET_Y: 5 + 40 + 5,
+          OFFSET_Y: 5 + 40,
           WIDTH: 130,
-          SIZE: 30
+          SIZE: 25
         };
         ID_CONFIG = {
           OFFSET_X: IMAGE_CONFIG.WIDTH - 150,
