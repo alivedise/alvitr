@@ -1,6 +1,6 @@
 #header-container {
-  background-color: black;
   color: white;
+  background: black url('../resource/header-background.jpg') no-repeat top right;
 }
 
 div#preview {
@@ -29,11 +29,6 @@ div.control-group .background-image-container {
   height: auto;
 }
 
-img.template {
-  width: 500px;
-  height: auto;
-}
-
 #header-container .page-header {
   border: 0;
   margin: 0;
@@ -52,18 +47,50 @@ img.template {
 }
 
 #fb-cover-template {
+  display: block;
   width: 500px;
   height: 185px;
+  background: transparent url('../resource/fb-cover-template.png') no-repeat top left;
+  background-size: 500px 185px;
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(
+    src='../resource/fb-cover-template.png',
+    sizingMethod='scale');
+
+  -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(
+    src='../resource/fb-cover-template.png',
+    sizingMethod='scale')";
 }
 
 #signature-template {
+  display: block;
   width: 500px;
   height: 121px;
+  background: transparent url('../resource/signature-template.png') no-repeat top left;
+  background-size: 500px 121px;
+
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(
+    src='../resource/signature-template.png',
+    sizingMethod='scale');
+
+  -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(
+    src='../resource/signature-template.png',
+    sizingMethod='scale')";
 }
 
 #bahamut-template {
+  display: block;
   width: 500px;
   height: 95px;
+  background: transparent url('../resource/bahamut-template.png') no-repeat top left;
+  background-size: 500px 95px;
+
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(
+    src='../resource/bahamut-template.png',
+    sizingMethod='scale');
+
+  -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(
+    src='../resource/bahamut-template.png',
+    sizingMethod='scale')";
 }
 
 @font-face {
