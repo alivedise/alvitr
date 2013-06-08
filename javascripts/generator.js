@@ -9,11 +9,16 @@
     'signature': {
       'png': [],
       'jpg': [1, 2, 3, 4, 5, 7, 8, 9, 10, 12, 13, 14, 15, 19]
+    },
+    'bahamut': {
+      'png': [],
+      'jpg': [1, 2, 3, 4, 5, 7, 8, 9, 10, 12, 13, 14, 15, 19]
     }
   };
   var whitelist = {
     'facebook-cover': [0],
-    'signature': [0]
+    'signature': [0],
+    'bahamut': [0]
   };
   var IMAGE_PER_PAGE = 6;
   $.fn.serializeObject = function() {
@@ -43,6 +48,9 @@
         if (blacklist['signature']['jpg'].indexOf(_count) < 0) {
           whitelist['signature'].push(_count);
         }
+        if (blacklist['bahamut']['jpg'].indexOf(_count) < 0) {
+          whitelist['bahamut'].push(_count);
+        }
         if (blacklist['facebook-cover']['jpg'].indexOf(_count) < 0) {
           whitelist['facebook-cover'].push(_count);
         }
@@ -54,6 +62,9 @@
       for (var i = 1; i <= PNG_COUNT; i++, _count++) {
         if (blacklist['signature']['png'].indexOf(_count) < 0) {
           whitelist['signature'].push(_count);
+        }
+        if (blacklist['bahamut']['png'].indexOf(_count) < 0) {
+          whitelist['bahamut'].push(_count);
         }
         if (blacklist['facebook-cover']['png'].indexOf(_count) < 0) {
           whitelist['facebook-cover'].push(_count);
@@ -218,20 +229,11 @@
     changeTemplate: function(template) {
       this._currentTemplate = template;
       // reset background
-      switch (template) {
-        case 'facebook-cover':
-          $('.pager').pagination({
-            total_pages: Math.ceil(whitelist['facebook-cover'].length / IMAGE_PER_PAGE),
-            current_page: 1
-          });
-          break;
-        case 'signature':
-          $('.pager').pagination({
-            total_pages: Math.ceil(whitelist['signature'].length / IMAGE_PER_PAGE),
-            current_page: 1
-          });
-          break;
-      }
+      $('.pager').pagination({
+        total_pages: Math.ceil(whitelist[template].length / IMAGE_PER_PAGE),
+        current_page: 1
+      });
+
       this.showPage(1);
       $('#none-background').prop('checked', true).trigger('change');
     }
