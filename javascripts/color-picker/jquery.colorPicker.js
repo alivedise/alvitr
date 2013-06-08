@@ -196,7 +196,7 @@
 
             // Otherwise we wont do anything.
             } else {
-                return false;
+                return 'transparent';
 
             }
         },
