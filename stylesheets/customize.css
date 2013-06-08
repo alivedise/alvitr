@@ -51,6 +51,20 @@ img.template {
   display: inline-block;
 }
 
+#fb-cover-template {
+  width: 500px;
+  height: 185px;
+}
+
+#signature-template {
+  width: 500px;
+  height: 121px;
+}
+
+#bahamut-template {
+  width: 500px;
+  height: 95px;
+}
 
 @font-face {
   font-family: Attic;
