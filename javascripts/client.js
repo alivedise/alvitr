@@ -278,6 +278,7 @@
 
   function renderStatic(param) {
     ctx.textBaseline = 'top';
+    ctx.lineWidth = 1;
     /* Render watermark */
     ctx.fillStyle = 'rgba(1, 134, 209, 0.25)';
     ctx.font = WATERMARK_CONFIG.SIZE + 'px Journal';
@@ -305,19 +306,29 @@
                   BRUSH_CONFIG.HEIGHT);
 
     ctx.fillStyle = 'black';
+    ctx.strokeStyle = 'white';
     ctx.font = ID_CONFIG.SIZE + 'px Attic';
     ctx.fillText(param.id || '000000000',
                   ID_CONFIG.OFFSET_X,
                   ID_CONFIG.OFFSET_Y);
+    ctx.strokeText(param.id || '000000000',
+              ID_CONFIG.OFFSET_X,
+              ID_CONFIG.OFFSET_Y);
   
 
     /* Render comment */
     ctx.textBaseline = 'top';
     ctx.font = COMMENT_CONFIG.SIZE + 'px W014 Aldine721 BT';
     ctx.fillStyle = 'black';
+    ctx.strokeStyle = 'white';
     ctx.fillText(param.comment || '',
                   COMMENT_CONFIG.OFFSET_X,
                   COMMENT_CONFIG.OFFSET_Y);
+    ctx.strokeText(param.comment || '',
+              COMMENT_CONFIG.OFFSET_X,
+              COMMENT_CONFIG.OFFSET_Y);
+
+    ctx.lineWidth = 1;
   }
 
   function renderLogo(param) {
@@ -467,7 +478,7 @@
           WIDTH: 80,
           HEIGHT: 30,
           OFFSET_X: IMAGE_CONFIG.WIDTH - 80,
-          OFFSET_Y: 170 - 30 - 5
+          OFFSET_Y: 170 - 30 - 5 - 30
         };
         WATERMARK_CONFIG = {
           OFFSET_X: IMAGE_CONFIG.WIDTH - 150,
@@ -524,7 +535,7 @@
           WIDTH: 54,
           HEIGHT: 20,
           OFFSET_X: IMAGE_CONFIG.WIDTH - 54 - 5,
-          OFFSET_Y: 125 - 30 - 5
+          OFFSET_Y: 125 - 30 - 5 - 20
         };
         WATERMARK_CONFIG = {
           OFFSET_X: IMAGE_CONFIG.WIDTH - 140,
