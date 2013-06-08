@@ -96,6 +96,8 @@
                     config.OFFSET_Y,
                     config.WIDTH,
                     config.HEIGHT);
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 0;
       d.resolve();
     });
     return d.promise();
@@ -113,6 +115,8 @@
                     config.OFFSET_Y + index * (config.HEIGHT + 2),
                     config.WIDTH,
                     config.HEIGHT);
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 0;
       d.resolve();
     });
     return d.promise();
@@ -273,6 +277,7 @@
   }
 
   function renderStatic(param) {
+    ctx.textBaseline = 'top';
     /* Render watermark */
     ctx.fillStyle = 'rgba(1, 134, 209, 0.25)';
     ctx.font = WATERMARK_CONFIG.SIZE + 'px Journal';
@@ -301,7 +306,6 @@
 
     ctx.fillStyle = 'black';
     ctx.font = ID_CONFIG.SIZE + 'px Attic';
-    ctx.textBaseline = 'top';
     ctx.fillText(param.id || '000000000',
                   ID_CONFIG.OFFSET_X,
                   ID_CONFIG.OFFSET_Y);
@@ -348,6 +352,8 @@
                       MAIN_CHAR_IMAGE_CONFIG.OFFSET_Y,
                       MAIN_CHAR_IMAGE_CONFIG.WIDTH,
                       MAIN_CHAR_IMAGE_CONFIG.HEIGHT);
+        ctx.shadowOffsetX = 0;
+        ctx.shadowOffsetY = 0;
         d.resolve();
       });
     } else {
@@ -444,7 +450,7 @@
         };
         WATERMARK_CONFIG = {
           OFFSET_X: IMAGE_CONFIG.WIDTH - 150,
-          OFFSET_Y: 225.5,
+          OFFSET_Y: 215.5,
           SIZE: 7
         };
         ID_CONFIG = {
@@ -465,7 +471,7 @@
         };
         WATERMARK_CONFIG = {
           OFFSET_X: IMAGE_CONFIG.WIDTH - 150,
-          OFFSET_Y: 40,
+          OFFSET_Y: 30,
           SIZE: 5
         };
         MAIN_CHAR_IMAGE_CONFIG = {
@@ -522,7 +528,7 @@
         };
         WATERMARK_CONFIG = {
           OFFSET_X: IMAGE_CONFIG.WIDTH - 140,
-          OFFSET_Y: 40,
+          OFFSET_Y: 30,
           SIZE: 5
         };
         MAIN_CHAR_IMAGE_CONFIG = {
@@ -566,7 +572,7 @@
           OFFSET_X: IMAGE_CONFIG.WIDTH - 150,
           OFFSET_Y: 5,
           WIDTH: 150,
-          SIZE: 20
+          SIZE: 25
         };
         break;
     }
