@@ -109,6 +109,7 @@ div.control-group .background-image-container {
 }
 
 @font-face {
-  font-family: Ubuntu;
-  src: url(../resource/Ubuntu-Title.ttf) format("truetype");
+  font-family: "Weboff";
+  src: url(../resource/Web_Serveroff-Italic.ttf) format("opentype");
+  font-style: italic, oblique;
 }

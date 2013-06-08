@@ -282,7 +282,7 @@
     /* Render watermark */
     ctx.fillStyle = 'rgba(1, 134, 209, 0.25)';
     ctx.strokeStyle = 'black';
-    ctx.font = WATERMARK_CONFIG.SIZE + 'px Ubuntu';
+    ctx.font = 'italic ' + WATERMARK_CONFIG.SIZE + 'px Weboff';
     ctx.fillText('http://alivedise.github.io/alvitr',
                   WATERMARK_CONFIG.OFFSET_X,
                   WATERMARK_CONFIG.OFFSET_Y);
