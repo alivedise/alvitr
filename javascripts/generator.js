@@ -62,7 +62,7 @@
               break;
             case 'input':
               if (element.prop('type') == 'radio') {
-                var e = element.filter('[value="' + key + '""]');
+                var e = element.filter('[value="' + value + '""]');
                 if (e)
                   e.prop('checked', value);
               } else {
