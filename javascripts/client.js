@@ -279,22 +279,27 @@
   function renderStatic(param) {
     ctx.textBaseline = 'top';
     ctx.lineWidth = 1;
-    /* Render watermark */
+    /* Render watermark
     ctx.fillStyle = 'rgba(255, 255, 255, 1)';
     ctx.fillRect(WATERMARK_CONFIG.OFFSET_X,
                   WATERMARK_CONFIG.OFFSET_Y - 2,
                   WATERMARK_CONFIG.WIDTH + 2,
                   11);
+    */
 
     // for the purpose of scale down font size.
     ctx.save();
     ctx.scale(0.75, 0.75);
-    ctx.fillStyle = 'rgba(1, 134, 209, 1)';
+    ctx.fillStyle = 'rgba(255, 255, 255, 1)';
+    ctx.strokeStyle = 'rgba(0, 0, 0, 1)';
     // there's a minimum font size so..
     ctx.font = '2px Tahoma Geneva sans-serif';
     ctx.fillText('http://alivedise.github.io/alvitr',
-                  WATERMARK_CONFIG.OFFSET_X,
+                  WATERMARK_CONFIG.OFFSET_X/0.75,
                   WATERMARK_CONFIG.OFFSET_Y);
+    ctx.strokeText('http://alivedise.github.io/alvitr',
+              WATERMARK_CONFIG.OFFSET_X/0.75,
+              WATERMARK_CONFIG.OFFSET_Y);
 
     ctx.restore();
 
