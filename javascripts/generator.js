@@ -38,6 +38,37 @@
   };
 
   var Generator = {
+    loadCache: function() {
+      var object = $('form').serializeObject();
+      for (var key in object) {
+        if ($.jStorage.get(key)) {
+          var element = $('[name="' + key + '"]');
+          switch (element.prop('tagName').toLowerCase()) {
+            case 'select':
+              element[0].value = object[key];
+              break;
+            case 'input':
+              if (element.prop('type') == 'radio') {
+                var e = element.filter('[value="' + object[key] + '""]');
+                if (e)
+                  e.prop('checked', object[key]);
+              } else {
+                // text
+                element.val(object[key]);
+              }
+              break;
+          }
+        }
+      }
+    },
+
+    saveCache: function() {
+      var object = $('form').serializeObject();
+      for (var key in object) {
+        $.jStorage.set(key, object[key]);
+      }
+    },
+
     _currentDataURL: '',
     _uploading: false,
     _dirty: false,
@@ -188,7 +219,12 @@
         return false;
       });
 
-
+      
+      document.onreadystatechange = function() {
+        if (document.readyState === 'complete') 
+          console.log('font-face-loaded!');
+          self.loadCache(); //only once after inited.
+        };
     },
 
     submit: function() {
@@ -205,6 +241,8 @@
           self._currentDataURL = result;
           $('#previewImage').prop('src', result);
           $('#uploader').show();
+
+          self.saveCache();
         });
       } else {
         $.post('/form', $('form').serializeObject(),
