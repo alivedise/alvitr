@@ -9,12 +9,13 @@
     <script src="http://cdnjs.cloudflare.com/ajax/libs/json2/20110223/json2.js"></script>
     <!--link rel="stylesheet" href="stylesheets/bootstrap-select.min.css"-->
     <link rel="stylesheet" href="stylesheets/customize.css">
+    <link rel="stylesheet" href="javascripts/color-picker/colorPicker.css">
   </head>
   <body>
     <header class="jumbotron subhead" id="header-container">
       <div class="container">
         <div class="page-header" id="page-header">
-          <h1>Puzzle & Dragon signature builder<small>v1.0.75RC</small></h1>
+          <h1>Puzzle & Dragon signature builder<small>v1.0.77RC</small></h1>
           <h2>龍族拼圖圖片簽名檔產生器</h2>
           <small>
               <div>Source code: <a href="http://github.com/alivedise/alvitr">http://github.com/alivedise/alvitr</a></div>
@@ -59,6 +60,12 @@
               <input id="name" name="name" type="text" placeholder="name" class="input-xlarge" required="" maxlength="20">
               <p class="help-block">Your PAD nickname/你的PaD暱稱</p>
             </div>
+            <div class="controls">
+              <label class="radio">
+                <input type="text" name="name-color" id="name-color" value="transparent">
+              </label>
+              <p class="help-block">Name color/文字顏色</p>
+            </div>
           </div>
 
           <!-- Text input-->
@@ -75,32 +82,7 @@
             <label class="control-label">Choose background color/選擇底色</label>
             <div class="controls">
               <label class="radio">
-                <input type="radio" name="background-color" value="none" checked="checked">
-                None/Transparent(透明)
-              </label>
-              <label class="radio">
-                <input type="radio" name="background-color" value="#0186d1">
-                Blue/藍
-              </label>
-              <label class="radio">
-                <input type="radio" name="background-color" value="#bee8be">
-                Green/綠
-              </label>
-              <label class="radio">
-                <input type="radio" name="background-color" value="#f2c4b8">
-                Red/紅
-              </label>
-              <label class="radio">
-                <input type="radio" name="background-color" value="silver">
-                Silver/銀
-              </label>
-              <label class="radio">
-                <input type="radio" name="background-color" value="gold">
-                Gold/金
-              </label>
-              <label class="radio">
-                <input type="radio" name="background-color" value="black">
-                Black/黑
+                <input type="text" name="background-color" id="background-color" value="transparent">
               </label>
               <!--label class="radio">
                 <input type="radio" name="background-color" value="custom">
@@ -128,28 +110,7 @@
             <label class="control-label">Choose background image color transfomation/背景圖顏色轉化</label>
             <div class="controls">
               <label class="radio">
-                <input type="radio" name="background-tint" value="none" checked="checked">
-                None/無
-              </label>
-              <label class="radio">
-                <input type="radio" name="background-tint" value="blue">
-                Blue/藍
-              </label>
-              <label class="radio">
-                <input type="radio" name="background-tint" value="green">
-                Green/綠
-              </label>
-              <label class="radio">
-                <input type="radio" name="background-tint" value="red">
-                Red/紅
-              </label>
-              <label class="radio">
-                <input type="radio" name="background-tint" value="silver">
-                Silver/銀
-              </label>
-              <label class="radio">
-                <input type="radio" name="background-tint" value="gold">
-                Gold/金
+                <input type="text" name="background-tint" id="background-tint" value="transparent">
               </label>
             </div>
           </div>
@@ -229,6 +190,10 @@
             <div class="controls">
               <input id="comment" name="comment" type="text" placeholder="Say something." class="input-xlarge" maxlength="50">
               <p class="help-block">Leave some description here./隨便寫段話</p>
+              <label class="radio">
+                <input type="text" name="comment-color" id="comment-color" value="transparent">
+              </label>
+              <p class="help-block">Comment color/文字顏色</p>
             </div>
           </div>
         </fieldset>
@@ -273,11 +238,12 @@
 <option value="714">No.714　 第4の使徒・戦闘形態    第4使徒・戰鬥形態</option>
               <option value="717">No.717　 ねねこ（河童彌彌子）</option>
             </select>
+    <script src="javascripts/color-picker/jquery.colorPicker.js"></script>
     <script src="javascripts/jstorage.js"></script>
     <script src="javascripts/modernizr.custom.js"></script>
     <script src="javascripts/jquery-bootstrap-pagination.js"></script>
-    <script src="javascripts/client.js?v=1.0.75RC"></script>
-    <script src="javascripts/generator.js?v=1.0.75RC"></script>
+    <script src="javascripts/client.js?v=1.0.77RC"></script>
+    <script src="javascripts/generator.js?v=1.0.77RC"></script>
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

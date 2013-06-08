@@ -143,7 +143,8 @@
         } 
         d.resolve();
       });
-    } else if (param['background-color'] == 'none') {
+    } else if (param['background-color'] == 'none' ||
+                param['background-color'] == 'transparent') {
       d.resolve();
     } else {
       // color
@@ -232,7 +233,8 @@
         
         /* Background image color transformation */
         if (param['background-tint'] &&
-            param['background-tint'] != 'none') {
+            param['background-tint'] != 'none' &&
+            param['background-tint'] != 'transparent') {
           // color transformation
           var map = ctx.getImageData(0, 0, IMAGE_CONFIG.WIDTH, IMAGE_CONFIG.HEIGHT);
           var imdata = map.data;
@@ -306,15 +308,17 @@
     ctx.restore();
 
     /* Render name */
-    ctx.fillStyle = '#fff';
-    ctx.strokeStyle = 'black';
-    ctx.font = 'bold ' + NAME_CONFIG.SIZE + 'px WT014 Aldine721 BT';
+    ctx.fillStyle = param['name-color'] || NAME_CONFIG.COLOR;
+    ctx.font = 'bold ' + NAME_CONFIG.SIZE + 'px Microsoft JhengHei,WT014,Aldine721 BT';
+
+    ctx.shadowOffsetX = NAME_CONFIG.SHADOW_OFFSET_X;
+    ctx.shadowOffsetY = NAME_CONFIG.SHADOW_OFFSET_Y;
     ctx.fillText(param.name || '',
                   NAME_CONFIG.OFFSET_X,
                   NAME_CONFIG.OFFSET_Y);
-    ctx.strokeText(param.name || '',
-                    NAME_CONFIG.OFFSET_X,
-                    NAME_CONFIG.OFFSET_Y);
+
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
   
 
     /* Render ID */
@@ -327,25 +331,26 @@
     ctx.fillStyle = 'black';
     ctx.strokeStyle = 'white';
     ctx.font = ID_CONFIG.SIZE + 'px Attic';
-    ctx.fillText(param.id || '000000000',
+    ctx.fillText(param.id || '',
                   ID_CONFIG.OFFSET_X,
                   ID_CONFIG.OFFSET_Y);
-    ctx.strokeText(param.id || '000000000',
+    ctx.strokeText(param.id || '',
               ID_CONFIG.OFFSET_X,
               ID_CONFIG.OFFSET_Y);
   
 
     /* Render comment */
-    ctx.textBaseline = 'top';
     ctx.font = 'bold ' + COMMENT_CONFIG.SIZE + 'px W014 Aldine721 BT';
-    ctx.fillStyle = 'black';
-    ctx.strokeStyle = 'white';
+    ctx.fillStyle = param['comment-color'] || COMMENT_CONFIG.COLOR;
+
+    ctx.shadowOffsetX = COMMENT_CONFIG.SHADOW_OFFSET_X;
+    ctx.shadowOffsetY = COMMENT_CONFIG.SHADOW_OFFSET_Y;
     ctx.fillText(param.comment || '',
                   COMMENT_CONFIG.OFFSET_X,
                   COMMENT_CONFIG.OFFSET_Y);
-    ctx.strokeText(param.comment || '',
-              COMMENT_CONFIG.OFFSET_X,
-              COMMENT_CONFIG.OFFSET_Y);
+
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
 
     ctx.lineWidth = 1;
   }
@@ -466,15 +471,21 @@
           SHADOW_COLOR: 'rgba(0, 0, 0, 0.3)'
         };
         NAME_CONFIG = {
+          COLOR: '#fff',
           OFFSET_X: 315,  /* the same as leaders */
           OFFSET_Y: 180,   /* the same as main */
-          SIZE: 35
+          SIZE: 35,
+          SHADOW_OFFSET_X: 2,
+          SHADOW_OFFSET_Y: 2
         };
         COMMENT_CONFIG = {
+          COLOR: '#000',
           OFFSET_X: IMAGE_CONFIG.WIDTH - 185 - 42 - 42,
           OFFSET_Y: 180 + (80 - 40), /* Main char height - leader height */
           WIDTH: 180,
-          SIZE: 15
+          SIZE: 15,
+          SHADOW_OFFSET_X: 1,
+          SHADOW_OFFSET_Y: 1
         };
         LOGO_CONFIG = {
           OFFSET_X: 23, /* left top of cover */
@@ -541,15 +552,20 @@
           SHADOW_COLOR: 'rgba(0, 0, 0, 0.3)'
         };
         NAME_CONFIG = {
+          COLOR: '#fff',
           OFFSET_X: 120,
           OFFSET_Y: 5,
-          SIZE: 40
+          SIZE: 40,
+          SHADOW_OFFSET_X: 2,
+          SHADOW_OFFSET_Y: 2
         };
         COMMENT_CONFIG = {
           OFFSET_X: 120,
           OFFSET_Y: 5 + 40,
           WIDTH: 130,
-          SIZE: 25
+          SIZE: 25,
+          SHADOW_OFFSET_X: 1,
+          SHADOW_OFFSET_Y: 1
         };
         ID_CONFIG = {
           OFFSET_X: IMAGE_CONFIG.WIDTH - 150,
@@ -603,15 +619,21 @@
           SHADOW_COLOR: 'rgba(0, 0, 0, 0.3)'
         };
         NAME_CONFIG = {
+          COLOR: '#fff',
           OFFSET_X: 90,
           OFFSET_Y: 5,
-          SIZE: 40
+          SIZE: 40,
+          SHADOW_OFFSET_X: 2,
+          SHADOW_OFFSET_Y: 2
         };
         COMMENT_CONFIG = {
+          COLOR: '#000',
           OFFSET_X: 90,
           OFFSET_Y: 5 + 40,
           WIDTH: 130,
-          SIZE: 25
+          SIZE: 25,
+          SHADOW_OFFSET_X: 1,
+          SHADOW_OFFSET_Y: 1
         };
         ID_CONFIG = {
           OFFSET_X: IMAGE_CONFIG.WIDTH - 150,
@@ -634,8 +656,6 @@
     }).then(function() {
       renderStatic(param);
       return renderMainChar(param);
-    }).then(function() {
-      return renderLogo(param);
     }).then(function() {
       return renderLeaders(param);
     }).then(function() {
