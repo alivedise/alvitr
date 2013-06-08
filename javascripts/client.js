@@ -284,7 +284,7 @@
     ctx.fillRect(WATERMARK_CONFIG.OFFSET_X,
                   WATERMARK_CONFIG.OFFSET_Y,
                   WATERMARK_CONFIG.WIDTH,
-                  5);
+                  10);
 
     ctx.fillStyle = 'rgba(1, 134, 209, 0.25)';
     // there's a minimum font size so..
