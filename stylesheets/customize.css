@@ -3,6 +3,10 @@
   background: black url('../resource/header-background.jpg') no-repeat top right;
 }
 
+div.colorPicker-picker {
+  display: inline-block;
+}
+
 div#preview {
   width: 100%;
   min-height: 10rem;
