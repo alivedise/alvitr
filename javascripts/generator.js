@@ -44,11 +44,16 @@
         if ($.jStorage.get(key)) {
           var value = $.jStorage.get(key);
           var element = $('[name="' + key + '"]');
+          if (element.length === 0)
+            continue;
           switch (element.prop('tagName').toLowerCase()) {
             case 'select':
               if (Object.prototype.toString.apply(value) === '[object Array]') {
-                for (var i = 0; i < value.length; i++)
-                  element[i].value = value[0];
+                for (var i = 0; i < value.length; i++) {
+                  if (element[i]) {
+                    element[i].value = value[i];
+                  }
+                }
               } else {
                 element[0].value = value;
               }
