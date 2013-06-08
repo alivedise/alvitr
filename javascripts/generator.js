@@ -42,19 +42,20 @@
       var object = $('form').serializeObject();
       for (var key in object) {
         if ($.jStorage.get(key)) {
+          var value = $.jStorage.get(key);
           var element = $('[name="' + key + '"]');
           switch (element.prop('tagName').toLowerCase()) {
             case 'select':
-              element[0].value = object[key];
+              element[0].value = value;
               break;
             case 'input':
               if (element.prop('type') == 'radio') {
-                var e = element.filter('[value="' + object[key] + '""]');
+                var e = element.filter('[value="' + key + '""]');
                 if (e)
-                  e.prop('checked', object[key]);
+                  e.prop('checked', value);
               } else {
                 // text
-                element.val(object[key]);
+                element.val(value);
               }
               break;
           }
@@ -219,7 +220,7 @@
         return false;
       });
 
-      
+
       document.onreadystatechange = function() {
         if (document.readyState === 'complete') 
           console.log('font-face-loaded!');
@@ -238,11 +239,12 @@
         window.renderClient($('form').serializeObject(), function(result) {
           if (!result)
             return;
+          self.saveCache();
           self._currentDataURL = result;
           $('#previewImage').prop('src', result);
           $('#uploader').show();
 
-          self.saveCache();
+          
         });
       } else {
         $.post('/form', $('form').serializeObject(),
