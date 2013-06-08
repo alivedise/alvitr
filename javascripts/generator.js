@@ -235,6 +235,8 @@
         if (document.readyState === 'complete') 
           console.log('font-face-loaded!');
           self.loadCache(); //only once after inited.
+          $('#notification').removeClass('alert-info').addClass('alert-success')
+                            .text('Font and configuration loaded./字型以及前次設定載入完畢。')
         };
     },
 
