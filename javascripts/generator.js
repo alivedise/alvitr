@@ -52,7 +52,7 @@
     if (typeof colours[colour.toLowerCase()] != 'undefined')
       return colours[colour.toLowerCase()];
 
-    return colour.toLowerCase();
+    return colour;
   }
   var IMAGE_PER_PAGE = 6;
   $.fn.serializeObject = function() {
