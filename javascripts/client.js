@@ -372,10 +372,10 @@
     if ('character' in param &&
         param.character != '') {
       IconGetter(param.character).then(function(data) {
-        ctx.shadowColor = "black";
-        ctx.shadowOffsetX = 2;
-        ctx.shadowOffsetY = 2;
-        ctx.shadowBlur = 2;
+        ctx.shadowColor = MAIN_CHAR_IMAGE_CONFIG.SHADOW_COLOR;
+        ctx.shadowOffsetX = MAIN_CHAR_IMAGE_CONFIG.SHADOW_OFFSET_X;
+        ctx.shadowOffsetY = MAIN_CHAR_IMAGE_CONFIG.SHADOW_OFFSET_Y;
+        ctx.shadowBlur = MAIN_CHAR_IMAGE_CONFIG.SHADOW_BLUR;
         ctx.fillStyle = 'rgba(255, 255, 255, 0)';
         ctx.drawImage(data,
                       MAIN_CHAR_IMAGE_CONFIG.OFFSET_X,
@@ -438,8 +438,12 @@
           WIDTH: 80,
           HEIGHT: 80,
           OFFSET_X: 170 + 23 + 23,  /* At right of facebook user portrait */
-          OFFSET_Y: 180    /* Offset the same as facebook user portrait */
+          OFFSET_Y: 180,    /* Offset the same as facebook user portrait */
                            /* This is offset of user not special page */
+          SHADOW_OFFSET_Y: 2,
+          SHADOW_OFFSET_X: 2,
+          SHADOW_BLUR: 0,
+          SHADOW_COLOR: 'rgba(0, 0, 0, 0.3)'
         };
         LEADERS_IMAGE_CONFIG = {
           WIDTH: 40,
@@ -449,7 +453,7 @@
           SHADOW_OFFSET_Y: 2,
           SHADOW_OFFSET_X: 2,
           SHADOW_BLUR: 0,
-          SHADOW_COLOR: 'black'
+          SHADOW_COLOR: 'rgba(0, 0, 0, 0.3)'
         };
         FUNCTIONAL_LEADERS_IMAGE_CONFIG = {
           WIDTH: 25,
@@ -510,7 +514,11 @@
           WIDTH: 100,
           HEIGHT: 100,
           OFFSET_X: 5,
-          OFFSET_Y: 5 
+          OFFSET_Y: 5,
+          SHADOW_OFFSET_Y: 2,
+          SHADOW_OFFSET_X: 2,
+          SHADOW_BLUR: 0,
+          SHADOW_COLOR: 'rgba(0, 0, 0, 0.3)'
         };
         LEADERS_IMAGE_CONFIG = {
           WIDTH: 50,
@@ -520,7 +528,7 @@
           SHADOW_OFFSET_X: 2,
           SHADOW_OFFSET_Y: -2,
           SHADOW_BLUR: 0,
-          SHADOW_COLOR: 'black'
+          SHADOW_COLOR: 'rgba(0, 0, 0, 0.3)'
         };
         FUNCTIONAL_LEADERS_IMAGE_CONFIG = {
           WIDTH: 30,
@@ -568,7 +576,11 @@
           WIDTH: 70,
           HEIGHT: 70,
           OFFSET_X: 5,
-          OFFSET_Y: 5 
+          OFFSET_Y: 5,
+          SHADOW_OFFSET_Y: 2,
+          SHADOW_OFFSET_X: 2,
+          SHADOW_BLUR: 0,
+          SHADOW_COLOR: 'rgba(0, 0, 0, 0.3)'
         };
         LEADERS_IMAGE_CONFIG = {
           WIDTH: 40,
@@ -578,7 +590,7 @@
           SHADOW_OFFSET_X: 2,
           SHADOW_OFFSET_Y: -2,
           SHADOW_BLUR: 0,
-          SHADOW_COLOR: 'black'
+          SHADOW_COLOR: 'rgba(0, 0, 0, 0.3)'
         };
         FUNCTIONAL_LEADERS_IMAGE_CONFIG = {
           WIDTH: 30,
