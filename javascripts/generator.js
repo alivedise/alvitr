@@ -236,12 +236,14 @@
 
 
       document.onreadystatechange = function() {
-        if (document.readyState === 'complete') 
-          var reallyLoaded = self.loadCache(); //only once after inited.
-          $('#notification').removeClass('alert-info').addClass('alert-success')
-                            .text('Font and configuration loaded./字型以及前次設定載入完畢。');
-          if (reallyLoaded)
-            self.submit(true); //ignore setting this time.
+        if (document.readyState === 'complete')
+          setTimeout(function() {
+            var reallyLoaded = self.loadCache(); //only once after inited.
+            $('#notification').removeClass('alert-info').addClass('alert-success')
+                              .text('Font and configuration loaded./字型以及前次設定載入完畢。');
+            if (reallyLoaded)
+              self.submit(true); //ignore setting this time.
+          }, 500); //chrome loading font workaround.
         };
     },
 
