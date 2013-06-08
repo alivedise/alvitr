@@ -99,7 +99,7 @@
                   e.prop('checked', value);
               } else {
                 // text
-                element.val(colourNameToHex[value]);
+                element.val(colourNameToHex(value));
               }
               break;
           }
