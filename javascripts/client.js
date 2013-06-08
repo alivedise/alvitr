@@ -323,11 +323,13 @@
   
 
     /* Render ID */
-    ctx.fillStyle = 'rgba(1, 134, 209, 0.5)';
-    ctx.fillRect( ID_CONFIG.OFFSET_X,
-                  ID_CONFIG.OFFSET_Y + ID_CONFIG.SIZE / 2,
-                  ID_CONFIG.WIDTH,
-                  BRUSH_CONFIG.HEIGHT);
+    if (param.id !== '') {
+      ctx.fillStyle = 'rgba(1, 134, 209, 0.5)';
+      ctx.fillRect( ID_CONFIG.OFFSET_X,
+                    ID_CONFIG.OFFSET_Y + ID_CONFIG.SIZE / 2,
+                    ID_CONFIG.WIDTH,
+                    BRUSH_CONFIG.HEIGHT);
+    }
 
     ctx.fillStyle = 'black';
     ctx.strokeStyle = 'white';
