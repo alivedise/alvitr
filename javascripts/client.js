@@ -284,7 +284,6 @@
     ctx.fillStyle = '#fff';
     ctx.strokeStyle = 'black';
     ctx.font = 'bold ' + NAME_CONFIG.SIZE + 'px WT014 Aldine721 BT';
-    ctx.textBaseline = 'top';
     ctx.fillText(param.name || '',
                   NAME_CONFIG.OFFSET_X,
                   NAME_CONFIG.OFFSET_Y);
@@ -461,8 +460,8 @@
         LOGO_CONFIG = {
           WIDTH: 80,
           HEIGHT: 30,
-          OFFSET_X: IMAGE_CONFIG.WIDTH - 80 - 5 - 140,
-          OFFSET_Y: 5
+          OFFSET_X: IMAGE_CONFIG.WIDTH - 80,
+          OFFSET_Y: 170 - 30 - 5
         };
         WATERMARK_CONFIG = {
           OFFSET_X: IMAGE_CONFIG.WIDTH - 150,
@@ -507,9 +506,9 @@
           SIZE: 30
         };
         ID_CONFIG = {
-          OFFSET_X: IMAGE_CONFIG.WIDTH - 140,
+          OFFSET_X: IMAGE_CONFIG.WIDTH - 150,
           OFFSET_Y: 5,
-          WIDTH: 140,
+          WIDTH: 150,
           SIZE: 25
         };
       case 'bahamut':
@@ -518,8 +517,8 @@
         LOGO_CONFIG = {
           WIDTH: 54,
           HEIGHT: 20,
-          OFFSET_X: IMAGE_CONFIG.WIDTH - 54 - 5 - 120,
-          OFFSET_Y: 5
+          OFFSET_X: IMAGE_CONFIG.WIDTH - 54 - 5,
+          OFFSET_Y: 125 - 30 - 5
         };
         WATERMARK_CONFIG = {
           OFFSET_X: IMAGE_CONFIG.WIDTH - 140,
@@ -564,10 +563,10 @@
           SIZE: 30
         };
         ID_CONFIG = {
-          OFFSET_X: IMAGE_CONFIG.WIDTH - 120,
+          OFFSET_X: IMAGE_CONFIG.WIDTH - 150,
           OFFSET_Y: 5,
-          WIDTH: 120,
-          SIZE: 25
+          WIDTH: 150,
+          SIZE: 20
         };
         break;
     }
