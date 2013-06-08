@@ -280,8 +280,14 @@
     ctx.textBaseline = 'top';
     ctx.lineWidth = 1;
     /* Render watermark */
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.75)';
+    ctx.fillRect(WATERMARK_CONFIG.OFFSET_X,
+                  WATERMARK_CONFIG.OFFSET_Y,
+                  WATERMARK_CONFIG.WIDTH,
+                  WATERMARK_CONFIG.SIZE);
+
     ctx.fillStyle = 'rgba(1, 134, 209, 0.25)';
-    ctx.font = 'italic ' + WATERMARK_CONFIG.SIZE + 'px Tahoma Geneva sans-serif';
+    ctx.font = WATERMARK_CONFIG.SIZE + 'px Tahoma Geneva sans-serif';
     ctx.fillText('http://alivedise.github.io/alvitr',
                   WATERMARK_CONFIG.OFFSET_X,
                   WATERMARK_CONFIG.OFFSET_Y);
@@ -460,9 +466,9 @@
           HEIGHT: 37.5
         };
         WATERMARK_CONFIG = {
-          OFFSET_X: IMAGE_CONFIG.WIDTH - 150 - 20,
+          OFFSET_X: IMAGE_CONFIG.WIDTH - 170,
           OFFSET_Y: 215.5,
-          SIZE: 4
+          SIZE: 3
         };
         ID_CONFIG = {
           OFFSET_X: IMAGE_CONFIG.WIDTH - 150,
@@ -481,9 +487,9 @@
           OFFSET_Y: 170 - 30 - 5 - 30
         };
         WATERMARK_CONFIG = {
-          OFFSET_X: IMAGE_CONFIG.WIDTH - 150 - 20,
+          OFFSET_X: IMAGE_CONFIG.WIDTH - 170,
           OFFSET_Y: 30,
-          SIZE: 4
+          SIZE: 3
         };
         MAIN_CHAR_IMAGE_CONFIG = {
           WIDTH: 100,
@@ -538,9 +544,9 @@
           OFFSET_Y: 125 - 30 - 5 - 20
         };
         WATERMARK_CONFIG = {
-          OFFSET_X: IMAGE_CONFIG.WIDTH - 140 - 20,
+          OFFSET_X: IMAGE_CONFIG.WIDTH - 170,
           OFFSET_Y: 30,
-          SIZE: 4
+          SIZE: 3
         };
         MAIN_CHAR_IMAGE_CONFIG = {
           WIDTH: 70,
