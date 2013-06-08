@@ -1,6 +1,6 @@
 (function(window) {
   var JPG_COUNT = 23;
-  var PNG_COUNT = 71;
+  var PNG_COUNT = 72;
   var blacklist = {
     'facebook-cover': {
       'png': [],
