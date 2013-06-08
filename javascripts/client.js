@@ -318,7 +318,7 @@
 
     /* Render comment */
     ctx.textBaseline = 'top';
-    ctx.font = COMMENT_CONFIG.SIZE + 'px W014 Aldine721 BT';
+    ctx.font = 'bold ' + COMMENT_CONFIG.SIZE + 'px W014 Aldine721 BT';
     ctx.fillStyle = 'black';
     ctx.strokeStyle = 'white';
     ctx.fillText(param.comment || '',
