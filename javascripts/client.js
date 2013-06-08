@@ -446,8 +446,8 @@
           HEIGHT: 40,
           OFFSET_X: 315,  /* Portrait offset + Main char offset */
           OFFSET_Y: 180 + (80 - 40), /* Main char height - leader height */
-          SHADOW_OFFSET_Y: 2,
-          SHADOW_OFFSET_X: -2,
+          SHADOW_OFFSET_Y: -2,
+          SHADOW_OFFSET_X: 2,
           SHADOW_BLUR: 2,
           SHADOW_COLOR: 'black'
         };
@@ -517,8 +517,8 @@
           HEIGHT: 50,
           OFFSET_X: 5,
           OFFSET_Y: 110,
-          SHADOW_OFFSET_X: -2,
-          SHADOW_OFFSET_Y: 2,
+          SHADOW_OFFSET_X: 2,
+          SHADOW_OFFSET_Y: -2,
           SHADOW_BLUR: 2,
           SHADOW_COLOR: 'black'
         };
@@ -575,8 +575,8 @@
           HEIGHT: 40,
           OFFSET_X: 5,
           OFFSET_Y: 80,
-          SHADOW_OFFSET_X: -2,
-          SHADOW_OFFSET_Y: 2,
+          SHADOW_OFFSET_X: 2,
+          SHADOW_OFFSET_Y: -2,
           SHADOW_BLUR: 2,
           SHADOW_COLOR: 'black'
         };
