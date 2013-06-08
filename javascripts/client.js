@@ -280,11 +280,11 @@
     ctx.textBaseline = 'top';
     ctx.lineWidth = 1;
     /* Render watermark */
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.75)';
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
     ctx.fillRect(WATERMARK_CONFIG.OFFSET_X,
-                  WATERMARK_CONFIG.OFFSET_Y + WATERMARK_CONFIG.SIZE,
+                  WATERMARK_CONFIG.OFFSET_Y,
                   WATERMARK_CONFIG.WIDTH,
-                  2);
+                  5);
 
     ctx.fillStyle = 'rgba(1, 134, 209, 0.25)';
     // there's a minimum font size so..
@@ -467,9 +467,9 @@
           HEIGHT: 37.5
         };
         WATERMARK_CONFIG = {
-          OFFSET_X: IMAGE_CONFIG.WIDTH - 180,
-          OFFSET_Y: 215.5 - 37.5 - 10,
-          SIZE: 4,
+          OFFSET_X: 0,
+          OFFSET_Y: 0,
+          SIZE: 5,
           WIDTH: 180
         };
         ID_CONFIG = {
@@ -490,8 +490,8 @@
         };
         WATERMARK_CONFIG = {
           OFFSET_X: IMAGE_CONFIG.WIDTH - 180,
-          OFFSET_Y: 30,
-          SIZE: 4,
+          OFFSET_Y: 0,
+          SIZE: 5,
           WIDTH: 180
         };
         MAIN_CHAR_IMAGE_CONFIG = {
@@ -548,8 +548,8 @@
         };
         WATERMARK_CONFIG = {
           OFFSET_X: IMAGE_CONFIG.WIDTH - 180,
-          OFFSET_Y: 30,
-          SIZE: 4,
+          OFFSET_Y: 0,
+          SIZE: 5,
           WIDTH: 180
         };
         MAIN_CHAR_IMAGE_CONFIG = {
