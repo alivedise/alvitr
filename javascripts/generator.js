@@ -402,7 +402,13 @@
           $('#previewImage').prop('src', result);
           $('#uploader').show();
 
-          
+          if (self._currentValueObject['background-image'] !== '0') {
+            $('[name=image-edit]').removeClass('disabled');
+            $('[name=image-edit]').removeAttr('disabled');
+          } else {
+            $('[name=image-edit]').addClass('disabled');
+            $('[name=image-edit]').prop('disabled', 'disabled');
+          }
         });
       } else {
         $.post('/form', this._currentValueObject,
