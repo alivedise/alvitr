@@ -63,7 +63,7 @@
     setTimeout(function(){
       try {
         console.log(IMAGE_PATH_PREFIX+src+':orz.');
-        deferred.reject();
+        deferred.resolve('');
       } catch (e) {
 
       }
@@ -128,22 +128,7 @@
 
   function renderBackgroundColor(param) {
     var d = $.Deferred();
-    if (param['background-color'] == 'custom') {
-      d.resolve();  // don't support custom now
-      return d.promise();
-
-      BackgroundGetter(param['custom-background']).then(function(data) {
-        if (data) {
-          var _x = 0, _y = 0, _w, _h, _sx = 0, _sy = 0, _sw, _sh;
-          _sw = IMAGE_CONFIG.WIDTH;
-          _sh = IMAGE_CONFIG.HEIGHT;
-          _w = data.width;
-          _h = data.width*_sh/_sw;
-          ctx.drawImage(data, _x, _y, _w, _h, _sx, _sy, _sw, _sh);
-        } 
-        d.resolve();
-      });
-    } else if ( param['background-color'] === false ||
+    if ( param['background-color'] === false ||
                 param['background-color'] == 'none' ||
                 param['background-color'] == 'transparent') {
       d.resolve();
@@ -173,65 +158,67 @@
       backgroundImagePath = 'images/background/' + param['background-image'];
     }
 
-    BackgroundGetter(backgroundImagePath).then(function(data) {  
-      // Try to scale the background image to a reasonable size and position
-      var _x = 0
-        , _y = 0
-        , _w
-        , _h
-        , _sw
-        , _sh
-        , _sx = 0
-        , _sy = 0;
+    BackgroundGetter(backgroundImagePath).then(function(data) {
+      if (data) {
+        // Try to scale the background image to a reasonable size and position
+        var _x = 0
+          , _y = 0
+          , _w
+          , _h
+          , _sw
+          , _sh
+          , _sx = 0
+          , _sy = 0;
 
-      switch (param['image-size']) {
-        case 'facebook-cover':
-          if (parseInt(param['background-image-x'], 10) >= 0) {
-            _sx = 0;
-            _sy = 0;
-            _x = parseInt(param['background-image-x'], 10);
-            _y = parseInt(param['background-image-y'], 10);
-            _w = parseInt(param['background-image-w'], 10);
-            _h = parseInt(param['background-image-h'], 10);
-            _sw = IMAGE_CONFIG.WIDTH;
-            _sh = IMAGE_CONFIG.HEIGHT;
-          } else {
-            // For facebook, we try to fit the height of image.
-            _sw = IMAGE_CONFIG.WIDTH;
-            _sh = IMAGE_CONFIG.HEIGHT;
-            _w = data.width;
-            _h = data.width*_sh/_sw;
-            _y = data.height * 0.1;
-            _sx = 0;
-          }
-          break;
-        case 'signature':
-        case 'bahamut':
-          if (parseInt(param['background-image-x'], 10) >= 0) {
-            _sx = 0;
-            _sy = 0;
-            _x = parseInt(param['background-image-x'], 10);
-            _y = parseInt(param['background-image-y'], 10);
-            _w = parseInt(param['background-image-w'], 10);
-            _h = parseInt(param['background-image-h'], 10);
-            _sw = IMAGE_CONFIG.WIDTH;
-            _sh = IMAGE_CONFIG.HEIGHT;
-          } else {
-            _sw = IMAGE_CONFIG.WIDTH;
-            _sh = IMAGE_CONFIG.HEIGHT;
-            _w = data.width;
-            _h = data.width*_sh/_sw;
-            _y = data.height * 0.1;
-            _sx = 0;
-            _sy = 0;
-          }
-          break;
+        switch (param['image-size']) {
+          case 'facebook-cover':
+            if (parseInt(param['background-image-x'], 10) >= 0) {
+              _sx = 0;
+              _sy = 0;
+              _x = parseInt(param['background-image-x'], 10);
+              _y = parseInt(param['background-image-y'], 10);
+              _w = parseInt(param['background-image-w'], 10);
+              _h = parseInt(param['background-image-h'], 10);
+              _sw = IMAGE_CONFIG.WIDTH;
+              _sh = IMAGE_CONFIG.HEIGHT;
+            } else {
+              // For facebook, we try to fit the height of image.
+              _sw = IMAGE_CONFIG.WIDTH;
+              _sh = IMAGE_CONFIG.HEIGHT;
+              _w = data.width;
+              _h = data.width*_sh/_sw;
+              _y = data.height * 0.1;
+              _sx = 0;
+            }
+            break;
+          case 'signature':
+          case 'bahamut':
+            if (parseInt(param['background-image-x'], 10) >= 0) {
+              _sx = 0;
+              _sy = 0;
+              _x = parseInt(param['background-image-x'], 10);
+              _y = parseInt(param['background-image-y'], 10);
+              _w = parseInt(param['background-image-w'], 10);
+              _h = parseInt(param['background-image-h'], 10);
+              _sw = IMAGE_CONFIG.WIDTH;
+              _sh = IMAGE_CONFIG.HEIGHT;
+            } else {
+              _sw = IMAGE_CONFIG.WIDTH;
+              _sh = IMAGE_CONFIG.HEIGHT;
+              _w = data.width;
+              _h = data.width*_sh/_sw;
+              _y = data.height * 0.1;
+              _sx = 0;
+              _sy = 0;
+            }
+            break;
+        }
+        
+        console.log('rendering: _x=', _x, '; _y=', _y, '; _w =', _w, '; _h=', _h);
+        console.log('rendering: _sx=', _sx, '; _sy=', _sy, '; _sw =', _sw, '; _sh=', _sh);
+        ctx.drawImage(data, _x, _y, _w, _h, /* The offset of main char */_sx, _sy, _sw, _sh);
       }
-      
-      console.log('rendering: _x=', _x, '; _y=', _y, '; _w =', _w, '; _h=', _h);
-      console.log('rendering: _sx=', _sx, '; _sy=', _sy, '; _sw =', _sw, '; _sh=', _sh);
-      ctx.drawImage(data, _x, _y, _w, _h, /* The offset of main char */_sx, _sy, _sw, _sh);
-      
+        
       /* Background image color transformation */
       if (param['background-tint'] &&
           param['background-tint'] != 'none' &&
