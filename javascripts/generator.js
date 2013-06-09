@@ -303,12 +303,15 @@
         };
     },
 
+    _currentRemoteImage: null,
+
     _fetchCustomImage: function() {
       $('#image-edit').addClass('disabled');
       $('#image-edit').prop('disabled', 'disabled');
       $('#custom-image-container img').remove();
       $('#custom-image-container').append('<img />');
       $('#custom-image-container img').load(function() {
+        self._currentRemoteImage = this;
         $('#image-edit').removeClass('disabled');
         $('#image-edit').removeAttr('disabled');
       });
@@ -423,4 +426,5 @@
   };
 
   Generator.init();
+  window.Generator = Generator;
 }(this));

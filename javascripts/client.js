@@ -57,15 +57,13 @@
     img.onload = function(){
       deferred.resolve(img);
     };
-    img.src = IMAGE_PATH_PREFIX + src;
-
     img.onerror = function(){
       deferred.resolve('');
     };
-
     img.onabort = function(){
       deferred.resolve('');
     };
+    img.src = IMAGE_PATH_PREFIX + src;
 
     return deferred.promise();
   };
@@ -152,116 +150,129 @@
 
     if (param['background-image'] == 'custom') {
       backgroundImagePath = param['custom-background-image'];
+      if (window.Generator._currentRemoteImage) {
+        // Save time and avoid error
+        _renderBackgroundImage(window.Generator._currentRemoteImage);
+        renderBackgroundTint();
+        d.resolve();
+        return d.promise();
+      }
     } else {
       backgroundImagePath = 'images/background/' + param['background-image'];
     }
-
     BackgroundGetter(backgroundImagePath).then(function(data) {
-      if (data) {
-        // Try to scale the background image to a reasonable size and position
-        var _x = 0
-          , _y = 0
-          , _w
-          , _h
-          , _sw
-          , _sh
-          , _sx = 0
-          , _sy = 0;
-
-        switch (param['image-size']) {
-          case 'facebook-cover':
-            if (parseInt(param['background-image-x'], 10) >= 0) {
-              _sx = 0;
-              _sy = 0;
-              _x = parseInt(param['background-image-x'], 10);
-              _y = parseInt(param['background-image-y'], 10);
-              _w = parseInt(param['background-image-w'], 10);
-              _h = parseInt(param['background-image-h'], 10);
-              _sw = IMAGE_CONFIG.WIDTH;
-              _sh = IMAGE_CONFIG.HEIGHT;
-            } else {
-              // For facebook, we try to fit the height of image.
-              _sw = IMAGE_CONFIG.WIDTH;
-              _sh = IMAGE_CONFIG.HEIGHT;
-              _w = data.width;
-              _h = data.width*_sh/_sw;
-              _y = data.height * 0.1;
-              _sx = 0;
-            }
-            break;
-          case 'signature':
-          case 'bahamut':
-            if (parseInt(param['background-image-x'], 10) >= 0) {
-              _sx = 0;
-              _sy = 0;
-              _x = parseInt(param['background-image-x'], 10);
-              _y = parseInt(param['background-image-y'], 10);
-              _w = parseInt(param['background-image-w'], 10);
-              _h = parseInt(param['background-image-h'], 10);
-              _sw = IMAGE_CONFIG.WIDTH;
-              _sh = IMAGE_CONFIG.HEIGHT;
-            } else {
-              _sw = IMAGE_CONFIG.WIDTH;
-              _sh = IMAGE_CONFIG.HEIGHT;
-              _w = data.width;
-              _h = data.width*_sh/_sw;
-              _y = data.height * 0.1;
-              _sx = 0;
-              _sy = 0;
-            }
-            break;
-        }
-        
-        console.log('rendering: _x=', _x, '; _y=', _y, '; _w =', _w, '; _h=', _h);
-        console.log('rendering: _sx=', _sx, '; _sy=', _sy, '; _sw =', _sw, '; _sh=', _sh);
-        ctx.drawImage(data, _x, _y, _w, _h, /* The offset of main char */_sx, _sy, _sw, _sh);
-      }
-        
-      /* Background image color transformation */
-      if (param['background-tint'] &&
-          param['background-tint'] != 'none' &&
-          param['background-tint'] != 'transparent') {
-        // color transformation
-        var map = ctx.getImageData(0, 0, IMAGE_CONFIG.WIDTH, IMAGE_CONFIG.HEIGHT);
-        var imdata = map.data;
-
-        // convert image to grayscale
-        var r,g,b,avg;
-        for(var p = 0, len = imdata.length; p < len; p+=4) {
-            r = imdata[p]
-            g = imdata[p+1];
-            b = imdata[p+2];
-            
-            avg = Math.floor((r+g+b)/3);
-
-            imdata[p] = imdata[p+1] = imdata[p+2] = avg;
-        }
-
-        ctx.putImageData(map, 0, 0);
-
-        // overlay filled rectangle using lighter composition
-        ctx.globalCompositeOperation = "lighter";
-        ctx.globalAlpha = 0.5;
-        ctx.fillStyle = param['background-tint'];
-        ctx.fillRect(0, 0, IMAGE_CONFIG.WIDTH, IMAGE_CONFIG.HEIGHT);
-      } else {
-        ctx.fillStyle = "rgba(255, 255, 255, 0.30)";
-        ctx.fillRect(0, 0, IMAGE_CONFIG.WIDTH, IMAGE_CONFIG.HEIGHT);
-      }
-            // Reset default.
-      ctx.globalAlpha = 1.0;
-      ctx.globalCompositeOperation = 'source-over';
-      ctx.strokeStyle = "rgba(255, 255, 255, 0.50)";
-      ctx.lineWidth = 5;
-      ctx.strokeRect(5/2, 5/2, IMAGE_CONFIG.WIDTH - 5, IMAGE_CONFIG.HEIGHT - 5);
-      ctx.lineWidth = 1;
-
-      ctx.fillStyle = '#fff';
-
+      _renderBackgroundImage(data);
+      renderBackgroundTint(param);
       d.resolve();
     });
     return d.promise();
   }
+
+  function _renderBackgroundImage(data) {
+    if (!data)
+      return;
+
+    // Try to scale the background image to a reasonable size and position
+    var _x = 0
+      , _y = 0
+      , _w
+      , _h
+      , _sw
+      , _sh
+      , _sx = 0
+      , _sy = 0;
+
+    switch (param['image-size']) {
+      case 'facebook-cover':
+        if (parseInt(param['background-image-x'], 10) >= 0) {
+          _sx = 0;
+          _sy = 0;
+          _x = parseInt(param['background-image-x'], 10);
+          _y = parseInt(param['background-image-y'], 10);
+          _w = parseInt(param['background-image-w'], 10);
+          _h = parseInt(param['background-image-h'], 10);
+          _sw = IMAGE_CONFIG.WIDTH;
+          _sh = IMAGE_CONFIG.HEIGHT;
+        } else {
+          // For facebook, we try to fit the height of image.
+          _sw = IMAGE_CONFIG.WIDTH;
+          _sh = IMAGE_CONFIG.HEIGHT;
+          _w = data.width;
+          _h = data.width*_sh/_sw;
+          _y = data.height * 0.1;
+          _sx = 0;
+        }
+        break;
+      case 'signature':
+      case 'bahamut':
+        if (parseInt(param['background-image-x'], 10) >= 0) {
+          _sx = 0;
+          _sy = 0;
+          _x = parseInt(param['background-image-x'], 10);
+          _y = parseInt(param['background-image-y'], 10);
+          _w = parseInt(param['background-image-w'], 10);
+          _h = parseInt(param['background-image-h'], 10);
+          _sw = IMAGE_CONFIG.WIDTH;
+          _sh = IMAGE_CONFIG.HEIGHT;
+        } else {
+          _sw = IMAGE_CONFIG.WIDTH;
+          _sh = IMAGE_CONFIG.HEIGHT;
+          _w = data.width;
+          _h = data.width*_sh/_sw;
+          _y = data.height * 0.1;
+          _sx = 0;
+          _sy = 0;
+        }
+        break;
+    }
+    
+    console.log('rendering: _x=', _x, '; _y=', _y, '; _w =', _w, '; _h=', _h);
+    console.log('rendering: _sx=', _sx, '; _sy=', _sy, '; _sw =', _sw, '; _sh=', _sh);
+    ctx.drawImage(data, _x, _y, _w, _h, /* The offset of main char */_sx, _sy, _sw, _sh);
+  }
+
+  function renderBackgroundTint(param) {
+    /* Background image color transformation */
+    if (param['background-tint'] &&
+        param['background-tint'] != 'none' &&
+        param['background-tint'] != 'transparent') {
+      // color transformation
+      var map = ctx.getImageData(0, 0, IMAGE_CONFIG.WIDTH, IMAGE_CONFIG.HEIGHT);
+      var imdata = map.data;
+
+      // convert image to grayscale
+      var r,g,b,avg;
+      for(var p = 0, len = imdata.length; p < len; p+=4) {
+          r = imdata[p]
+          g = imdata[p+1];
+          b = imdata[p+2];
+          
+          avg = Math.floor((r+g+b)/3);
+
+          imdata[p] = imdata[p+1] = imdata[p+2] = avg;
+      }
+
+      ctx.putImageData(map, 0, 0);
+
+      // overlay filled rectangle using lighter composition
+      ctx.globalCompositeOperation = "lighter";
+      ctx.globalAlpha = 0.5;
+      ctx.fillStyle = param['background-tint'];
+      ctx.fillRect(0, 0, IMAGE_CONFIG.WIDTH, IMAGE_CONFIG.HEIGHT);
+    } else {
+      ctx.fillStyle = "rgba(255, 255, 255, 0.30)";
+      ctx.fillRect(0, 0, IMAGE_CONFIG.WIDTH, IMAGE_CONFIG.HEIGHT);
+    }
+          // Reset default.
+    ctx.globalAlpha = 1.0;
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.strokeStyle = "rgba(255, 255, 255, 0.50)";
+    ctx.lineWidth = 5;
+    ctx.strokeRect(5/2, 5/2, IMAGE_CONFIG.WIDTH - 5, IMAGE_CONFIG.HEIGHT - 5);
+    ctx.lineWidth = 1;
+
+    ctx.fillStyle = '#fff';
+  };
 
   function renderStatic(param) {
     ctx.textBaseline = 'top';
