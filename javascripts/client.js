@@ -654,5 +654,6 @@
   }
 
   window.renderClient = render;
+  window.imageGetter = BackgroundGetter;
 }(this));
 
