@@ -315,6 +315,13 @@
 
     ctx.shadowOffsetX = 0;
     ctx.shadowOffsetY = 0;
+
+    if (param['name-border-color'] && param['name-border-color'] != 'transparent') {
+      ctx.strokeStyle = param['name-border-color'];
+      ctx.strokeText(param.name || '',
+                      NAME_CONFIG.OFFSET_X,
+                      NAME_CONFIG.OFFSET_Y);
+    }
   
 
     /* Render ID */
@@ -349,6 +356,13 @@
 
     ctx.shadowOffsetX = 0;
     ctx.shadowOffsetY = 0;
+
+    if (param['comment-border-color'] && param['comment-border-color'] != 'transparent') {
+      ctx.strokeStyle = param['comment-border-color'];
+      ctx.strokeText(param.name || '',
+                      NAME_CONFIG.OFFSET_X,
+                      NAME_CONFIG.OFFSET_Y);
+    }
 
     ctx.lineWidth = 1;
   }

@@ -294,6 +294,8 @@
                               .text('Font and configuration loaded./字型以及前次設定載入完畢。');
 
             $('input[name="background-color"]').colorPicker();
+            $('input[name="name-border-color"]').colorPicker();
+            $('input[name="comment-border-color"]').colorPicker();
             $('input[name="name-color"]').colorPicker();
             $('input[name="comment-color"]').colorPicker();
             $('input[name="background-tint"]').colorPicker();

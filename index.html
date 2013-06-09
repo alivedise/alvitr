@@ -16,7 +16,7 @@
     <header class="jumbotron subhead" id="header-container">
       <div class="container">
         <div class="page-header" id="page-header">
-          <h1>Puzzle & Dragon signature builder<small>v2.1.3Release</small></h1>
+          <h1>Puzzle & Dragon signature builder<small>v2.1.4Release</small></h1>
           <h2>龍族拼圖圖片簽名檔產生器</h2>
           <small>
               <div>Source code: <a href="http://github.com/alivedise/alvitr">http://github.com/alivedise/alvitr</a></div>
@@ -59,7 +59,14 @@
             <label class="control-label">Name/名稱</label>
             <div class="controls">
               <input class="inline" id="name" name="name" type="text" placeholder="name" class="input-xlarge" maxlength="20">
-              <input class="inline" type="text" name="name-color" id="name-color" value="transparent">
+              <label class="inline checkbox">
+                <input type="text" name="name-color" id="name-color" value="transparent">
+                Text color
+              </label>
+              <label class="inline checkbox">
+                <input type="text" name="name-border-color" id="name-border-color" value="transparent">
+                Text border color
+              </label>
               <p class="help-block">Your PAD nickname/你的PaD暱稱</p>
             </div>
           </div>
@@ -229,7 +236,14 @@
             <label class="control-label">Self-introduction or comment/自我介紹或註解</label>
             <div class="controls">
               <input class="inline" id="comment" name="comment" type="text" placeholder="Say something." class="input-xlarge" maxlength="50">
-              <input type="text" name="comment-color" id="comment-color" value="transparent">
+              <label class="inline checkbox">
+                <input type="text" name="comment-color" id="comment-color" value="transparent">
+                Text color
+              </label>
+              <label class="inline checkbox">
+                <input type="text" name="comment-border-color" id="comment-border-color" value="transparent">
+                Text border color
+              </label>
               <p class="help-block">Leave some description here./隨便寫段話</p>
             </div>
           </div>
@@ -284,8 +298,8 @@
     <script src="javascripts/jstorage.js"></script>
     <script src="javascripts/modernizr.custom.js"></script>
     <script src="javascripts/jquery-bootstrap-pagination.js"></script>
-    <script src="javascripts/client.js?v=2.1.3Release"></script>
-    <script src="javascripts/generator.js?v=2.1.3Release"></script>
+    <script src="javascripts/client.js?v=2.1.4Release"></script>
+    <script src="javascripts/generator.js?v=2.1.4Release"></script>
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
