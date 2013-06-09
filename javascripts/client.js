@@ -177,7 +177,10 @@
       return d.promise();
     }
 
-    if (param['image-size'] == 'facebook-cover') {
+    if (param['background-image'] == 'custom') {
+      backgroundImagePath = param['custom-background-image'];
+      originalImagePath = param['custom-background-image'];
+    } else if (param['image-size'] == 'facebook-cover') {
       backgroundImagePath = 'images/background/' + param['background-image'] + extention;
     } else {
       originalImagePath = 'images/background/' + param['background-image'] + extention;
@@ -222,7 +225,7 @@
                       IMAGE_CONFIG.WIDTH - _ow : offset
             }
 
-            if (parseInt(param['background-image-x'], 10)) {
+            if (parseInt(param['background-image-x'], 10) >= 0) {
               _sx = 0;
               _sy = 0;
               _x = parseInt(param['background-image-x'], 10);
