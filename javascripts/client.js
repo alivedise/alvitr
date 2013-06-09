@@ -359,7 +359,7 @@
 
     if (param['comment-border-color'] && param['comment-border-color'] != 'transparent') {
       ctx.strokeStyle = param['comment-border-color'];
-      ctx.fillText(param.comment || '',
+      ctx.strokeText(param.comment || '',
                     COMMENT_CONFIG.OFFSET_X,
                     COMMENT_CONFIG.OFFSET_Y);
     }
