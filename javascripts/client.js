@@ -152,8 +152,8 @@
       backgroundImagePath = param['custom-background-image'];
       if (window.Generator._currentRemoteImage) {
         // Save time and avoid error
-        _renderBackgroundImage(window.Generator._currentRemoteImage);
-        renderBackgroundTint();
+        _renderBackgroundImage(param, window.Generator._currentRemoteImage);
+        renderBackgroundTint(param);
         d.resolve();
         return d.promise();
       }
@@ -161,14 +161,14 @@
       backgroundImagePath = 'images/background/' + param['background-image'];
     }
     BackgroundGetter(backgroundImagePath).then(function(data) {
-      _renderBackgroundImage(data);
+      _renderBackgroundImage(param, data);
       renderBackgroundTint(param);
       d.resolve();
     });
     return d.promise();
   }
 
-  function _renderBackgroundImage(data) {
+  function _renderBackgroundImage(param, data) {
     if (!data)
       return;
 
