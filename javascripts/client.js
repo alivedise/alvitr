@@ -39,7 +39,6 @@
   var NAME_CONFIG = {};
   var COMMENT_CONFIG = {};
   var ID_CONFIG = {};
-  var LOGO_CONFIG = {};
   var WATERMARK_CONFIG = {};
   var BRUSH_CONFIG = {
     HEIGHT: 5
@@ -182,48 +181,23 @@
       , _sx = 0
       , _sy = 0;
 
-    switch (param['image-size']) {
-      case 'facebook-cover':
-        if (parseInt(param['background-image-x'], 10) >= 0) {
-          _sx = 0;
-          _sy = 0;
-          _x = parseInt(param['background-image-x'], 10);
-          _y = parseInt(param['background-image-y'], 10);
-          _w = parseInt(param['background-image-w'], 10);
-          _h = parseInt(param['background-image-h'], 10);
-          _sw = IMAGE_CONFIG.WIDTH;
-          _sh = IMAGE_CONFIG.HEIGHT;
-        } else {
-          // For facebook, we try to fit the height of image.
-          _sw = IMAGE_CONFIG.WIDTH;
-          _sh = IMAGE_CONFIG.HEIGHT;
-          _w = data.width;
-          _h = data.width*_sh/_sw;
-          _y = data.height * 0.1;
-          _sx = 0;
-        }
-        break;
-      case 'signature':
-      case 'bahamut':
-        if (parseInt(param['background-image-x'], 10) >= 0) {
-          _sx = 0;
-          _sy = 0;
-          _x = parseInt(param['background-image-x'], 10);
-          _y = parseInt(param['background-image-y'], 10);
-          _w = parseInt(param['background-image-w'], 10);
-          _h = parseInt(param['background-image-h'], 10);
-          _sw = IMAGE_CONFIG.WIDTH;
-          _sh = IMAGE_CONFIG.HEIGHT;
-        } else {
-          _sw = IMAGE_CONFIG.WIDTH;
-          _sh = IMAGE_CONFIG.HEIGHT;
-          _w = data.width;
-          _h = data.width*_sh/_sw;
-          _y = data.height * 0.1;
-          _sx = 0;
-          _sy = 0;
-        }
-        break;
+    if (parseInt(param['background-image-x'], 10) >= 0) {
+      _sx = 0;
+      _sy = 0;
+      _x = parseInt(param['background-image-x'], 10);
+      _y = parseInt(param['background-image-y'], 10);
+      _w = parseInt(param['background-image-w'], 10);
+      _h = parseInt(param['background-image-h'], 10);
+      _sw = IMAGE_CONFIG.WIDTH;
+      _sh = IMAGE_CONFIG.HEIGHT;
+    } else {
+      // For facebook, we try to fit the height of image.
+      _sw = IMAGE_CONFIG.WIDTH;
+      _sh = IMAGE_CONFIG.HEIGHT;
+      _w = data.width;
+      _h = data.width*_sh/_sw;
+      _y = data.height * 0.1;
+      _sx = 0;
     }
     
     console.log('rendering: _x=', _x, '; _y=', _y, '; _w =', _w, '; _h=', _h);
@@ -367,23 +341,6 @@
     ctx.lineWidth = 1;
   }
 
-  function renderLogo(param) {
-    var d = $.Deferred();
-    BackgroundGetter('images/padlogo.png').then(function(data) {
-      if (data) {
-        ctx.globalAlpha = 0.8;
-        ctx.drawImage(data,
-                      LOGO_CONFIG.OFFSET_X,
-                      LOGO_CONFIG.OFFSET_Y,
-                      LOGO_CONFIG.WIDTH,
-                      LOGO_CONFIG.HEIGHT);
-        ctx.globalAlpha = 1.0;
-      }
-      d.resolve();
-    });
-    return d.promise();
-  }
-
   function renderMainChar(param) {
     var d = $.Deferred();
     if ('character' in param &&
@@ -500,12 +457,6 @@
           SHADOW_OFFSET_X: 1,
           SHADOW_OFFSET_Y: 1
         };
-        LOGO_CONFIG = {
-          OFFSET_X: 23, /* left top of cover */
-          OFFSET_Y: 23,
-          WIDTH: 100,
-          HEIGHT: 37.5
-        };
         WATERMARK_CONFIG = {
           OFFSET_X: 0,
           OFFSET_Y: 0,
@@ -522,12 +473,6 @@
       case 'signature':
         IMAGE_CONFIG.WIDTH = 700;
         IMAGE_CONFIG.HEIGHT = 170;
-        LOGO_CONFIG = {
-          WIDTH: 80,
-          HEIGHT: 30,
-          OFFSET_X: IMAGE_CONFIG.WIDTH - 80,
-          OFFSET_Y: 170 - 30 - 5 - 30
-        };
         WATERMARK_CONFIG = {
           OFFSET_X: IMAGE_CONFIG.WIDTH - 140,
           OFFSET_Y: 0,
@@ -586,15 +531,10 @@
           WIDTH: 150,
           SIZE: 25
         };
+        break;
       case 'bahamut':
         IMAGE_CONFIG.WIDTH = 660;
         IMAGE_CONFIG.HEIGHT = 125;
-        LOGO_CONFIG = {
-          WIDTH: 54,
-          HEIGHT: 20,
-          OFFSET_X: IMAGE_CONFIG.WIDTH - 54 - 5,
-          OFFSET_Y: 125 - 30 - 5 - 20
-        };
         WATERMARK_CONFIG = {
           OFFSET_X: IMAGE_CONFIG.WIDTH - 150,
           OFFSET_Y: 0,
@@ -653,6 +593,132 @@
           OFFSET_Y: 5,
           WIDTH: 150,
           SIZE: 25
+        };
+        break;
+      case 'thin':
+        IMAGE_CONFIG.WIDTH = 450;
+        IMAGE_CONFIG.HEIGHT = 64;
+        WATERMARK_CONFIG = {
+          OFFSET_X: IMAGE_CONFIG.WIDTH - 150,
+          OFFSET_Y: 0,
+          SIZE: 5,
+          WIDTH: 150
+        };
+        MAIN_CHAR_IMAGE_CONFIG = {
+          WIDTH: 64,
+          HEIGHT: 64,
+          OFFSET_X: 0,
+          OFFSET_Y: 0,
+          SHADOW_OFFSET_Y: 2,
+          SHADOW_OFFSET_X: 2,
+          SHADOW_BLUR: 0,
+          SHADOW_COLOR: 'rgba(0, 0, 0, ' + (param['icon-transparent'] ? '0.3':'1') + ')'
+        };
+        LEADERS_IMAGE_CONFIG = {
+          WIDTH: 20,
+          HEIGHT: 20,
+          OFFSET_X: 64,
+          OFFSET_Y: 64 - 20,
+          SHADOW_OFFSET_X: 2,
+          SHADOW_OFFSET_Y: -2,
+          SHADOW_BLUR: 0,
+          SHADOW_COLOR: 'rgba(0, 0, 0, ' + (param['icon-transparent'] ? '0.3':'1') + ')'
+        };
+        FUNCTIONAL_LEADERS_IMAGE_CONFIG = {
+          WIDTH: 20,
+          HEIGHT: 20,
+          OFFSET_X: IMAGE_CONFIG.WIDTH - 22*MaximumFunctionalLeaders,
+          OFFSET_Y: IMAGE_CONFIG.HEIGHT - 20,
+          SHADOW_OFFSET_X: -2,
+          SHADOW_OFFSET_Y: -2,
+          SHADOW_BLUR: 0,
+          SHADOW_COLOR: 'rgba(0, 0, 0, ' + (param['icon-transparent'] ? '0.3':'1') + ')'
+        };
+        NAME_CONFIG = {
+          COLOR: '#fff',
+          OFFSET_X: 64+5,
+          OFFSET_Y: 5,
+          SIZE: 30,
+          SHADOW_OFFSET_X: 2,
+          SHADOW_OFFSET_Y: 2
+        };
+        COMMENT_CONFIG = {
+          COLOR: '#000',
+          OFFSET_X: 64+5,
+          OFFSET_Y: 5 + 30,
+          WIDTH: 130,
+          SIZE: 25,
+          SHADOW_OFFSET_X: 1,
+          SHADOW_OFFSET_Y: 1
+        };
+        ID_CONFIG = {
+          OFFSET_X: IMAGE_CONFIG.WIDTH - 130,
+          OFFSET_Y: 5,
+          WIDTH: 130,
+          SIZE: 20
+        };
+        break;
+      case 'medium':
+        IMAGE_CONFIG.WIDTH = 600;
+        IMAGE_CONFIG.HEIGHT = 100;
+        WATERMARK_CONFIG = {
+          OFFSET_X: IMAGE_CONFIG.WIDTH - 150,
+          OFFSET_Y: 0,
+          SIZE: 5,
+          WIDTH: 150
+        };
+        MAIN_CHAR_IMAGE_CONFIG = {
+          WIDTH: 50,
+          HEIGHT: 50,
+          OFFSET_X: 5,
+          OFFSET_Y: 5,
+          SHADOW_OFFSET_Y: 2,
+          SHADOW_OFFSET_X: 2,
+          SHADOW_BLUR: 0,
+          SHADOW_COLOR: 'rgba(0, 0, 0, ' + (param['icon-transparent'] ? '0.3':'1') + ')'
+        };
+        LEADERS_IMAGE_CONFIG = {
+          WIDTH: 35,
+          HEIGHT: 35,
+          OFFSET_X: 0,
+          OFFSET_Y: 100-35,
+          SHADOW_OFFSET_X: 2,
+          SHADOW_OFFSET_Y: -2,
+          SHADOW_BLUR: 0,
+          SHADOW_COLOR: 'rgba(0, 0, 0, ' + (param['icon-transparent'] ? '0.3':'1') + ')'
+        };
+        FUNCTIONAL_LEADERS_IMAGE_CONFIG = {
+          WIDTH: 25,
+          HEIGHT: 25,
+          OFFSET_X: IMAGE_CONFIG.WIDTH - 27*MaximumFunctionalLeaders,
+          OFFSET_Y: IMAGE_CONFIG.HEIGHT - 25,
+          SHADOW_OFFSET_X: -2,
+          SHADOW_OFFSET_Y: -2,
+          SHADOW_BLUR: 0,
+          SHADOW_COLOR: 'rgba(0, 0, 0, ' + (param['icon-transparent'] ? '0.3':'1') + ')'
+        };
+        NAME_CONFIG = {
+          COLOR: '#fff',
+          OFFSET_X: 60,
+          OFFSET_Y: 5,
+          SIZE: 35,
+          SHADOW_OFFSET_X: 2,
+          SHADOW_OFFSET_Y: 2
+        };
+        COMMENT_CONFIG = {
+          COLOR: '#000',
+          OFFSET_X: 60,
+          OFFSET_Y: 5 + 35,
+          WIDTH: 130,
+          SIZE: 25,
+          SHADOW_OFFSET_X: 1,
+          SHADOW_OFFSET_Y: 1
+        };
+        ID_CONFIG = {
+          OFFSET_X: IMAGE_CONFIG.WIDTH - 140,
+          OFFSET_Y: 5,
+          WIDTH: 140,
+          SIZE: 20
         };
         break;
     }

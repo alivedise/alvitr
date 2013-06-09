@@ -13,6 +13,14 @@
     'bahamut': {
       width: 660,
       height: 125
+    },
+    'medium': {
+      width: 600,
+      height: 100
+    },
+    'thin': {
+      width: 450,
+      height: 64
     }
   };
   function colourNameToHex(colour)
