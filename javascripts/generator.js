@@ -91,7 +91,7 @@
               }
               break;
             case 'input':
-              if (element.prop('type') == 'radio') {
+              if (element.prop('type') == 'radio' || element.prop('type') == 'checkbox') {
                 var e = element.filter('[value="' + value + '"]');
                 if (e)
                   e.prop('checked', value);

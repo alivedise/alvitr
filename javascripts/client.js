@@ -373,7 +373,7 @@
   function renderMainChar(param) {
     var d = $.Deferred();
     if ('character' in param &&
-        param.character != '') {
+        param.character != '' && param.character != '0') {
       IconGetter(param.character).then(function(data) {
         ctx.shadowColor = MAIN_CHAR_IMAGE_CONFIG.SHADOW_COLOR;
         ctx.shadowOffsetX = MAIN_CHAR_IMAGE_CONFIG.SHADOW_OFFSET_X;
@@ -447,7 +447,7 @@
           SHADOW_OFFSET_Y: 2,
           SHADOW_OFFSET_X: 2,
           SHADOW_BLUR: 0,
-          SHADOW_COLOR: 'rgba(0, 0, 0, 0.3)'
+          SHADOW_COLOR: 'rgba(0, 0, 0, ' + (param['icon-transparent'] ? '0.3':'1') + ')'
         };
         LEADERS_IMAGE_CONFIG = {
           WIDTH: 40,
@@ -457,7 +457,7 @@
           SHADOW_OFFSET_Y: 2,
           SHADOW_OFFSET_X: 2,
           SHADOW_BLUR: 0,
-          SHADOW_COLOR: 'rgba(0, 0, 0, 0.3)'
+          SHADOW_COLOR: 'rgba(0, 0, 0, ' + (param['icon-transparent'] ? '0.3':'1') + ')'
         };
         FUNCTIONAL_LEADERS_IMAGE_CONFIG = {
           WIDTH: 25,
@@ -467,7 +467,7 @@
           SHADOW_OFFSET_X: -2,
           SHADOW_OFFSET_Y: 2,
           SHADOW_BLUR: 0,
-          SHADOW_COLOR: 'rgba(0, 0, 0, 0.3)'
+          SHADOW_COLOR: 'rgba(0, 0, 0, ' + (param['icon-transparent'] ? '0.3':'1') + ')'
         };
         NAME_CONFIG = {
           COLOR: '#fff',
@@ -528,7 +528,7 @@
           SHADOW_OFFSET_Y: 2,
           SHADOW_OFFSET_X: 2,
           SHADOW_BLUR: 0,
-          SHADOW_COLOR: 'rgba(0, 0, 0, 0.3)'
+          SHADOW_COLOR: 'rgba(0, 0, 0, ' + (param['icon-transparent'] ? '0.3':'1') + ')'
         };
         LEADERS_IMAGE_CONFIG = {
           WIDTH: 50,
@@ -538,7 +538,7 @@
           SHADOW_OFFSET_X: 2,
           SHADOW_OFFSET_Y: -2,
           SHADOW_BLUR: 0,
-          SHADOW_COLOR: 'rgba(0, 0, 0, 0.3)'
+          SHADOW_COLOR: 'rgba(0, 0, 0, ' + (param['icon-transparent'] ? '0.3':'1') + ')'
         };
         FUNCTIONAL_LEADERS_IMAGE_CONFIG = {
           WIDTH: 30,
@@ -548,7 +548,7 @@
           SHADOW_OFFSET_X: -2,
           SHADOW_OFFSET_Y: -2,
           SHADOW_BLUR: 0,
-          SHADOW_COLOR: 'rgba(0, 0, 0, 0.3)'
+          SHADOW_COLOR: 'rgba(0, 0, 0, ' + (param['icon-transparent'] ? '0.3':'1') + ')'
         };
         NAME_CONFIG = {
           COLOR: '#fff',
@@ -595,7 +595,7 @@
           SHADOW_OFFSET_Y: 2,
           SHADOW_OFFSET_X: 2,
           SHADOW_BLUR: 0,
-          SHADOW_COLOR: 'rgba(0, 0, 0, 0.3)'
+          SHADOW_COLOR: 'rgba(0, 0, 0, ' + (param['icon-transparent'] ? '0.3':'1') + ')'
         };
         LEADERS_IMAGE_CONFIG = {
           WIDTH: 40,
@@ -605,7 +605,7 @@
           SHADOW_OFFSET_X: 2,
           SHADOW_OFFSET_Y: -2,
           SHADOW_BLUR: 0,
-          SHADOW_COLOR: 'rgba(0, 0, 0, 0.3)'
+          SHADOW_COLOR: 'rgba(0, 0, 0, ' + (param['icon-transparent'] ? '0.3':'1') + ')'
         };
         FUNCTIONAL_LEADERS_IMAGE_CONFIG = {
           WIDTH: 30,
@@ -615,7 +615,7 @@
           SHADOW_OFFSET_X: -2,
           SHADOW_OFFSET_Y: -2,
           SHADOW_BLUR: 0,
-          SHADOW_COLOR: 'rgba(0, 0, 0, 0.3)'
+          SHADOW_COLOR: 'rgba(0, 0, 0, ' + (param['icon-transparent'] ? '0.3':'1') + ')'
         };
         NAME_CONFIG = {
           COLOR: '#fff',
