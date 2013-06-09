@@ -15,25 +15,6 @@
       height: 125
     }
   };
-  var blacklist = {
-    'facebook-cover': {
-      'png': [],
-      'jpg': []
-    },
-    'signature': {
-      'png': [],
-      'jpg': []
-    },
-    'bahamut': {
-      'png': [],
-      'jpg': []
-    }
-  };
-  var whitelist = {
-    'facebook-cover': [0],
-    'signature': [0],
-    'bahamut': [0]
-  };
   function colourNameToHex(colour)
   {
     if (colour === false)
@@ -136,37 +117,18 @@
     _currentDataURL: '',
     _uploading: false,
     _dirty: false,
-    _currentTemplate: 'signature',
     _currentValueObject: {},
     loadBackgroundImage: function() {
       var _count = 1;
       for (var i = 1; i <= JPG_COUNT; i++, _count++) {
-        if (blacklist['signature']['jpg'].indexOf(_count) < 0) {
-          whitelist['signature'].push(_count);
-        }
-        if (blacklist['bahamut']['jpg'].indexOf(_count) < 0) {
-          whitelist['bahamut'].push(_count);
-        }
-        if (blacklist['facebook-cover']['jpg'].indexOf(_count) < 0) {
-          whitelist['facebook-cover'].push(_count);
-        }
         $('#image-selector').append('<label class="radio" data-index="'+_count+'">'+
-            '<input type="radio" name="background-image" value="f'+i+'">'+
+            '<input type="radio" name="background-image" value="f'+i+'.jpg">'+
             '<span class="background-image-container"><img data-source="f'+i+'.jpg" /></span>'+
           '</label>');
       }
       for (var i = 1; i <= PNG_COUNT; i++, _count++) {
-        if (blacklist['signature']['png'].indexOf(_count) < 0) {
-          whitelist['signature'].push(_count);
-        }
-        if (blacklist['bahamut']['png'].indexOf(_count) < 0) {
-          whitelist['bahamut'].push(_count);
-        }
-        if (blacklist['facebook-cover']['png'].indexOf(_count) < 0) {
-          whitelist['facebook-cover'].push(_count);
-        }
         $('#image-selector').append('<label class="radio" data-index="'+_count+'">'+
-            '<input type="radio" name="background-image" value="'+i+'">'+
+            '<input type="radio" name="background-image" value="'+i+'.png">'+
             '<span class="background-image-container"><img data-source="'+i+'.png" /></span>'+
           '</label>');
       }
@@ -182,7 +144,7 @@
 
       this.loadBackgroundImage();
       $('.pager').pagination({
-        total_pages: Math.ceil(whitelist[this._currentTemplate].length / IMAGE_PER_PAGE),
+        total_pages: Math.ceil((JPG_COUNT + PNG_COUNT) / IMAGE_PER_PAGE),
         current_page: 1,
         callback: function(event, page) {
           event.preventDefault();
@@ -210,10 +172,7 @@
       var self = this;
 
       $('input[name="image-size"]').change(function(evt) {
-        evt.stopPropagation();
-        self.changeTemplate($(this).val());
         self.resetImageEditor();
-        return false;
       });
 
       $('form').change(function() {
@@ -454,26 +413,12 @@
     showPage: function(page) {
       $('#background-loader .controls .radio.visible').removeClass('visible');
       for (var i = (page - 1) * IMAGE_PER_PAGE; i < IMAGE_PER_PAGE + (page - 1) * IMAGE_PER_PAGE; i++) {
-        var container = $('#background-loader .controls .radio[data-index="' + whitelist[this._currentTemplate][i] + '"]');
+        var container = $('#background-loader .controls .radio[data-index="' + i + '"]');
         container.addClass('visible');
         if (container.find('img').prop('src') === '') {
           container.find('img').prop('src', 'images/background/' + container.find('img').data('source'));
         }
       }
-    },
-
-    changeTemplate: function(template) {
-      this._currentTemplate = template;
-      // reset background
-      $('.pager').pagination({
-        total_pages: Math.ceil(whitelist[template].length / IMAGE_PER_PAGE),
-        current_page: 1
-      });
-
-      this.showPage(1);
-      $('#none-background').prop('checked', true).trigger('change');
-      $('#image-edit').addClass('disabled');
-      $('#image-edit').prop('disabled', 'disabled');
     }
   };
 

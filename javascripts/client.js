@@ -61,8 +61,8 @@
     img.src = IMAGE_PATH_PREFIX + src;
 
     setTimeout(function(){
-      console.warn('Get image: ', src, ' failed.');
       try {
+        console.log(IMAGE_PATH_PREFIX+src+':orz.');
         deferred.reject();
       } catch (e) {
 
@@ -158,58 +158,44 @@
 
   function renderBackgroundImage(param) {
     var d = $.Deferred();
-    var offset = 0;
-    var extention = '.png';
     var backgroundImagePath = '';
-    var originalImagePath = '';
-
-    if (('' + param['background-image']).charAt(0) === 'f') {
-      // We are non-transparent background;
-      extention = '.jpg';
-    }
-    if (param['image-size'] != 'facebook-cover') {
-      offset = 150;
-    }
 
     var source = parseInt(param['background-image'], 10);
     if (source === 0) {
+      // no backgroud image
       d.resolve();
       return d.promise();
     }
 
     if (param['background-image'] == 'custom') {
       backgroundImagePath = param['custom-background-image'];
-      originalImagePath = param['custom-background-image'];
-    } else if (parseInt(param['background-image-x'], 10) >= 0) {
-      backgroundImagePath = 'images/background/' + param['background-image'] + extention;
-    } else if (param['image-size'] == 'facebook-cover') {
-      backgroundImagePath = 'images/background/' + param['background-image'] + extention;
     } else {
-      originalImagePath = 'images/background/' + param['background-image'] + extention;
-      if (extention == '.jpg')
-        extention = '.png';
-      backgroundImagePath = 'images/background/s' + param['background-image'] + extention;
+      backgroundImagePath = 'images/background/' + param['background-image'];
     }
 
-    BackgroundGetter(originalImagePath).then(function(data) {
-      var _ow = 0, _oh = 0;
-      if (data) {
-        _ow = data.width;
-        _oh = data.height;
-      }
-      BackgroundGetter(backgroundImagePath).then(function(data) {  
-        // Try to scale the background image to a reasonable size and position
-        var _x = 0
-          , _y = 0
-          , _w
-          , _h
-          , _sw
-          , _sh
-          , _sx = 0
-          , _sy = 0;
+    BackgroundGetter(backgroundImagePath).then(function(data) {  
+      // Try to scale the background image to a reasonable size and position
+      var _x = 0
+        , _y = 0
+        , _w
+        , _h
+        , _sw
+        , _sh
+        , _sx = 0
+        , _sy = 0;
 
-        switch (param['image-size']) {
-          case 'facebook-cover':
+      switch (param['image-size']) {
+        case 'facebook-cover':
+          if (parseInt(param['background-image-x'], 10) >= 0) {
+            _sx = 0;
+            _sy = 0;
+            _x = parseInt(param['background-image-x'], 10);
+            _y = parseInt(param['background-image-y'], 10);
+            _w = parseInt(param['background-image-w'], 10);
+            _h = parseInt(param['background-image-h'], 10);
+            _sw = IMAGE_CONFIG.WIDTH;
+            _sh = IMAGE_CONFIG.HEIGHT;
+          } else {
             // For facebook, we try to fit the height of image.
             _sw = IMAGE_CONFIG.WIDTH;
             _sh = IMAGE_CONFIG.HEIGHT;
@@ -217,79 +203,77 @@
             _h = data.width*_sh/_sw;
             _y = data.height * 0.1;
             _sx = 0;
-            break;
-          case 'signature':
-          case 'bahamut':
-            if (originalImagePath.indexOf('.jpg') > 0) {
-              // If original image is jpg,
-              // calculate the cutted width by original width
-              offset = _ow < IMAGE_CONFIG.WIDTH - offset ?
-                      IMAGE_CONFIG.WIDTH - _ow : offset
-            }
-
-            if (parseInt(param['background-image-x'], 10) >= 0) {
-              _sx = 0;
-              _sy = 0;
-              _x = parseInt(param['background-image-x'], 10);
-              _y = parseInt(param['background-image-y'], 10);
-              _w = parseInt(param['background-image-w'], 10);
-              _h = parseInt(param['background-image-h'], 10);
-            } else {
-              _sw = IMAGE_CONFIG.WIDTH - offset;
-              _sh = IMAGE_CONFIG.HEIGHT;
-              _w = data.width;
-              _h = data.width*_sh/_sw;
-              _y = 0;
-              _sx = offset;
-            }
-            break;
-        }
-        
-        ctx.drawImage(data, _x, _y, _w, _h, /* The offset of main char */_sx, _sy, _sw, _sh);
-        
-        /* Background image color transformation */
-        if (param['background-tint'] &&
-            param['background-tint'] != 'none' &&
-            param['background-tint'] != 'transparent') {
-          // color transformation
-          var map = ctx.getImageData(0, 0, IMAGE_CONFIG.WIDTH, IMAGE_CONFIG.HEIGHT);
-          var imdata = map.data;
-
-          // convert image to grayscale
-          var r,g,b,avg;
-          for(var p = 0, len = imdata.length; p < len; p+=4) {
-              r = imdata[p]
-              g = imdata[p+1];
-              b = imdata[p+2];
-              
-              avg = Math.floor((r+g+b)/3);
-
-              imdata[p] = imdata[p+1] = imdata[p+2] = avg;
           }
+          break;
+        case 'signature':
+        case 'bahamut':
+          if (parseInt(param['background-image-x'], 10) >= 0) {
+            _sx = 0;
+            _sy = 0;
+            _x = parseInt(param['background-image-x'], 10);
+            _y = parseInt(param['background-image-y'], 10);
+            _w = parseInt(param['background-image-w'], 10);
+            _h = parseInt(param['background-image-h'], 10);
+            _sw = IMAGE_CONFIG.WIDTH;
+            _sh = IMAGE_CONFIG.HEIGHT;
+          } else {
+            _sw = IMAGE_CONFIG.WIDTH;
+            _sh = IMAGE_CONFIG.HEIGHT;
+            _w = data.width;
+            _h = data.width*_sh/_sw;
+            _y = data.height * 0.1;
+            _sx = 0;
+            _sy = 0;
+          }
+          break;
+      }
+      
+      console.log('rendering: _x=', _x, '; _y=', _y, '; _w =', _w, '; _h=', _h);
+      console.log('rendering: _sx=', _sx, '; _sy=', _sy, '; _sw =', _sw, '; _sh=', _sh);
+      ctx.drawImage(data, _x, _y, _w, _h, /* The offset of main char */_sx, _sy, _sw, _sh);
+      
+      /* Background image color transformation */
+      if (param['background-tint'] &&
+          param['background-tint'] != 'none' &&
+          param['background-tint'] != 'transparent') {
+        // color transformation
+        var map = ctx.getImageData(0, 0, IMAGE_CONFIG.WIDTH, IMAGE_CONFIG.HEIGHT);
+        var imdata = map.data;
 
-          ctx.putImageData(map, 0, 0);
+        // convert image to grayscale
+        var r,g,b,avg;
+        for(var p = 0, len = imdata.length; p < len; p+=4) {
+            r = imdata[p]
+            g = imdata[p+1];
+            b = imdata[p+2];
+            
+            avg = Math.floor((r+g+b)/3);
 
-          // overlay filled rectangle using lighter composition
-          ctx.globalCompositeOperation = "lighter";
-          ctx.globalAlpha = 0.5;
-          ctx.fillStyle = param['background-tint'];
-          ctx.fillRect(0, 0, IMAGE_CONFIG.WIDTH, IMAGE_CONFIG.HEIGHT);
-        } else {
-          ctx.fillStyle = "rgba(255, 255, 255, 0.30)";
-          ctx.fillRect(0, 0, IMAGE_CONFIG.WIDTH, IMAGE_CONFIG.HEIGHT);
+            imdata[p] = imdata[p+1] = imdata[p+2] = avg;
         }
-              // Reset default.
-        ctx.globalAlpha = 1.0;
-        ctx.globalCompositeOperation = 'source-over';
-        ctx.strokeStyle = "rgba(255, 255, 255, 0.50)";
-        ctx.lineWidth = 5;
-        ctx.strokeRect(5/2, 5/2, IMAGE_CONFIG.WIDTH - 5, IMAGE_CONFIG.HEIGHT - 5);
-        ctx.lineWidth = 1;
 
-        ctx.fillStyle = '#fff';
+        ctx.putImageData(map, 0, 0);
 
-        d.resolve();
-      });
+        // overlay filled rectangle using lighter composition
+        ctx.globalCompositeOperation = "lighter";
+        ctx.globalAlpha = 0.5;
+        ctx.fillStyle = param['background-tint'];
+        ctx.fillRect(0, 0, IMAGE_CONFIG.WIDTH, IMAGE_CONFIG.HEIGHT);
+      } else {
+        ctx.fillStyle = "rgba(255, 255, 255, 0.30)";
+        ctx.fillRect(0, 0, IMAGE_CONFIG.WIDTH, IMAGE_CONFIG.HEIGHT);
+      }
+            // Reset default.
+      ctx.globalAlpha = 1.0;
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.50)";
+      ctx.lineWidth = 5;
+      ctx.strokeRect(5/2, 5/2, IMAGE_CONFIG.WIDTH - 5, IMAGE_CONFIG.HEIGHT - 5);
+      ctx.lineWidth = 1;
+
+      ctx.fillStyle = '#fff';
+
+      d.resolve();
     });
     return d.promise();
   }
