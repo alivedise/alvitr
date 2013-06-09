@@ -349,8 +349,8 @@
             boxWidth: 500,
             setSelect: [ parseInt(self._currentValueObject['background-image-x'], 10) || 0,
                           parseInt(self._currentValueObject['background-image-y'], 10) || 0,
-                          parseInt(self._currentValueObject['background-image-x2'], 10) || 50,
-                          parseInt(self._currentValueObject['background-image-y2'], 10) || 50 ],
+                          parseInt(self._currentValueObject['background-image-x2'], 10) || W,
+                          parseInt(self._currentValueObject['background-image-y2'], 10) || H ],
             aspectRatio: W/H,
             onSelect: function(c) {
               $('#background-image-x').val(c.x);
