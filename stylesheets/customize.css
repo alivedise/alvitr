@@ -3,8 +3,18 @@
   background: black url('../resource/header-background.jpg') no-repeat top right;
 }
 
+body .modal {
+    /* new custom width */
+    
+    /* must be half of the width, minus scrollbar on the left (30px) */
+    
+}
+
 div.colorPicker-picker {
   display: inline-block;
+}
+
+div#image-editor img {
 }
 
 div#preview {
@@ -45,6 +55,23 @@ div.control-group .background-image-container {
   display: none;
 }
 
+#image-preview {
+  overflow: hidden;
+  position: relative;
+  display: inline-block;
+  clear: both;
+}
+
+.hidden {
+  display: none;
+}
+
+#image-preview img {
+  display: inline;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 
 #background-loader label.radio.visible {
   display: inline-block;

@@ -200,7 +200,7 @@
           , _h
           , _sw
           , _sh
-          , _sx
+          , _sx = 0
           , _sy = 0;
 
         switch (param['image-size']) {
@@ -221,12 +221,22 @@
               offset = _ow < IMAGE_CONFIG.WIDTH - offset ?
                       IMAGE_CONFIG.WIDTH - _ow : offset
             }
-            _sw = IMAGE_CONFIG.WIDTH - offset;
-            _sh = IMAGE_CONFIG.HEIGHT;
-            _w = data.width;
-            _h = data.width*_sh/_sw;
-            _y = 0;
-            _sx = offset;
+
+            if (parseInt(param['background-image-x'], 10)) {
+              _sx = 0;
+              _sy = 0;
+              _x = parseInt(param['background-image-x'], 10);
+              _y = parseInt(param['background-image-y'], 10);
+              _w = parseInt(param['background-image-w'], 10);
+              _h = parseInt(param['background-image-h'], 10);
+            } else {
+              _sw = IMAGE_CONFIG.WIDTH - offset;
+              _sh = IMAGE_CONFIG.HEIGHT;
+              _w = data.width;
+              _h = data.width*_sh/_sw;
+              _y = 0;
+              _sx = offset;
+            }
             break;
         }
         
@@ -434,6 +444,7 @@
   }
 
   function render(param, callback) {
+    console.log(param);
     queue = [];
     // Determine the image offset/size by global image size
     switch (param['image-size'] ) {

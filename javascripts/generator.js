@@ -1,6 +1,20 @@
 (function(window) {
-  var JPG_COUNT = 23;
+  var JPG_COUNT = 24;
   var PNG_COUNT = 72;
+  var IMAGE_SIZE = {
+    'facebook-cover': {
+      width: 851,
+      height: 315
+    },
+    'signature': {
+      width: 700,
+      height: 170
+    },
+    'bahamut': {
+      width: 660,
+      height: 125
+    }
+  };
   var blacklist = {
     'facebook-cover': {
       'png': [],
@@ -8,11 +22,11 @@
     },
     'signature': {
       'png': [],
-      'jpg': [1, 2, 3, 4, 5, 7, 8, 9, 10, 12, 13, 14, 15, 19]
+      'jpg': []
     },
     'bahamut': {
       'png': [],
-      'jpg': [1, 2, 3, 4, 5, 7, 8, 9, 10, 12, 13, 14, 15, 19]
+      'jpg': []
     }
   };
   var whitelist = {
@@ -75,6 +89,7 @@
     loadCache: function() {
       var loaded_count = 0;
       var object = $('form').serializeObject();
+      this._currentValueObject = object;
       for (var key in object) {
         if ($.jStorage.get(key)) {
           loaded_count++;
@@ -122,6 +137,7 @@
     _uploading: false,
     _dirty: false,
     _currentTemplate: 'signature',
+    _currentValueObject: {},
     loadBackgroundImage: function() {
       var _count = 1;
       for (var i = 1; i <= JPG_COUNT; i++, _count++) {
@@ -134,7 +150,7 @@
         if (blacklist['facebook-cover']['jpg'].indexOf(_count) < 0) {
           whitelist['facebook-cover'].push(_count);
         }
-        $('#background-loader .controls').append('<label class="radio" data-index="'+_count+'">'+
+        $('#image-selector').append('<label class="radio" data-index="'+_count+'">'+
             '<input type="radio" name="background-image" value="f'+i+'">'+
             '<span class="background-image-container"><img data-source="f'+i+'.jpg" /></span>'+
           '</label>');
@@ -149,7 +165,7 @@
         if (blacklist['facebook-cover']['png'].indexOf(_count) < 0) {
           whitelist['facebook-cover'].push(_count);
         }
-        $('#background-loader .controls').append('<label class="radio" data-index="'+_count+'">'+
+        $('#image-selector').append('<label class="radio" data-index="'+_count+'">'+
             '<input type="radio" name="background-image" value="'+i+'">'+
             '<span class="background-image-container"><img data-source="'+i+'.png" /></span>'+
           '</label>');
@@ -196,6 +212,8 @@
       $('input[name="image-size"]').change(function(evt) {
         evt.stopPropagation();
         self.changeTemplate($(this).val());
+        self.resetImageEditor();
+        return false;
       });
 
       $('form').change(function() {
@@ -267,6 +285,48 @@
         return false;
       });
 
+      $('#image-edit-container').hide();
+
+      $('#image-edit').click(function(evt) {
+        evt.preventDefault();
+        $('#image-edit-container').modal()
+        self.editImage();
+        return false;
+      });
+
+      $('#image-edit-done').click(function() {
+        $('#image-edit-container').modal('hide')
+        self.submit();
+      });
+
+      $('input[name="background-image"]').change(function(evt) {
+        evt.preventDefault();
+        self.resetImageEditor();
+        $('#image-edit-container').modal('hide');
+        if ($(this).val() == 'custom') {
+          $('#image-edit').addClass('disabled');
+          $('#image-edit').prop('disabled', 'disabled');
+          if ($('#custom-background-image').val() !== '') {
+            self._fetchCustomImage();
+          }
+        } else if ($(this).val() == '0') {
+          $('#image-edit').addClass('disabled');
+          $('#image-edit').prop('disabled', 'disabled');
+        } else {
+          $('#image-edit').removeClass('disabled');
+          $('#image-edit').removeAttr('disabled');
+        }
+        self.submit();
+        return false;
+      });
+
+      $('#custom-background-image').change(function() {
+        self._fetchCustomImage();
+      });
+
+      $('#image-edit').addClass('disabled');
+      $('#image-edit').prop('disabled', 'disabled');
+
       document.onreadystatechange = function() {
         if (document.readyState === 'complete')
           setTimeout(function() {
@@ -274,7 +334,6 @@
             $('#notification').removeClass('alert-info').addClass('alert-success')
                               .text('Font and configuration loaded./字型以及前次設定載入完畢。');
 
-            var settingsLoaded = $('form').serializeObject();
             $('input[name="background-color"]').colorPicker();
             $('input[name="name-color"]').colorPicker();
             $('input[name="comment-color"]').colorPicker();
@@ -285,15 +344,93 @@
         };
     },
 
+    _fetchCustomImage: function() {
+      $('#image-edit').addClass('disabled');
+      $('#image-edit').prop('disabled', 'disabled');
+      $('#custom-image-container img').remove();
+      $('#custom-image-container').append('<img />');
+      $('#custom-image-container img').load(function() {
+        $('#image-edit').removeClass('disabled');
+        $('#image-edit').removeAttr('disabled');
+      });
+      $('#custom-image-container img').prop('src', $('#custom-background-image').val());
+      $('#custom-image-container img').prop('src', $('#custom-background-image').val());
+    },
+
+    resetImageEditor: function() {
+      $('#background-image-x').val(-1);
+      $('#background-image-y').val(-1);
+      $('#background-image-x2').val(-1);
+      $('#background-image-y2').val(-1);
+      $('#background-image-w').val(-1);
+      $('#background-image-h').val(-1);
+    },
+
+    editImage: function() {
+      var self = this;
+      var src = '';
+      var W = IMAGE_SIZE[self._currentValueObject['image-size']].width;
+      var H = IMAGE_SIZE[self._currentValueObject['image-size']].height;
+      var backgroundImage = this._currentValueObject['background-image'];
+      if (backgroundImage == '0')
+        return;
+      if (backgroundImage == 'custom') {
+        src = $('#custom-background-image').val();
+      } else {
+        src = $('input[name="background-image"]:checked').siblings('.background-image-container').children('img').prop('src');
+      }
+      if (src) {
+        if (this._jcrop_api)
+          this._jcrop_api.destroy();
+        $('#image-editor img').remove();
+        $('#image-editor').prepend('<img />');
+        $('#image-editor img').load(function() {
+          var img = this;
+          $(this).Jcrop({
+            boxWidth: 500,
+            setSelect: [ parseInt(self._currentValueObject['background-image-x'], 10) || 0,
+                          parseInt(self._currentValueObject['background-image-y'], 10) || 0,
+                          parseInt(self._currentValueObject['background-image-x2'], 10) || 50,
+                          parseInt(self._currentValueObject['background-image-y2'], 10) || 50 ],
+            aspectRatio: W/H,
+            onSelect: function(c) {
+              $('#background-image-x').val(c.x);
+              $('#background-image-y').val(c.y);
+              $('#background-image-w').val(c.w);
+              $('#background-image-h').val(c.h);
+              $('#background-image-x2').val(c.x2);
+              $('#background-image-y2').val(c.y2);
+              console.log(img.width, img.height, c.x, c.y, c.w, c.h, c.x2, c.y2);
+              var w = W*img.width/(c.x2-c.x);
+              var h = H*img.height/(c.y2-c.y);
+              $('#image-preview img').width(w/2).height(h/2).css({
+                left: -0.5*c.x*w/img.width,
+                top: -0.5*c.y*h/img.height
+              });
+            }
+          }, function() {
+            self._jcrop_api = this;
+          });
+        });
+        $('#image-editor img').prop('src', src);
+        $('#image-preview img').prop('src', src);
+        $('#image-preview').css({
+          width: W/2,
+          height: H/2
+        });
+      }
+    },
+
     submit: function(skipDataStore) {
       var self = this;
+      this._currentValueObject = $('form').serializeObject();
       $('#uploader').hide();
       $('#link').hide();
       $('#upload').text('Upload image to imgur/上傳名片檔到imgur');
       $('#upload').removeClass('btn-danger').addClass('btn-primary');
       $('#previewImage').prop('src', 'resource/ajax-loader.gif');
       if (Modernizr.canvas && Modernizr.canvastext) {
-        window.renderClient($('form').serializeObject(), function(result) {
+        window.renderClient(this._currentValueObject, function(result) {
           if (!result)
             return;
 
@@ -306,7 +443,7 @@
           
         });
       } else {
-        $.post('/form', $('form').serializeObject(),
+        $.post('/form', this._currentValueObject,
         function(result){
           self._currentDataURL = result;
           $('#previewImage').prop('src', result);
@@ -335,6 +472,8 @@
 
       this.showPage(1);
       $('#none-background').prop('checked', true).trigger('change');
+      $('#image-edit').addClass('disabled');
+      $('#image-edit').prop('disabled', 'disabled');
     }
   };
 
