@@ -638,24 +638,24 @@
           COLOR: '#fff',
           OFFSET_X: 64+5,
           OFFSET_Y: 5,
-          SIZE: 30,
+          SIZE: 20,
           SHADOW_OFFSET_X: 2,
           SHADOW_OFFSET_Y: 2
         };
         COMMENT_CONFIG = {
           COLOR: '#000',
           OFFSET_X: 64+5,
-          OFFSET_Y: 5 + 30,
+          OFFSET_Y: 5 + 20,
           WIDTH: 130,
-          SIZE: 25,
+          SIZE: 18,
           SHADOW_OFFSET_X: 1,
           SHADOW_OFFSET_Y: 1
         };
         ID_CONFIG = {
-          OFFSET_X: IMAGE_CONFIG.WIDTH - 130,
+          OFFSET_X: IMAGE_CONFIG.WIDTH - 120,
           OFFSET_Y: 5,
-          WIDTH: 130,
-          SIZE: 20
+          WIDTH: 120,
+          SIZE: 17
         };
         break;
       case 'medium':
@@ -715,9 +715,9 @@
           SHADOW_OFFSET_Y: 1
         };
         ID_CONFIG = {
-          OFFSET_X: IMAGE_CONFIG.WIDTH - 140,
+          OFFSET_X: IMAGE_CONFIG.WIDTH - 130,
           OFFSET_Y: 5,
-          WIDTH: 140,
+          WIDTH: 130,
           SIZE: 20
         };
         break;
