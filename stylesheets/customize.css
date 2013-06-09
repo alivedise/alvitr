@@ -124,6 +124,38 @@ div.control-group .background-image-container {
     sizingMethod='scale')";
 }
 
+#medium-template {
+  display: block;
+  width: 500px;
+  height: 83px;
+  background: transparent url('../resource/medium-template.png') no-repeat top left;
+  background-size: 500px 83px;
+
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(
+    src='../resource/medium-template.png',
+    sizingMethod='scale');
+
+  -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(
+    src='../resource/medium-template.png',
+    sizingMethod='scale')";
+}
+
+#thin-template {
+  display: block;
+  width: 450px;
+  height: 64px;
+  background: transparent url('../resource/thin-template.png') no-repeat top left;
+  background-size: 450px 64px;
+
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(
+    src='../resource/thin-template.png',
+    sizingMethod='scale');
+
+  -ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(
+    src='../resource/thin-template.png',
+    sizingMethod='scale')";
+}
+
 @font-face {
   font-family: Attic;
   src: url(../resource/attic.ttf) format("truetype");
