@@ -56,18 +56,16 @@
 
     img.onload = function(){
       deferred.resolve(img);
-      deferred = img = null;
     };
     img.src = IMAGE_PATH_PREFIX + src;
 
-    setTimeout(function(){
-      try {
-        console.log(IMAGE_PATH_PREFIX+src+':orz.');
-        deferred.resolve('');
-      } catch (e) {
+    img.onerror = function(){
+      deferred.resolve('');
+    };
 
-      }
-    }, 10000);
+    img.onabort = function(){
+      deferred.resolve('');
+    };
 
     return deferred.promise();
   };
