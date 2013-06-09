@@ -246,7 +246,7 @@
 
       $('#image-edit-container').hide();
 
-      $('#image-edit').click(function(evt) {
+      $('[name=image-edit]').click(function(evt) {
         evt.preventDefault();
         $('#image-edit-container').modal()
         self.editImage();
@@ -263,17 +263,17 @@
         self.resetImageEditor();
         $('#image-edit-container').modal('hide');
         if ($(this).val() == 'custom') {
-          $('#image-edit').addClass('disabled');
-          $('#image-edit').prop('disabled', 'disabled');
+          $('[name=image-edit]').addClass('disabled');
+          $('[name=image-edit]').prop('disabled', 'disabled');
           if ($('#custom-background-image').val() !== '') {
             self._fetchCustomImage();
           }
         } else if ($(this).val() == '0') {
-          $('#image-edit').addClass('disabled');
-          $('#image-edit').prop('disabled', 'disabled');
+          $('[name=image-edit]').addClass('disabled');
+          $('[name=image-edit]').prop('disabled', 'disabled');
         } else {
-          $('#image-edit').removeClass('disabled');
-          $('#image-edit').removeAttr('disabled');
+          $('[name=image-edit]').removeClass('disabled');
+          $('[name=image-edit]').removeAttr('disabled');
         }
         self.submit();
         return false;
@@ -283,8 +283,8 @@
         self._fetchCustomImage();
       });
 
-      $('#image-edit').addClass('disabled');
-      $('#image-edit').prop('disabled', 'disabled');
+      $('[name=image-edit]').addClass('disabled');
+      $('[name=image-edit]').prop('disabled', 'disabled');
 
       document.onreadystatechange = function() {
         if (document.readyState === 'complete')
@@ -306,14 +306,14 @@
     _currentRemoteImage: null,
 
     _fetchCustomImage: function() {
-      $('#image-edit').addClass('disabled');
-      $('#image-edit').prop('disabled', 'disabled');
+      $('[name=image-edit]').addClass('disabled');
+      $('[name=image-edit]').prop('disabled', 'disabled');
       $('#custom-image-container img').remove();
       $('#custom-image-container').append('<img />');
       $('#custom-image-container img').load(function() {
         self._currentRemoteImage = this;
-        $('#image-edit').removeClass('disabled');
-        $('#image-edit').removeAttr('disabled');
+        $('[name=image-edit]').removeClass('disabled');
+        $('[name=image-edit]').removeAttr('disabled');
       });
       $('#custom-image-container img').prop('src', $('#custom-background-image').val());
       $('#custom-image-container img').prop('src', $('#custom-background-image').val());
