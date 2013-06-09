@@ -645,9 +645,9 @@
         COMMENT_CONFIG = {
           COLOR: '#000',
           OFFSET_X: 64+5,
-          OFFSET_Y: 5 + 20,
+          OFFSET_Y: 5 + 20 + 2,
           WIDTH: 130,
-          SIZE: 18,
+          SIZE: 15,
           SHADOW_OFFSET_X: 1,
           SHADOW_OFFSET_Y: 1
         };
@@ -668,8 +668,8 @@
           WIDTH: 150
         };
         MAIN_CHAR_IMAGE_CONFIG = {
-          WIDTH: 50,
-          HEIGHT: 50,
+          WIDTH: 55,
+          HEIGHT: 55,
           OFFSET_X: 5,
           OFFSET_Y: 5,
           SHADOW_OFFSET_Y: 2,
@@ -699,7 +699,7 @@
         };
         NAME_CONFIG = {
           COLOR: '#fff',
-          OFFSET_X: 60,
+          OFFSET_X: 60+5,
           OFFSET_Y: 5,
           SIZE: 35,
           SHADOW_OFFSET_X: 2,
@@ -707,10 +707,10 @@
         };
         COMMENT_CONFIG = {
           COLOR: '#000',
-          OFFSET_X: 60,
+          OFFSET_X: 60+5,
           OFFSET_Y: 5 + 35,
           WIDTH: 130,
-          SIZE: 25,
+          SIZE: 20,
           SHADOW_OFFSET_X: 1,
           SHADOW_OFFSET_Y: 1
         };
