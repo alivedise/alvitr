@@ -180,6 +180,8 @@
     if (param['background-image'] == 'custom') {
       backgroundImagePath = param['custom-background-image'];
       originalImagePath = param['custom-background-image'];
+    } else if (parseInt(param['background-image-x'], 10) >= 0) {
+      backgroundImagePath = 'images/background/' + param['background-image'] + extention;
     } else if (param['image-size'] == 'facebook-cover') {
       backgroundImagePath = 'images/background/' + param['background-image'] + extention;
     } else {
