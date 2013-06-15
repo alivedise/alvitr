@@ -118,7 +118,11 @@
   };
 
   function resolve(callback) {
-    callback(canvas.toDataURL());
+    if (window.location.protocol == 'file:') {
+      callback(canvas);
+    } else {
+      callback(canvas.toDataURL());
+    }
   }
 
   function renderBackgroundColor(param) {
@@ -201,12 +205,11 @@
         _y = data.height * 0.1;
         _sx = 0;
       } else {
-        var offset = MAIN_CHAR_IMAGE_CONFIG.WIDTH*2;
-        _sw = IMAGE_CONFIG.WIDTH - offset;
-        _sh = IMAGE_CONFIG.HEIGHT;
-        _w = data.height*_sw/_sh;
+        _w = data.width;
         _h = data.height;
-        _sx = offset;
+        _sw = _w*IMAGE_CONFIG.HEIGHT/_h;
+        _sh = IMAGE_CONFIG.HEIGHT;
+        _sx = IMAGE_CONFIG.WIDTH - 1.5*_sw;
       }
     }
     

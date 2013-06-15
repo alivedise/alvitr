@@ -1,7 +1,8 @@
 (function(window) {
   var JPG_COUNT = 24;
   var PNG_COUNT = 72;
-  var WIKI_PNG_COUNT = 661;
+  var WIKI_PNG_LIMIT = 660;
+  var wiki_png_count = 0; // to be calculated.
   var IMAGE_SIZE = {
     'facebook-cover': {
       width: 851,
@@ -141,7 +142,7 @@
             '<span class="background-image-container"><img data-source="'+i+'.png" /></span>'+
           '</label>');
       }
-      for (var i = 1; i <= WIKI_PNG_COUNT; i++, _count++) {
+      for (var i = 1; i <= WIKI_PNG_LIMIT; i++, _count++, wiki_png_count++) {
         var ii = '';
         if (i < 10) {
           ii = '00' + i;
@@ -150,6 +151,12 @@
         } else {
           ii = '' + i;
         }
+
+        if (!MonsterModel['' + i]) {
+          wiki_png_count--;
+          continue;
+        }
+
         $('#image-selector').append('<label class="radio" data-index="'+_count+'">'+
             '<input type="radio" name="background-image" value="MONS_'+ii+'.png">'+
             '<span class="background-image-container"><img data-source="MONS_'+ii+'.png" /></span>'+
@@ -167,7 +174,7 @@
 
       this.loadBackgroundImage();
       $('.pager').pagination({
-        total_pages: Math.ceil((JPG_COUNT + PNG_COUNT + WIKI_PNG_COUNT) / IMAGE_PER_PAGE),
+        total_pages: Math.ceil((JPG_COUNT + PNG_COUNT + wiki_png_count) / IMAGE_PER_PAGE),
         current_page: 1,
         callback: function(event, page) {
           event.preventDefault();
@@ -423,16 +430,22 @@
 
           if (!skipDataStore)
             self.saveCache();
-          self._currentDataURL = result;
-          $('#previewImage').prop('src', result);
-          $('#uploader').show();
 
-          if (self._currentValueObject['background-image'] !== '0') {
-            $('[name=image-edit]').removeClass('disabled');
-            $('[name=image-edit]').removeAttr('disabled');
+          if (window.location.protocol == 'file:') {
+            $('#previewCanvas')[0].appendChild(result);
+            $('#previewImage').hide();
           } else {
-            $('[name=image-edit]').addClass('disabled');
-            $('[name=image-edit]').prop('disabled', 'disabled');
+            self._currentDataURL = result;
+            $('#previewImage').prop('src', result);
+            $('#uploader').show();
+
+            if (self._currentValueObject['background-image'] !== '0') {
+              $('[name=image-edit]').removeClass('disabled');
+              $('[name=image-edit]').removeAttr('disabled');
+            } else {
+              $('[name=image-edit]').addClass('disabled');
+              $('[name=image-edit]').prop('disabled', 'disabled');
+            }
           }
         });
       } else {
