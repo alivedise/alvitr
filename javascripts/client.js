@@ -201,11 +201,12 @@
         _y = data.height * 0.1;
         _sx = 0;
       } else {
-        _sw = IMAGE_CONFIG.WIDTH;
+        var offset = MAIN_CHAR_IMAGE_CONFIG.WIDTH*3;
+        _sw = IMAGE_CONFIG.WIDTH - offset;
         _sh = IMAGE_CONFIG.HEIGHT;
         _w = data.height*_sw/_sh;
         _h = data.height;
-        _sx = IMAGE_CONFIG.WIDTH/2 + 50;
+        _sx = offset;
       }
     }
     
