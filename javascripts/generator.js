@@ -1,6 +1,7 @@
 (function(window) {
   var JPG_COUNT = 24;
   var PNG_COUNT = 72;
+  var WIKI_PNG_COUNT = 661;
   var IMAGE_SIZE = {
     'facebook-cover': {
       width: 851,
@@ -140,6 +141,20 @@
             '<span class="background-image-container"><img data-source="'+i+'.png" /></span>'+
           '</label>');
       }
+      for (var i = 1; i <= WIKI_PNG_COUNT; i++, _count++) {
+        var ii = '';
+        if (i < 10) {
+          ii = '00' + i;
+        } else if (i < 100) {
+          ii = '0' + i;
+        } else {
+          ii = '' + i;
+        }
+        $('#image-selector').append('<label class="radio" data-index="'+_count+'">'+
+            '<input type="radio" name="background-image" value="MONS_'+ii+'.png">'+
+            '<span class="background-image-container"><img data-source="MONS_'+ii+'.PNG" /></span>'+
+          '</label>');
+      }
     },
 
     init: function() {
@@ -152,7 +167,7 @@
 
       this.loadBackgroundImage();
       $('.pager').pagination({
-        total_pages: Math.ceil((JPG_COUNT + PNG_COUNT) / IMAGE_PER_PAGE),
+        total_pages: Math.ceil((JPG_COUNT + PNG_COUNT + WIKI_PNG_COUNT) / IMAGE_PER_PAGE),
         current_page: 1,
         callback: function(event, page) {
           event.preventDefault();

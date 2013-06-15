@@ -192,12 +192,21 @@
       _sh = IMAGE_CONFIG.HEIGHT;
     } else {
       // For facebook, we try to fit the height of image.
-      _sw = IMAGE_CONFIG.WIDTH;
-      _sh = IMAGE_CONFIG.HEIGHT;
-      _w = data.width;
-      _h = data.width*_sh/_sw;
-      _y = data.height * 0.1;
-      _sx = 0;
+      if (param['image-size'] == 'facebook-cover' ||
+          param['background-image'].indexOf('.jpg') >= 0) {
+        _sw = IMAGE_CONFIG.WIDTH;
+        _sh = IMAGE_CONFIG.HEIGHT;
+        _w = data.width;
+        _h = data.width*_sh/_sw;
+        _y = data.height * 0.1;
+        _sx = 0;
+      } else {
+        _sw = IMAGE_CONFIG.WIDTH;
+        _sh = IMAGE_CONFIG.HEIGHT;
+        _w = data.height*_sw/_sh;
+        _h = data.height;
+        _sx = IMAGE_CONFIG.width/2+ 50;
+      }
     }
     
     console.log('rendering: _x=', _x, '; _y=', _y, '; _w =', _w, '; _h=', _h);
