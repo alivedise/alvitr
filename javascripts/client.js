@@ -204,8 +204,8 @@
         var offset = MAIN_CHAR_IMAGE_CONFIG.WIDTH*3;
         _sw = IMAGE_CONFIG.WIDTH - offset;
         _sh = IMAGE_CONFIG.HEIGHT;
-        _w = data.height*_sw/_sh;
-        _h = data.height;
+        _w = data.width;
+        _h = data.width*_sh/_sw;
         _sx = offset;
       }
     }
