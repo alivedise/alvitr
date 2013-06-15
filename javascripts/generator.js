@@ -152,7 +152,7 @@
         }
         $('#image-selector').append('<label class="radio" data-index="'+_count+'">'+
             '<input type="radio" name="background-image" value="MONS_'+ii+'.png">'+
-            '<span class="background-image-container"><img data-source="MONS_'+ii+'.PNG" /></span>'+
+            '<span class="background-image-container"><img data-source="MONS_'+ii+'.png" /></span>'+
           '</label>');
       }
     },
