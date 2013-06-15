@@ -205,7 +205,7 @@
         _sh = IMAGE_CONFIG.HEIGHT;
         _w = data.height*_sw/_sh;
         _h = data.height;
-        _sx = IMAGE_CONFIG.width/2+ 50;
+        _sx = IMAGE_CONFIG.WIDTH/2 + 50;
       }
     }
     
