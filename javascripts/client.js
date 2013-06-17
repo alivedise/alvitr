@@ -264,31 +264,34 @@
   function renderStatic(param) {
     ctx.textBaseline = 'top';
     ctx.lineWidth = 1;
-    /* Render watermark
-    ctx.fillStyle = 'rgba(255, 255, 255, 1)';
-    ctx.fillRect(WATERMARK_CONFIG.OFFSET_X,
-                  WATERMARK_CONFIG.OFFSET_Y - 2,
-                  WATERMARK_CONFIG.WIDTH + 2,
-                  11);
-    */
+    /* Render watermark */
 
-    // for the purpose of scale down font size.
-    ctx.save();
-    ctx.scale(0.75, 0.75);
-    ctx.fillStyle = 'rgba(255, 255, 255, 1)';
-    ctx.strokeStyle = 'rgba(0, 0, 0, 1)';
-    // there's a minimum font size so..
-    ctx.font = '2px Tahoma Geneva sans-serif';
-    ctx.fillText('http://alivedise.github.io/alvitr',
-                  param['image-size'] == 'facebook-cover' ?
-                  0 : (IMAGE_CONFIG.WIDTH - WATERMARK_CONFIG.WIDTH)/0.75,
-                  WATERMARK_CONFIG.OFFSET_Y);
-    ctx.strokeText('http://alivedise.github.io/alvitr',
+    if ($.browser.mozilla) {
+      ctx.fillStyle = 'rgba(1, 134, 209, 0.5)';
+      // there's a minimum font size in chrome so..
+      ctx.font = '11px Tahoma Geneva sans-serif';
+      ctx.fillText('http://alivedise.github.io/alvitr',
+                    (IMAGE_CONFIG.WIDTH - WATERMARK_CONFIG.WIDTH) - 10,
+                    WATERMARK_CONFIG.OFFSET_Y);
+    } else {
+      // for the purpose of scale down font size.
+      ctx.save();
+      ctx.scale(0.75, 0.75);
+      ctx.fillStyle = 'rgba(255, 255, 255, 1)';
+      ctx.strokeStyle = 'rgba(0, 0, 0, 1)';
+      // there's a minimum font size in chrome so..
+      ctx.font = '2px Tahoma Geneva sans-serif';
+      ctx.fillText('http://alivedise.github.io/alvitr',
                     param['image-size'] == 'facebook-cover' ?
                     0 : (IMAGE_CONFIG.WIDTH - WATERMARK_CONFIG.WIDTH)/0.75,
                     WATERMARK_CONFIG.OFFSET_Y);
+      ctx.strokeText('http://alivedise.github.io/alvitr',
+                      param['image-size'] == 'facebook-cover' ?
+                      0 : (IMAGE_CONFIG.WIDTH - WATERMARK_CONFIG.WIDTH)/0.75,
+                      WATERMARK_CONFIG.OFFSET_Y);
 
-    ctx.restore();
+      ctx.restore();
+    }
 
     /* Render name */
     ctx.fillStyle = param['name-color'] || NAME_CONFIG.COLOR;
