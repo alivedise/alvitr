@@ -59,7 +59,7 @@
 
     return colour;
   }
-  var IMAGE_PER_PAGE = 6;
+  var IMAGE_PER_PAGE = 10;
   $.fn.serializeObject = function() {
       var o = {};
       var a = this.serializeArray();
