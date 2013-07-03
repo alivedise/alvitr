@@ -164,8 +164,21 @@
       }
     },
 
+    selectorGenerator: function() {
+      var html = '';
+      for (var i = 1; i < 1000; i++) {
+        if (MonsterModel['' + i]) {
+          html += '<option value="' + i + '">' + MonsterModel[i] + '</option>';
+        }
+      }
+      $('#character').append(html);
+    },
+
     init: function() {
+      this.selectorGenerator();
+
       // Modernizr warning
+      // 
       if (!Modernizr.canvas || ! Modernizr.canvastext || !Modernizr.fontface) {
         $('#page-header').append('<div class="alert"><strong>Warning!</strong> Your browser doesn\'t support canvas and facefont. Please consider to use a more modern browser such as Mozilla Firefox or Google Chrome.</div>');
       }
@@ -186,14 +199,15 @@
 
       // Fork selector
       for (var i = 0 ; i < 5; i++) {
-        var clone = $('#leaders').clone();
+        var clone = $('#character').clone();
         clone.prop('id', 'leaders' + i);
+        clone.prop('name', 'leaders');
         clone.appendTo($('#leaders-container'));
       }
 
       // Fork second selector
       for (var j = 0 ; j < 8; j++) {
-        var clone = $('#leaders').clone();
+        var clone = $('#character').clone();
         clone.prop('id', 'functional-leaders' + j);
         clone.prop('name', 'functional-leaders');
         clone.appendTo($('#functional-leaders-container'));
