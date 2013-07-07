@@ -1,5 +1,5 @@
 (function(window) {
-  var JPG_COUNT = 24;
+  var JPG_COUNT = 26;
   var PNG_COUNT = 72;
   var WIKI_PNG_LIMIT = 660;
   var wiki_png_count = 0; // to be calculated.
