@@ -142,7 +142,7 @@
             '<span class="background-image-container"><img data-source="'+i+'.png" /></span>'+
           '</label>');
       }
-      for (var i = 1; i <= WIKI_PNG_LIMIT; i++) {
+      for (var i = 1; i <= WIKI_PNG_LIMIT; i++, _count++, wiki_png_count++) {
         var ii = '';
         if (i < 10) {
           ii = '00' + i;
