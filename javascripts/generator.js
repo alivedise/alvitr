@@ -166,7 +166,7 @@
 
     selectorGenerator: function() {
       var html = '';
-      for (var i = 1; i < 1000; i++) {
+      for (var i = 1; i < MonsterModel.max; i++) {
         if (MonsterModel['' + i]) {
           html += '<option value="' + i + '">' + MonsterModel[i] + '</option>';
         }
