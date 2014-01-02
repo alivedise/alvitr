@@ -6,7 +6,7 @@ var MonsterModel = {
 	get: function(no) {
 		return this['' + no].split('-')[1];
 	},
-	max: 1104,
+	max: 1105,
   "1": "No.1: ティラ-提拉",
   "2": "No.2: ティラン-提拉恩",
   "3": "No.3: ティラノス-提拉諾斯",
