@@ -1,7 +1,7 @@
 (function(window) {
   var JPG_COUNT = 26;
   var PNG_COUNT = 72;
-  var WIKI_PNG_LIMIT = 1104 - 14;
+  var WIKI_PNG_LIMIT = 1090;
   var wiki_png_count = 0; // to be calculated.
   var IMAGE_SIZE = {
     'facebook-cover': {
@@ -142,7 +142,7 @@
             '<span class="background-image-container"><img data-source="'+i+'.png" /></span>'+
           '</label>');
       }
-      for (var i = 1; i <= WIKI_PNG_LIMIT; i++, _count++, wiki_png_count++) {
+      for (var i = 1; i <= WIKI_PNG_LIMIT; i++) {
         var ii = '';
         if (i < 10) {
           ii = '00' + i;
