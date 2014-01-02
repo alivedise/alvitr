@@ -3,6 +3,7 @@
   var PNG_COUNT = 72;
   var WIKI_PNG_LIMIT = 1090;
   var wiki_png_count = 0; // to be calculated.
+
   var IMAGE_SIZE = {
     'facebook-cover': {
       width: 851,
@@ -77,6 +78,7 @@
   };
 
   var Generator = {
+    WIKI_PNG_LEAKING: [],
     loadCache: function() {
       var loaded_count = 0;
       var object = $('form').serializeObject();
@@ -142,7 +144,8 @@
             '<span class="background-image-container"><img data-source="'+i+'.png" /></span>'+
           '</label>');
       }
-      for (var i = 1; i <= WIKI_PNG_LIMIT; i++, _count++, wiki_png_count++) {
+      var self = this;
+      for (var i = 1; i <= MonsterModel.max; i++, _count++, wiki_png_count++) {
         var ii = '';
         if (i < 10) {
           ii = '00' + i;
@@ -152,14 +155,19 @@
           ii = '' + i;
         }
 
-        if (!MonsterModel['' + i]) {
+        console.log(MonsterLeaking.indexOf(i), i);
+
+        if (MonsterLeaking.indexOf(i) >= 0) {
           wiki_png_count--;
+          _count--;
           continue;
         }
 
+        console.log('PASS');
+
         $('#image-selector').append('<label class="radio" data-index="'+_count+'">'+
             '<input type="radio" name="background-image" value="MONS_'+ii+'.png">'+
-            '<span class="background-image-container"><img data-source="MONS_'+ii+'.png" /></span>'+
+            '<span class="background-image-container"><img id="mons_'+ii+'" data-source="MONS_'+ii+'.png" /></span>'+
           '</label>');
       }
     },
