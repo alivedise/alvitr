@@ -154,15 +154,11 @@
           ii = '' + i;
         }
 
-        console.log(MonsterLeaking.indexOf(i), i);
-
         if (MonsterLeaking.indexOf(i) >= 0) {
           wiki_png_count--;
           _count--;
           continue;
         }
-
-        console.log('PASS');
 
         $('#image-selector').append('<label class="radio" data-index="'+_count+'">'+
             '<input type="radio" name="background-image" value="MONS_'+ii+'.png">'+
@@ -175,6 +171,7 @@
       var html = '';
       for (var i = 1; i < MonsterModel.max; i++) {
         if (MonsterModel['' + i]) {
+          var a = MonsterModel[i].split();
           html += '<option value="' + i + '">' + MonsterModel[i] + '</option>';
         }
       }
@@ -260,7 +257,6 @@
             dataType: 'json'
         }).success(function(result) {
           self._uploading = false;
-          //console.log('post done!', data); //data would be like:
           /*{
               data:{
                   id: "pinMEoq",
@@ -415,7 +411,6 @@
               $('#background-image-h').val(c.h);
               $('#background-image-x2').val(c.x2);
               $('#background-image-y2').val(c.y2);
-              console.log(img.width, img.height, c.x, c.y, c.w, c.h, c.x2, c.y2);
               var w = W*img.width/(c.x2-c.x);
               var h = H*img.height/(c.y2-c.y);
               $('#image-preview img').width(w/2).height(h/2).css({
