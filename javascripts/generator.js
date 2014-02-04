@@ -216,7 +216,9 @@
         clone.prop('name', 'functional-leaders');
         clone.appendTo($('#functional-leaders-container'));
       }
-      
+      $('select').selectpicker({
+        liveSearch: true
+      });
       var self = this;
 
       $('input[name="image-size"]').change(function(evt) {
